@@ -38,4 +38,7 @@ dependencies {
 
     implementation "com.github.parse-community.Parse-SDK-Android:parse:4.0.0"
 
+    def lottieVersion = "5.2.0"
+    implementation "com.airbnb.android:lottie:$lottieVersion"
+
 }
