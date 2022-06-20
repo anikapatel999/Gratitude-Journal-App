@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Gratitude Journal</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="no_account_sign_up">No account? Sign up!</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="log_out">Log out</string>
+</resources>
