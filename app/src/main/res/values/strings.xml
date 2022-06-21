@@ -6,4 +6,11 @@
     <string name="no_account_sign_up">No account? Sign up!</string>
     <string name="sign_up">Sign Up</string>
     <string name="log_out">Log out</string>
+    <string name="how_was_your_day_today">How was your day today?</string>
+    <string name="amazing">Amazing</string>
+    <string name="good">Good</string>
+    <string name="okay">Okay</string>
+    <string name="bad">Bad</string>
+    <string name="terrible">Terrible</string>
+    <string name="swipe_left_to_continue_skip"><![CDATA[Swipe left to continue/skip -->]]></string>
 </resources>
