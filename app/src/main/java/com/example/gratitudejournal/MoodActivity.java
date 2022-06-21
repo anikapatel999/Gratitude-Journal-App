@@ -5,7 +5,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ProgressBar;
+import android.widget.Toast;
+
+import com.parse.Parse;
+import com.parse.ParseException;
+import com.parse.ParseUser;
+import com.example.myapplication.Entry;
+import com.example.myapplication.User;
+import com.parse.SaveCallback;
 
 public class MoodActivity extends AppCompatActivity {
 
@@ -17,12 +30,94 @@ public class MoodActivity extends AppCompatActivity {
     // set the mood to null before firing the intent
 
     float x1, x2, y1, y2;
+    private Button btnAmazing;
+    private Button btnGood;
+    private Button btnOkay;
+    private Button btnBad;
+    private Button btnTerrible;
+    public static final String TAG = "MoodActivity";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mood);
+        btnAmazing = findViewById(R.id.btnAmazing);
+        btnGood = findViewById(R.id.btnGood);
+        btnOkay = findViewById(R.id.btnOkay);
+        btnBad = findViewById(R.id.btnBad);
+        btnTerrible = findViewById(R.id.btnTerrible);
+
+        btnAmazing.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i(TAG, "Amazing button");
+//                ParseUser currentUser = ParseUser.getCurrentUser();
+//                // User currentUser = (User) ParseUser.getCurrentUser();
+//                String mood = "Amazing";
+//                saveEntry(mood, currentUser);
+            }
+        });
+
+        btnGood.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i(TAG, "Good button");
+                // set mood value for the day
+            }
+        });
+
+        btnOkay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i(TAG, "Okay button");
+                // set mood value for the day
+            }
+        });
+
+        btnBad.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i(TAG, "Bad button");
+                // set mood value for the day
+            }
+        });
+
+        btnTerrible.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i(TAG, "Terrible button");
+                // set mood value for the day
+            }
+        });
     }
+
+//    private void saveEntry(String mood, ParseUser currentUser) { // User currentUser || ParseUser currentUser
+//        Log.i(TAG, "got to saveEntry");
+//        if (currentUser.getCurrentEntry() == null) {
+//            Entry entry = new Entry();
+//            entry.setMood(mood);
+//            currentUser.setCurrentEntry(entry);
+//
+//            Log.i(TAG, "got to the correct if statement");
+//        } else {
+//            currentUser.getCurrentEntry().setMood(mood);
+//            // Entry entry = (Entry) currentUser.getCurrentEntry(); // PROBABLY BAD
+//            // entry.setMood(mood); // PROBABLY BAD
+//        }
+//        currentUser.getCurrentEntry().saveInBackground(new SaveCallback() {
+//            @Override
+//            public void done(ParseException e) {
+//                Log.i(TAG, "got to save in background");
+//                if (e != null) {
+//                    Log.e(TAG, "Issue with saving", e);
+//                    Toast.makeText(MoodActivity.this, "Error while saving!", Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
+//                Log.i(TAG, "Post save was successful", e);
+//            }
+//        });
+//    }
 
     public boolean onTouchEvent(MotionEvent touchEvent){
         switch(touchEvent.getAction()){
@@ -44,6 +139,25 @@ public class MoodActivity extends AppCompatActivity {
             break;
         }
         return false;
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.actionbarmenu, menu);
+        return true;
+    }
+
+    public void onLogout(MenuItem item) {
+        ParseUser.logOut();
+        ParseUser currentUser = ParseUser.getCurrentUser(); // this will now be null
+        Intent intent = new Intent(MoodActivity.this, LoginActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    public void onHome(MenuItem item) {
+        Intent intent = new Intent(MoodActivity.this, HomeActivity.class);
+        startActivity(intent);
+        // finish();
     }
 
 }

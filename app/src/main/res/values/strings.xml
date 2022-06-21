@@ -13,4 +13,6 @@
     <string name="bad">Bad</string>
     <string name="terrible">Terrible</string>
     <string name="swipe_left_to_continue_skip"><![CDATA[Swipe left to continue/skip -->]]></string>
+    <string name="how_has_your_day_been">How has your day been?</string>
+    <string name="home">Home</string>
 </resources>

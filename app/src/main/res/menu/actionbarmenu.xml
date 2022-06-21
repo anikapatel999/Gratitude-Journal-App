@@ -6,4 +6,10 @@
         android:title="@string/log_out"
         android:icon="@drawable/ic_baseline_close_24"
         android:onClick="onLogout"/>
+
+    <item
+        android:id="@+id/home"
+        android:title="@string/home"
+        android:icon="@drawable/ic_baseline_home_24"
+        android:onClick="onHome"/>
 </menu>

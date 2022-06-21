@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.parse.Parse;
 import com.parse.ParseObject;
+import com.parse.ParseUser;
 
 public class ParseApplication extends Application {
 
@@ -11,7 +12,8 @@ public class ParseApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
-        // ParseObject.registerSubclass(Entry.class); //GOTTA MAKE AN ENTRY CLASS
+        ParseObject.registerSubclass(com.example.myapplication.Entry.class);
+        ParseUser.registerSubclass(com.example.myapplication.User.class);
 
         Parse.initialize(new Parse.Configuration.Builder(this)
                 .applicationId("A49wxJrO5FIsjqnJRbwtLFKXD3VIcuHy0jinNiPo")

@@ -58,4 +58,11 @@ public class HomeActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
+    public void onHome(MenuItem item) {
+        Intent intent = new Intent(HomeActivity.this, HomeActivity.class);
+        startActivity(intent);
+        setVisible(false);
+        //finish();
+    }
 }
