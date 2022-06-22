@@ -106,13 +106,11 @@ public class MoodActivity extends AppCompatActivity {
 
     private void saveEntry(String mood, ParseUser currentUser) { // User currentUser || ParseUser currentUser
         Log.i(TAG, "got to saveEntry");
-        // Log.i(TAG, "hello" + currentUser.toString());
         User currentUser2 = (User) currentUser;
         if (currentUser2.getCurrentEntry() == null) {
             Entry entry = new Entry();
             entry.setUser(currentUser2);
             entry.setMood(mood);
-            // entry.setText("kdfvndlfkmvdlfkmv");
             entry.saveInBackground(new SaveCallback() {
                 @Override
                 public void done(ParseException e) {
@@ -127,12 +125,8 @@ public class MoodActivity extends AppCompatActivity {
             currentUser2.setCurrentEntry(entry);
             Log.i(TAG, "hello" + entry.getMood().toString());
 
-            // Log.i(TAG, "got to the correct if statement");
-
         } else {
-             currentUser2.getCurrentEntry().setMood(mood);
-            // Entry entry = (Entry) currentUser.getCurrentEntry(); // PROBABLY BAD
-            // entry.setMood(mood); // PROBABLY BAD
+            currentUser2.getCurrentEntry().setMood(mood);
         }
         currentUser2.saveInBackground(new SaveCallback() {
             @Override

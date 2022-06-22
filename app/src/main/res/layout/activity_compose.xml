@@ -6,4 +6,32 @@
     android:layout_height="match_parent"
     tools:context=".ComposeActivity">
 
+    <Button
+        android:id="@+id/btnMood"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:layout_editor_absoluteY="58dp"
+        android:text="Mood:"
+        tools:ignore="MissingConstraints" />
+
+    <EditText
+        android:id="@+id/etText"
+        app:layout_constraintTop_toBottomOf="@+id/btnMood"
+        android:layout_width="match_parent"
+        android:layout_height="450dp"
+        android:ems="10"
+        android:hint="@string/what_are_you_grateful_for_today"
+        android:layout_margin="10dp" />
+
+    <Button
+        android:id="@+id/btnSave"
+        app:layout_constraintTop_toBottomOf="@+id/etText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/save"
+        android:layout_margin="10dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
