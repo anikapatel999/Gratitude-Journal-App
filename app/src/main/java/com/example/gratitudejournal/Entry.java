@@ -15,9 +15,9 @@ public class Entry extends ParseObject {
     public static final String KEY_USER = "user";
     public static final String KEY_TEXT = "text";
 
-    public Entry () {
-        super();
-    }
+//    public Entry () {
+//        super();
+//    }
 
     public String getMood() {
         return getString(KEY_MOOD);

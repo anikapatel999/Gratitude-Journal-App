@@ -8,9 +8,10 @@ import com.parse.ParseUser;
 import org.json.JSONArray;
 
 import java.util.List;
+import com.example.myapplication.Entry;
 
-@ParseClassName("User") //SHOULD PROBABLY HAVE STAYED AS USER INSTEAD OF _USER
-public class User extends ParseUser { //or is it ParseObject?
+@ParseClassName("_User") //SHOULD PROBABLY HAVE STAYED AS USER INSTEAD OF _USER
+public class User extends ParseUser { //or is it ParseObject? does it matter?
     public static final String KEY_MOODS = "moods";
     public static final String KEY_CURRENTENTRY = "currentEntry";
     public static final String KEY_FRIENDS = "friends";
@@ -33,12 +34,12 @@ public class User extends ParseUser { //or is it ParseObject?
         put(KEY_MOODS, mood);
     }
 
-    public ParseObject getCurrentEntry() {
-        return getParseObject(KEY_CURRENTENTRY);
+    public Entry getCurrentEntry() {
+        return (Entry) getParseObject(KEY_CURRENTENTRY);
     }
 
-    public void setCurrentEntry(ParseObject currentEntry) {
-        put(KEY_USER, currentEntry);
+    public void setCurrentEntry(Entry currentEntry) {
+        put(KEY_CURRENTENTRY, currentEntry);
     }
 
     public JSONArray getFriends() {

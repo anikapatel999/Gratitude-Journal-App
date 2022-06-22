@@ -52,10 +52,10 @@ public class MoodActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.i(TAG, "Amazing button");
-//                ParseUser currentUser = ParseUser.getCurrentUser();
-//                // User currentUser = (User) ParseUser.getCurrentUser();
-//                String mood = "Amazing";
-//                saveEntry(mood, currentUser);
+                ParseUser currentUser = ParseUser.getCurrentUser();
+                // User currentUser = (User) ParseUser.getCurrentUser();
+                String mood = "Amazing";
+                saveEntry(mood, currentUser);
             }
         });
 
@@ -63,7 +63,10 @@ public class MoodActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.i(TAG, "Good button");
-                // set mood value for the day
+                ParseUser currentUser = ParseUser.getCurrentUser();
+                // User currentUser = (User) ParseUser.getCurrentUser();
+                String mood = "Good";
+                saveEntry(mood, currentUser);
             }
         });
 
@@ -71,7 +74,10 @@ public class MoodActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.i(TAG, "Okay button");
-                // set mood value for the day
+                ParseUser currentUser = ParseUser.getCurrentUser();
+                // User currentUser = (User) ParseUser.getCurrentUser();
+                String mood = "Okay";
+                saveEntry(mood, currentUser);
             }
         });
 
@@ -79,7 +85,10 @@ public class MoodActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.i(TAG, "Bad button");
-                // set mood value for the day
+                ParseUser currentUser = ParseUser.getCurrentUser();
+                // User currentUser = (User) ParseUser.getCurrentUser();
+                String mood = "Bad";
+                saveEntry(mood, currentUser);
             }
         });
 
@@ -87,37 +96,56 @@ public class MoodActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.i(TAG, "Terrible button");
-                // set mood value for the day
+                ParseUser currentUser = ParseUser.getCurrentUser();
+                // User currentUser = (User) ParseUser.getCurrentUser();
+                String mood = "Terrible";
+                saveEntry(mood, currentUser);
             }
         });
     }
 
-//    private void saveEntry(String mood, ParseUser currentUser) { // User currentUser || ParseUser currentUser
-//        Log.i(TAG, "got to saveEntry");
-//        if (currentUser.getCurrentEntry() == null) {
-//            Entry entry = new Entry();
-//            entry.setMood(mood);
-//            currentUser.setCurrentEntry(entry);
-//
-//            Log.i(TAG, "got to the correct if statement");
-//        } else {
-//            currentUser.getCurrentEntry().setMood(mood);
-//            // Entry entry = (Entry) currentUser.getCurrentEntry(); // PROBABLY BAD
-//            // entry.setMood(mood); // PROBABLY BAD
-//        }
-//        currentUser.getCurrentEntry().saveInBackground(new SaveCallback() {
-//            @Override
-//            public void done(ParseException e) {
-//                Log.i(TAG, "got to save in background");
-//                if (e != null) {
-//                    Log.e(TAG, "Issue with saving", e);
-//                    Toast.makeText(MoodActivity.this, "Error while saving!", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-//                Log.i(TAG, "Post save was successful", e);
-//            }
-//        });
-//    }
+    private void saveEntry(String mood, ParseUser currentUser) { // User currentUser || ParseUser currentUser
+        Log.i(TAG, "got to saveEntry");
+        // Log.i(TAG, "hello" + currentUser.toString());
+        User currentUser2 = (User) currentUser;
+        if (currentUser2.getCurrentEntry() == null) {
+            Entry entry = new Entry();
+            entry.setUser(currentUser2);
+            entry.setMood(mood);
+            // entry.setText("kdfvndlfkmvdlfkmv");
+            entry.saveInBackground(new SaveCallback() {
+                @Override
+                public void done(ParseException e) {
+                    Log.i(TAG, "ENTRY got to save in background");
+                    if (e != null) {
+                        Log.e(TAG, "ENTRY Issue with saving", e);
+                        Toast.makeText(MoodActivity.this, "Error while saving!", Toast.LENGTH_SHORT).show();
+                    }
+                    Log.i(TAG, "ENTRY Post save was successful", e);
+                }
+            });
+            currentUser2.setCurrentEntry(entry);
+            Log.i(TAG, "hello" + entry.getMood().toString());
+
+            // Log.i(TAG, "got to the correct if statement");
+
+        } else {
+             currentUser2.getCurrentEntry().setMood(mood);
+            // Entry entry = (Entry) currentUser.getCurrentEntry(); // PROBABLY BAD
+            // entry.setMood(mood); // PROBABLY BAD
+        }
+        currentUser2.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                Log.i(TAG, "got to save in background");
+                if (e != null) {
+                    Log.e(TAG, "Issue with saving", e);
+                    Toast.makeText(MoodActivity.this, "Error while saving!", Toast.LENGTH_SHORT).show();
+                }
+                Log.i(TAG, "Post save was successful", e);
+            }
+        });
+    }
 
     public boolean onTouchEvent(MotionEvent touchEvent){
         switch(touchEvent.getAction()){
@@ -130,11 +158,15 @@ public class MoodActivity extends AppCompatActivity {
                 y2 = touchEvent.getY();
 
                 if(x1 > x2) {
-                Intent i = new Intent(MoodActivity.this, ComposeActivity.class);
-                startActivity(i);
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                Log.i("swiped left", "it worked");
-
+                    ParseUser currentUser = ParseUser.getCurrentUser();
+                    User currentUser2 = (User) currentUser;
+                    if(currentUser2.getCurrentEntry() == null) {
+                        saveEntry("skip", currentUser);
+                    }
+                    Intent i = new Intent(MoodActivity.this, ComposeActivity.class);
+                    startActivity(i);
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                    Log.i("swiped left", "it worked");
                 }
             break;
         }
