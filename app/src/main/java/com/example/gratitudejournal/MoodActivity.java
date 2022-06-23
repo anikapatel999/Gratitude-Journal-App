@@ -108,6 +108,7 @@ public class MoodActivity extends AppCompatActivity {
         Log.i(TAG, "got to saveEntry");
         User currentUser2 = (User) currentUser;
         if (currentUser2.getCurrentEntry() == null) {
+            Log.i(TAG, "ENTRY got to if statement");
             Entry entry = new Entry();
             entry.setUser(currentUser2);
             entry.setMood(mood);
@@ -126,7 +127,15 @@ public class MoodActivity extends AppCompatActivity {
             Log.i(TAG, "hello" + entry.getMood().toString());
 
         } else {
+            // currentUser2.getCurrentEntry().getMood();
             currentUser2.getCurrentEntry().setMood(mood);
+        }
+        try {
+            currentUser2.save();
+            Log.e(TAG, "USER currentEntry saved");
+        } catch (ParseException e) {
+            e.printStackTrace();
+            Log.e(TAG, "USER Issue with saving", e);
         }
         currentUser2.saveInBackground(new SaveCallback() {
             @Override
@@ -155,6 +164,7 @@ public class MoodActivity extends AppCompatActivity {
                     ParseUser currentUser = ParseUser.getCurrentUser();
                     User currentUser2 = (User) currentUser;
                     if(currentUser2.getCurrentEntry() == null) {
+                        // Log.i(TAG, "IF STATEMENT EXECUTED" + currentUser.toString());
                         saveEntry("skip", currentUser);
                     }
                     Intent i = new Intent(MoodActivity.this, ComposeActivity.class);

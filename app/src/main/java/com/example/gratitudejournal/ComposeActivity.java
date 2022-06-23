@@ -62,7 +62,7 @@ public class ComposeActivity extends AppCompatActivity {
         btnMood.setText("Edit mood: " + mood);
 
         // put the entry's text into the editText so the user can edit their entry
-        // if one alreadyexists
+        // if one already exists
         if (!text.equals("No entry")) {
             etText.setText(text);
         }

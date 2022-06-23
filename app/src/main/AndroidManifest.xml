@@ -41,6 +41,10 @@
         <activity
             android:name=".HomeActivity"
             android:exported="false" />
+
+        <receiver android:name=".Alarm"
+            android:enabled="true"
+            android:exported="true" />
     </application>
 
 </manifest>

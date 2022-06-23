@@ -10,9 +10,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.parse.Parse;
 import com.parse.ParseException;
+import com.parse.ParseObject;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
+import com.example.myapplication.User;
 
 public class SignupActivity extends AppCompatActivity {
 
@@ -40,7 +43,10 @@ public class SignupActivity extends AppCompatActivity {
     }
     private void signupUser (String username, String password) {
         // Create the ParseUser
-        ParseUser user = new ParseUser();
+        // ParseUser user = new ParseUser();
+        // ParseUser.create(user);
+        User user = new User();
+        //ParseUser user = new ParseUser();
         // Set core properties
         user.setUsername(username);
         user.setPassword(password);

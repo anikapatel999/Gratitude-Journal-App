@@ -2,6 +2,9 @@ package com.example.gratitudejournal;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,6 +15,8 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.parse.ParseUser;
+
+import java.util.Calendar;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -44,7 +49,27 @@ public class HomeActivity extends AppCompatActivity {
                 //finish();
             }
         });
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH),
+                23, //23
+                59, //59
+                0
+        );
+        setAlarm(calendar.getTimeInMillis());
     }
+
+    private void setAlarm(long timeInMillis) {
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(this, Alarm.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, timeInMillis, AlarmManager.INTERVAL_DAY, pendingIntent);
+        Log.i(TAG, "alarm is set");
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.actionbarmenu, menu);
@@ -65,4 +90,5 @@ public class HomeActivity extends AppCompatActivity {
         setVisible(false);
         //finish();
     }
+
 }
