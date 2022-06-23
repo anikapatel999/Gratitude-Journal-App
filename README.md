@@ -1,7 +1,9 @@
 Gratitude Journal App
 ===
 
-# Gratitude Journal (I need a good name)
+For a more updated version that also contains my notes, please see [this HackMD document](https://hackmd.io/@anikapatel/SkGgjlWFq)
+
+# Gratitude Journal
 
 ## Table of Contents
 1. [Overview](#Overview)
