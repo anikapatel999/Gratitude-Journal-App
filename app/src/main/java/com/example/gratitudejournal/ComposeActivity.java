@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -34,17 +35,19 @@ public class ComposeActivity extends AppCompatActivity {
 
         etText = findViewById(R.id.etText);
         btnMood = findViewById(R.id.btnMood);
-        // TRYING TO LOAD THE MOOD STRING AND THE CORRECT MOOD COLOR INTO THE BUTTON
+        btnSave = findViewById(R.id.btnSave);
+
+        // get the user's current journal entry
         User currentUser = (User) ParseUser.getCurrentUser();
         Entry entry = currentUser.getCurrentEntry();
+        String text = null;
         try {
-            String text = entry.fetchIfNeeded().getString("text");
+            text = entry.fetchIfNeeded().getString("text");
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        // entry.setMood("hello");
-        // entry.saveInBackground();
-        //Log.i(TAG, entry.getMood());
+
+        // get the user's current mood selection
         String mood = null;
         try {
             mood = entry.fetchIfNeeded().getString("mood");
@@ -54,9 +57,81 @@ public class ComposeActivity extends AppCompatActivity {
         if (mood.equals("skip")) {
             mood = "No mood selected";
         }
-        btnMood.setText(mood);
-        //btnMood.setBackgroundColor(3);
-        btnSave = findViewById(R.id.btnSave);
+
+        // set the mood as the text for the button
+        btnMood.setText("Edit mood: " + mood);
+
+        // put the entry's text into the editText so the user can edit their entry
+        // if one alreadyexists
+        if (!text.equals("No entry")) {
+            etText.setText(text);
+        }
+
+        // change the colors of the mood and save buttons depending on the mood the user
+        // has selected
+        if(mood.equals("Amazing")){
+            btnMood.setBackgroundColor(0xFFF8CC7F);
+            btnSave.setBackgroundColor(0xFFF8CC7F);
+        }
+
+        else if(mood.equals("Good")){
+            btnMood.setBackgroundColor(0xFFD2B08C);
+            btnSave.setBackgroundColor(0xFFD2B08C);
+        }
+
+        else if(mood.equals("Okay")){
+            btnMood.setBackgroundColor(0xFF808080);
+            btnSave.setBackgroundColor(0xFF808080);
+        }
+
+        else if(mood.equals("Bad")){
+            btnMood.setBackgroundColor(0xFF374C56);
+            btnSave.setBackgroundColor(0xFF374C56);
+        }
+
+        else if(mood.equals("Terrible")){
+            btnMood.setBackgroundColor(0xFF04202F);
+            btnSave.setBackgroundColor(0xFF04202F);
+        }
+
+        // navigate back to the mood selection activity if the user clicks on the mood button
+        btnMood.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i(TAG, "Mood button");
+                Intent intent = new Intent(ComposeActivity.this, MoodActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+            }
+        });
+
+        String finalMood = mood;
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i(TAG, "Save button");
+                String currentText = etText.getText().toString();
+                if (currentText.equals("")) {
+                    // Log.i(TAG, "this shouldn't be true");
+                    currentText = "No entry";
+                }
+                entry.setText(currentText);
+                entry.setMood(finalMood);
+                entry.setUser(currentUser);
+                String finalCurrentText = currentText;
+                entry.saveInBackground(new SaveCallback() {
+                    @Override
+                    public void done(ParseException e) {
+                        Log.i(TAG, "got to save in background");
+                        if (e != null) {
+                            Log.e(TAG, "Issue with saving", e);
+                            // Toast.makeText(ComposeActivity.this, "Error while saving!", Toast.LENGTH_SHORT).show();
+                        }
+                        Log.i(TAG, "Post save was successful " + finalCurrentText, e);
+                    }
+                });
+            }
+        });
     }
 
     @Override
