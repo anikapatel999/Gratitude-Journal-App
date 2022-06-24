@@ -14,6 +14,8 @@ import com.example.myapplication.User;
 import com.parse.SaveCallback;
 import com.example.myapplication.Entry;
 
+import org.json.JSONArray;
+
 public class Alarm extends BroadcastReceiver {
 
     public static final String TAG = "Alarm";
@@ -30,30 +32,43 @@ public class Alarm extends BroadcastReceiver {
          */
         //User currentUser = (User) ParseUser.getCurrentUser();
         //currentUser.unset("currentEntry"); //IT DOESNT LIKE ME SETTING IT TO NULL ACK
+
         Log.i(TAG, "got to the alarm");
         ParseUser currentUser = ParseUser.getCurrentUser();
+        User currentUser2 = (User) currentUser;
+        String mood = null; //getMood();
+        try {
+            mood = currentUser2.getCurrentEntry().fetchIfNeeded().getString("mood");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         currentUser.remove("currentEntry");
 
-//        ParseUser currentUser = ParseUser.getCurrentUser();
-//        User currentUser2 = (User) currentUser;
-//        Entry entry = new Entry();
-//        entry.setUser(currentUser);
-//        entry.setMood("temporary entry");
-//        entry.saveInBackground();
-//        currentUser2.setCurrentEntry(entry); //IT DOESNT LIKE ME SETTING IT TO NULL ACK
-        // if i want to be sneaky, i could create one post and have the pointer point to it, then in the
-        // if statement where it checks if the pointer == null, i do if pointer == null || pointer == that one post
-        // but is there a better option? i feel like there should be @_@
         currentUser.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
-                Log.i(TAG, "got to save in background");
+                Log.i(TAG, "CURRENTUSER got to save in background");
                 if (e != null) {
-                    Log.e(TAG, "Issue with saving", e);
+                    Log.e(TAG, "CURRENTUSER Issue with saving", e);
                 }
-                Log.i(TAG, "Post save was successful", e);
+                Log.i(TAG, "CURRENTUSER Post save was successful", e);
             }
         });
+        JSONArray moods = currentUser2.getMoods();
+        moods.put(mood);
+        currentUser2.setMoods(moods);
+        currentUser2.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                Log.i(TAG, "CURRENTUSER2 got to save in background");
+                if (e != null) {
+                    Log.e(TAG, "CURRENTUSER2 Issue with saving", e);
+                }
+                Log.i(TAG, "CURRENTUSER2 Post save was successful", e);
+            }
+        });
+
         Log.i(TAG, "the alarm worked");
     }
+
 }
