@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SettingsActivity">
+
+    <TextView
+        android:id="@+id/tvTimeZone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:layout_marginTop="90dp"
+        android:gravity="center"
+        android:text="Please select you timezone \n (this can be changed later in settings)"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <Spinner
+        android:id="@+id/sTimeZoneDropdown"
+        app:layout_constraintTop_toBottomOf="@+id/tvTimeZone"
+        android:layout_marginRight="100dp"
+        android:layout_marginLeft="100dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:drawable/btn_dropdown"
+        android:spinnerMode="dropdown"
+        />
+
+    <TextView
+        android:id="@+id/tvMentionFriends"
+        app:layout_constraintTop_toBottomOf="@+id/sTimeZoneDropdown"
+        android:layout_margin="20dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Do you want to notify friends \n when you mention them in a journal entry?"
+        tools:ignore="MissingConstraints" />
+
+    <ToggleButton
+        android:id="@+id/tMentionFriends"
+        app:layout_constraintTop_toBottomOf="@+id/tvMentionFriends"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        android:textOff="NO"
+        android:textOn="YES"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/tvFriendMentions"
+        app:layout_constraintTop_toBottomOf="@+id/tMentionFriends"
+        android:layout_margin="20dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Do you want to be notified \n when friends mention you in a journal entry?"
+        tools:ignore="MissingConstraints" />
+
+    <ToggleButton
+        android:id="@+id/tFriendMentions"
+        app:layout_constraintTop_toBottomOf="@+id/tvFriendMentions"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        android:textOff="NO"
+        android:textOn="YES"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/tvMentionCloseFriends"
+        app:layout_constraintTop_toBottomOf="@+id/tFriendMentions"
+        android:layout_margin="20dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Do you want to notify close friends \n when you mention them in a journal entry?"
+        tools:ignore="MissingConstraints" />
+
+    <ToggleButton
+        android:id="@+id/tMentionCloseFriends"
+        app:layout_constraintTop_toBottomOf="@+id/tvMentionCloseFriends"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        android:textOff="NO"
+        android:textOn="YES"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/tvCloseFriendMentions"
+        app:layout_constraintTop_toBottomOf="@+id/tMentionCloseFriends"
+        android:layout_margin="20dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Do you want to be notified \n when close friends mention you in a journal entry?"
+        tools:ignore="MissingConstraints" />
+
+    <ToggleButton
+        android:id="@+id/tCloseFriendMentions"
+        app:layout_constraintTop_toBottomOf="@+id/tvCloseFriendMentions"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        android:textOff="NO"
+        android:textOn="YES"
+        tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/btnDone"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tCloseFriendMentions"
+        android:layout_width="225dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="100dp"
+        android:layout_marginBottom="10dp"
+        android:layout_weight="1"
+        android:backgroundTint="#F8BD7F"
+        android:text="Done!"
+        tools:layout_height="50dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

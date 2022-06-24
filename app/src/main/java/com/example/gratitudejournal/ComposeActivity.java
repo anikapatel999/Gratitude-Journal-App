@@ -160,4 +160,11 @@ public class ComposeActivity extends AppCompatActivity {
         setVisible(false);
         //finish();
     }
+
+    public void onSettings(MenuItem item) {
+        Intent intent = new Intent(ComposeActivity.this, SettingsActivity.class);
+        startActivity(intent);
+        setVisible(false);
+        //finish();
+    }
 }

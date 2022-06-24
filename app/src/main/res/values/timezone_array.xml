@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="timezones">
+        <item>ACT</item>
+        <item>AET</item>
+        <item>AGT</item>
+        <item>ART</item>
+        <item>AST</item>
+        <item>BET</item>
+        <item>BST</item>
+        <item>CAT</item>
+        <item>CNT</item>
+        <item>CST</item>
+        <item>CTT</item>
+        <item>EAT</item>
+        <item>ECT</item>
+        <item>EET</item>
+        <item>EST</item>
+        <item>GMT</item>
+        <item>HST</item>
+        <item>IET</item>
+        <item>IST</item>
+        <item>JST</item>
+        <item>MET</item>
+        <item>MIT</item>
+        <item>MST</item>
+        <item>NET</item>
+        <item>NST</item>
+        <item>PLT</item>
+        <item>PNT</item>
+        <item>PRT</item>
+        <item>PST</item>
+        <item>SST</item>
+        <item>UTC</item>
+        <item>VST</item>
+    </string-array>
+</resources>

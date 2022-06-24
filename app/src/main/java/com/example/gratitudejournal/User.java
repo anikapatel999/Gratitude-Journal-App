@@ -18,6 +18,7 @@ public class User extends ParseUser { //or is it ParseObject? does it matter?
     public static final String KEY_CLOSEFRIENDS = "closeFriends";
     public static final String KEY_VISFRIENDMENTIONS = "visFriendMentions";
     public static final String KEY_VISCLOSEFRIENDMENTIONS = "visCloseFriendMentions";
+    public static final String KEY_TIMEZONE = "timeZone";
 
 
     public static final String KEY_USER = "user";
@@ -72,6 +73,14 @@ public class User extends ParseUser { //or is it ParseObject? does it matter?
 
     public void setVisCloseFriendMentions(JSONArray visCloseFriendMentions) {
         put(KEY_VISFRIENDMENTIONS, visCloseFriendMentions);
+    }
+
+    public void setTimeZone(String timezone) {
+        put(KEY_TIMEZONE, timezone);
+    }
+
+    public String getTimeZone() {
+        return getString(KEY_TIMEZONE);
     }
 
 }

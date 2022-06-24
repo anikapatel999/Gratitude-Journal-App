@@ -12,4 +12,10 @@
         android:title="@string/home"
         android:icon="@drawable/ic_baseline_home_24"
         android:onClick="onHome"/>
+
+    <item
+        android:id="@+id/settings"
+        android:title="@string/settings"
+        android:icon="@drawable/ic_baseline_settings_24"
+        android:onClick="onSettings"/>
 </menu>

@@ -68,7 +68,7 @@ public class SignupActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
+                Intent intent = new Intent(SignupActivity.this, SettingsActivity.class);
                 startActivity(intent);
             }
         }, 2000);
