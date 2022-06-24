@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -57,6 +59,13 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sTimeZoneDropdown.setAdapter(adapter);
 
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        User currentUser2 = (User) currentUser;
+        if (currentUser2.getTimeZone() != null) {
+            String currentTimezone = currentUser2.getTimeZone();
+            int ind = findIndex(currentTimezone);
+            sTimeZoneDropdown.setSelection(ind);
+        }
     }
 
     @Override
@@ -131,5 +140,68 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
         if(position == 31) { return "VST"; }
 
         return "GMT";
+    }
+
+    public int findIndex(String timezone) {
+            if(timezone.equals("ACT")) { return 0; }
+            if(timezone.equals("AET")) { return 1; }
+            if(timezone.equals("AGT")) { return 2; }
+            if(timezone.equals("ART")) { return 3; }
+            if(timezone.equals("AST")) { return 4; }
+            if(timezone.equals("BET")) { return 5; }
+            if(timezone.equals("BST")) { return 6; }
+            if(timezone.equals("CAT")) { return 7; }
+            if(timezone.equals("CNT")) { return 8; }
+            if(timezone.equals("CST")) { return 9; }
+            if(timezone.equals("CTT")) { return 10; }
+            if(timezone.equals("EAT")) { return 11; }
+            if(timezone.equals("ECT")) { return 12; }
+            if(timezone.equals("EET")) { return 13; }
+            if(timezone.equals("EST")) { return 14; }
+            if(timezone.equals("GMT")) { return 15; }
+            if(timezone.equals("HST")) { return 16; }
+            if(timezone.equals("IET")) { return 17; }
+            if(timezone.equals("IST")) { return 18; }
+            if(timezone.equals("JST")) { return 19; }
+            if(timezone.equals("MET")) { return 20; }
+            if(timezone.equals("MIT")) { return 21; }
+            if(timezone.equals("MST")) { return 22; }
+            if(timezone.equals("NET")) { return 23; }
+            if(timezone.equals("NST")) { return 24; }
+            if(timezone.equals("PLT")) { return 25; }
+            if(timezone.equals("PNT")) { return 26; }
+            if(timezone.equals("PRT")) { return 27; }
+            if(timezone.equals("PST")) { return 28; }
+            if(timezone.equals("SST")) { return 29; }
+            if(timezone.equals("UTC")) { return 30; }
+            if(timezone.equals("VST")) { return 31; }
+            return 0;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.actionbarmenu, menu);
+        return true;
+    }
+
+    public void onLogout(MenuItem item) {
+        ParseUser.logOut();
+        ParseUser currentUser = ParseUser.getCurrentUser(); // this will now be null
+        Intent intent = new Intent(SettingsActivity.this, LoginActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    public void onHome(MenuItem item) {
+        Intent intent = new Intent(SettingsActivity.this, HomeActivity.class);
+        startActivity(intent);
+        // finish();
+    }
+
+    public void onSettings(MenuItem item) {
+        Intent intent = new Intent(SettingsActivity.this, SettingsActivity.class);
+        startActivity(intent);
+        setVisible(false);
+        //finish();
     }
 }
