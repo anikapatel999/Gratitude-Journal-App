@@ -94,6 +94,12 @@ public class ComposeActivity extends AppCompatActivity {
             btnSave.setBackgroundColor(0xFF04202F);
         }
 
+        else if(mood.equals("No mood selected")) {
+            btnMood.setBackgroundColor(0xFF7294a3);
+            btnSave.setBackgroundColor(0xFF7294a3);
+
+        }
+
         // navigate back to the mood selection activity if the user clicks on the mood button
         btnMood.setOnClickListener(new View.OnClickListener() {
             @Override

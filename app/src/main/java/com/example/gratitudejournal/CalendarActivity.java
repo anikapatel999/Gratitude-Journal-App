@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -40,21 +41,13 @@ public class CalendarActivity extends AppCompatActivity {
         cvCalendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
-                // TODO: parse uses UTC. to figure out time zone issues:
-                //  1. date = the current selected day on the calendar
-                //  2. find the current time zone
-                //  3. find how many hours we are ahead / behind UTC.
-                //      - If there isn't already a method for that, we can make one
-                //      - (its just a bunch of if statements)
-                //      - call this int timeDifference
-                //  4. d1 = date - timeDifference (in ms)
-                //  5. d2 = d1 + i day
 
                 ParseUser currentUser = ParseUser.getCurrentUser();
                 ParseQuery<Entry> query = new ParseQuery(Entry.class);
                 //LocalDate date = LocalDate.of(year, month, dayOfMonth);
                 // WHY DOES IT THINK THE YEAR IS 3922?????? (some georgian calendar stuff,
                 // starts at 1900 so you have to subtract 1900)
+                // and the months start indexing at 0 which is ??? anyway Date objects are just really gross
                 User currentUser2 = (User) currentUser;
                 String timezone = currentUser2.getTimeZone();
                 Double timezoneDifference = getTimeDifference(timezone);
@@ -71,21 +64,29 @@ public class CalendarActivity extends AppCompatActivity {
                     @Override
                     public void done(List<Entry> entries, ParseException e) {
                         // check for errors
-                        Log.i(TAG, "IT DID SOMETHING" + entries);
+                        Log.i(TAG, "IT DID SOMETHING " + entries);
                         if (e != null) {
                             Log.e(TAG, "Issue with getting entries", e);
                             return;
                         }
                         // for debugging purposes let's print every post description to logcat
                         if (entries.size() > 0) {
-                            Toast.makeText(CalendarActivity.this, "selected date " + month + "/" + dayOfMonth + "/" + year, Toast.LENGTH_LONG).show();
+                            Toast.makeText(CalendarActivity.this, "selected date " + (month + 1) + "/" + dayOfMonth + "/" + year, Toast.LENGTH_LONG).show();
                             Intent intent = new Intent(CalendarActivity.this, ScrollActivity.class);
-                            String date2 = (String.valueOf(dayOfMonth) + String.valueOf(month) + String.valueOf(year));
-                            intent.putExtra("date", date2);
+                            String dayOfTheWeek1 = (String) DateFormat.format("EEEE", d1); // Thursday
+                            String day1         = (String) DateFormat.format("dd",   d1); // 20
+                            String monthString1  = (String) DateFormat.format("MMM",  d1); // Jun
+                            String monthNumber1  = (String) DateFormat.format("MM",   d1); // 06
+                            String year1         = (String) DateFormat.format("yyyy", d1); // 2013
+                            intent.putExtra("year", year1);
+                            intent.putExtra("month", monthNumber1);
+                            intent.putExtra("dayOfMonth", day1);
+                            // String date2 = (String.valueOf(dayOfMonth) + String.valueOf(month) + String.valueOf(year));
+                            // intent.putExtra("date", date2);
                             startActivity(intent);
                         }
                         else {
-                            Toast.makeText(CalendarActivity.this, "No entry at " + month + "/" + dayOfMonth + "/" + year, Toast.LENGTH_LONG).show();
+                            Toast.makeText(CalendarActivity.this, "No entry at " + (month + 1) + "/" + dayOfMonth + "/" + year, Toast.LENGTH_LONG).show();
                         }
                     }
                 });
