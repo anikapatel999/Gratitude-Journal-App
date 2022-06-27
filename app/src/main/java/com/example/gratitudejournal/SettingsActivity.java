@@ -181,6 +181,7 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.actionbarmenu, menu);
+        menu.findItem(R.id.settings).setVisible(false);
         return true;
     }
 
@@ -201,7 +202,7 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
     public void onSettings(MenuItem item) {
         Intent intent = new Intent(SettingsActivity.this, SettingsActivity.class);
         startActivity(intent);
-        setVisible(false);
+        // setVisible(false);
         //finish();
     }
 }

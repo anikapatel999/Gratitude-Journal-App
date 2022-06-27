@@ -70,6 +70,7 @@ public class SignupActivity extends AppCompatActivity {
             public void run() {
                 Intent intent = new Intent(SignupActivity.this, SettingsActivity.class);
                 startActivity(intent);
+                finish();
             }
         }, 2000);
         //loginUser(username, password);

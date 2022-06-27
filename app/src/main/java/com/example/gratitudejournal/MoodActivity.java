@@ -199,7 +199,7 @@ public class MoodActivity extends AppCompatActivity {
     public void onSettings(MenuItem item) {
         Intent intent = new Intent(MoodActivity.this, SettingsActivity.class);
         startActivity(intent);
-        setVisible(false);
+        // setVisible(false);
         //finish();
     }
 

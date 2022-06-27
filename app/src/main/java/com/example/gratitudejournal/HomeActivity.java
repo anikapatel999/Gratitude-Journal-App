@@ -73,7 +73,14 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.actionbarmenu, menu);
+        // menu.findItem(R.id.home).setVisible(Visibility.GONE);
         return true;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        menu.findItem(R.id.home).setVisible(false);
+        return super.onPrepareOptionsMenu(menu);
     }
 
     public void onLogout(MenuItem item) {
@@ -87,14 +94,13 @@ public class HomeActivity extends AppCompatActivity {
     public void onHome(MenuItem item) {
         Intent intent = new Intent(HomeActivity.this, HomeActivity.class);
         startActivity(intent);
-        setVisible(false);
+        // setVisible(false);
         //finish();
     }
 
     public void onSettings(MenuItem item) {
         Intent intent = new Intent(HomeActivity.this, SettingsActivity.class);
         startActivity(intent);
-        setVisible(false);
         //finish();
     }
 

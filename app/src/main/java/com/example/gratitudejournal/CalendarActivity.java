@@ -85,7 +85,7 @@ public class CalendarActivity extends AppCompatActivity {
                             startActivity(intent);
                         }
                         else {
-                            Toast.makeText(CalendarActivity.this, "No entry at" + month + "/" + dayOfMonth + "/" + year, Toast.LENGTH_LONG).show();
+                            Toast.makeText(CalendarActivity.this, "No entry at " + month + "/" + dayOfMonth + "/" + year, Toast.LENGTH_LONG).show();
                         }
                     }
                 });
@@ -146,13 +146,13 @@ public class CalendarActivity extends AppCompatActivity {
     public void onHome(MenuItem item) {
         Intent intent = new Intent(CalendarActivity.this, HomeActivity.class);
         startActivity(intent);
-        setVisible(false);
+        // setVisible(false);
         //finish();
     }
     public void onSettings(MenuItem item) {
         Intent intent = new Intent(CalendarActivity.this, SettingsActivity.class);
         startActivity(intent);
-        setVisible(false);
+        // setVisible(false);
         //finish();
     }
 }

@@ -157,14 +157,14 @@ public class ComposeActivity extends AppCompatActivity {
     public void onHome(MenuItem item) {
         Intent intent = new Intent(ComposeActivity.this, HomeActivity.class);
         startActivity(intent);
-        setVisible(false);
+        // setVisible(false);
         //finish();
     }
 
     public void onSettings(MenuItem item) {
         Intent intent = new Intent(ComposeActivity.this, SettingsActivity.class);
         startActivity(intent);
-        setVisible(false);
+        // setVisible(false);
         //finish();
     }
 }

@@ -49,4 +49,5 @@ public class ScrollActivity extends AppCompatActivity {
         setVisible(false);
         //finish();
     }
+
 }
