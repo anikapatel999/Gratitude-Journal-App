@@ -17,6 +17,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:textColor="#FF0000EE"
+        android:textSize="19sp"
         android:text="Load more recent entries!"/>
 
     <androidx.recyclerview.widget.RecyclerView
