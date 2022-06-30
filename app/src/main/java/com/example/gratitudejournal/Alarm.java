@@ -36,6 +36,7 @@ public class Alarm extends BroadcastReceiver {
         ParseUser currentUser = ParseUser.getCurrentUser();
         User currentUser2 = (User) currentUser;
         if (currentUser2.getCurrentEntry() != null) {
+            //Log.i(TAG, currentUser2.getCurrentEntry().getText());
                 Entry lastEntry = currentUser2.getCurrentEntry();
                 String mood = null; //getMood();
                 try {
