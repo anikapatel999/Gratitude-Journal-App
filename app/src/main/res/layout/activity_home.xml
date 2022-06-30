@@ -32,7 +32,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             android:gravity="center"
-            android:text="Compose / edit a journal entry" />
+            android:text="Compose or edit your journal entry" />
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/avCalendar"
@@ -61,7 +61,7 @@
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/avPlaceholder1"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="23dp"
             android:layout_width="300dp"
             android:layout_height="300dp"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -86,7 +86,7 @@
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/avPlaceholder2"
-            android:layout_marginTop="-30dp"
+            android:layout_marginTop="-25dp"
             android:layout_width="300dp"
             android:layout_height="300dp"
             android:layout_weight="1"
