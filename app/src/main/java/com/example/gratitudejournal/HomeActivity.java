@@ -55,8 +55,8 @@ public class HomeActivity extends AppCompatActivity {
                 calendar.get(Calendar.YEAR),
                 calendar.get(Calendar.MONTH),
                 calendar.get(Calendar.DAY_OF_MONTH),
-                23, //23
-                59, //59
+                13, //23
+                57, //59
                 0
         );
         setAlarm(calendar.getTimeInMillis());

@@ -171,6 +171,7 @@ public class MoodActivity extends AppCompatActivity {
                     startActivity(i);
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                     Log.i("swiped left", "it worked");
+                    //finish();
                 }
             break;
         }

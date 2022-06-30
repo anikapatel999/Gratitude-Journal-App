@@ -108,6 +108,7 @@ public class ComposeActivity extends AppCompatActivity {
                 Intent intent = new Intent(ComposeActivity.this, MoodActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+                //finish();
             }
         });
 
