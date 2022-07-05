@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -19,14 +22,19 @@ import java.util.Arrays;
 import java.util.List;
 import com.example.myapplication.Entry;
 
+import org.w3c.dom.Text;
+
 public class QuoteActivity extends AppCompatActivity {
 
     public static final String TAG = "QuoteActivity";
+    float x1, x2, y1, y2;
     protected List<com.example.myapplication.Entry> allEntries;
     String[] selectedKeywords = {};
     String[] keywordArray = {"inspiration", "excellence", "happiness", "dreams", "courage",
             "confidence", "kindness", "success", "change", "future", "life", "living",
             "today", "choice", "freedom"};
+    private TextView tvQuote;
+    private TextView tvAuthor;
 
 
     @Override
@@ -34,6 +42,16 @@ public class QuoteActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quote);
+        tvQuote = findViewById(R.id.tvQuote);
+        tvAuthor = findViewById(R.id.tvAuthor);
+
+        Log.i(TAG, "oncreateeeeeee");
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        User currentUser2 = (User) currentUser;
+        if (currentUser2.getCurrentEntry().getText().equals("No entry")) {
+            Intent intent = new Intent(QuoteActivity.this, HomeActivity.class);
+            startActivity(intent);
+        }
 //
 //        ArrayList<String> keywordArray = new ArrayList<String>();
 //        keywordArray.add("Inspiration");
@@ -43,8 +61,6 @@ public class QuoteActivity extends AppCompatActivity {
         // TODO: select a sub array of keywordArray based on the score calculated from the user's
         //  past mood selections
 
-        Log.i(TAG, "oncreateeeeeee");
-        ParseUser currentUser = ParseUser.getCurrentUser();
         // Query the last 7 entries by the user
         ParseQuery<Entry> query = ParseQuery.getQuery(Entry.class);
         query.setLimit(7);
@@ -103,23 +119,30 @@ public class QuoteActivity extends AppCompatActivity {
                 moodScore = calcCurrentMoodScore();
                 moodScore = calcTotalMoodScore(moodScore);
                 selectedKeywords = keywordsFromTotalScore(moodScore);
+                Log.i(TAG, "kw1 " + Arrays.toString(selectedKeywords));
             }
             // if the user did not select all of the 7 past moods but did select the current mood
             else if (!(allEntries.get(0).getMood().equals("skip")) && !(allEntries.get(0).getMood().equals("No mood selected"))) {
                 moodScore = calcCurrentMoodScore();
                 selectedKeywords = keywordsFromCurrentScore(moodScore);
+                Log.i(TAG, "kw2 " + Arrays.toString(selectedKeywords));
             }
             // if the user did neither
             else {
                 selectedKeywords = Arrays.copyOfRange(keywordArray, 4, 10);
-                Log.i(TAG, "kw1 " + Arrays.toString(selectedKeywords));
+                Log.i(TAG, "kw3 " + Arrays.toString(selectedKeywords));
             }
         }
         // if the user does not have 7 past entries
         else {
             selectedKeywords = Arrays.copyOfRange(keywordArray, 4, 10);
-            Log.i(TAG, "kw2 " + Arrays.toString(selectedKeywords));
+            Log.i(TAG, "kw4 " + Arrays.toString(selectedKeywords));
         }
+
+        //TODO: CHANGE THIS LATER
+        tvQuote.setText("Inspirational quote goes here!\nit will probably\nbe multiple\nlines");
+        tvAuthor.setText("-Author's Name");
+
     }
 
     private String[] keywordsFromCurrentScore(double moodScore) {
@@ -205,6 +228,29 @@ public class QuoteActivity extends AppCompatActivity {
         }
         Log.i(TAG, "calcCurrentMoodScore: " + moodScore);
         return moodScore;
+    }
+
+    public boolean onTouchEvent(MotionEvent touchEvent){
+        switch(touchEvent.getAction()){
+            case MotionEvent.ACTION_DOWN:
+                x1 = touchEvent.getX();
+                y1 = touchEvent.getY();
+                break;
+            case MotionEvent.ACTION_UP:
+                x2 = touchEvent.getX();
+                y2 = touchEvent.getY();
+
+                if(x1 > x2) {
+                    Intent i = new Intent(QuoteActivity.this, HomeActivity.class);
+//                    Intent i = new Intent(MoodActivity.this, QuoteActivity.class);
+                    startActivity(i);
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                    Log.i("swiped left", "it worked");
+                    //finish();
+                }
+                break;
+        }
+        return false;
     }
 
     @Override
