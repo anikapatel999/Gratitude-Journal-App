@@ -104,4 +104,12 @@ public class HomeActivity extends AppCompatActivity {
         //finish();
     }
 
+    //TODO: add a method that performs alarmmanager's tasks in case alarmmanager doesn't fire:
+    // at the top of onCreate, call this method. The method should:
+    // 1. check if user has a current entry.
+    // 2. if the user does have a current entry, check the date.
+    // 3. if the user's current entry has a date that's before today's date
+    // (take time zones into account) perform all of alarmManager's tasks
+    // (probably don't use inBackground, do them synchronously? idk tho)
+
 }

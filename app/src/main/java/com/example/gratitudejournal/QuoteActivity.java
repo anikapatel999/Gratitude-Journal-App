@@ -140,7 +140,8 @@ public class QuoteActivity extends AppCompatActivity {
         }
 
         //TODO: CHANGE THIS LATER
-        tvQuote.setText("Inspirational quote goes here!\nit will probably\nbe multiple\nlines");
+        tvQuote.setText("Inspirational quote goes here! it will probably be multiple lines, " +
+                "i hope textview adds more lines automatically");
         tvAuthor.setText("-Author's Name");
 
     }

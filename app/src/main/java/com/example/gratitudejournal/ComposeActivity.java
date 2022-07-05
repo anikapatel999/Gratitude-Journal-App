@@ -134,9 +134,10 @@ public class ComposeActivity extends AppCompatActivity {
                         Log.i(TAG, "got to save in background");
                         if (e != null) {
                             Log.e(TAG, "Issue with saving", e);
-                            // Toast.makeText(ComposeActivity.this, "Error while saving!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ComposeActivity.this, "Error while saving!", Toast.LENGTH_SHORT).show();
                         }
                         Log.i(TAG, "Post save was successful " + finalCurrentText, e);
+                        Toast.makeText(ComposeActivity.this, "Entry saved!", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
