@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,6 +28,7 @@ public class ComposeActivity extends AppCompatActivity {
     private EditText etText;
     private Button btnMood;
     private Button btnSave;
+    float x1, x2, y1, y2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -139,6 +141,29 @@ public class ComposeActivity extends AppCompatActivity {
                 });
             }
         });
+    }
+
+    public boolean onTouchEvent(MotionEvent touchEvent){
+        switch(touchEvent.getAction()){
+            case MotionEvent.ACTION_DOWN:
+                x1 = touchEvent.getX();
+                y1 = touchEvent.getY();
+                break;
+            case MotionEvent.ACTION_UP:
+                x2 = touchEvent.getX();
+                y2 = touchEvent.getY();
+
+                if(x1 > x2) {
+                    Intent i = new Intent(ComposeActivity.this, QuoteActivity.class);
+//                    Intent i = new Intent(MoodActivity.this, QuoteActivity.class);
+                    startActivity(i);
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                    Log.i("swiped left", "it worked");
+                    //finish();
+                }
+                break;
+        }
+        return false;
     }
 
     @Override

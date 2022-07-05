@@ -168,6 +168,7 @@ public class MoodActivity extends AppCompatActivity {
                         saveEntry("skip", currentUser);
                     }
                     Intent i = new Intent(MoodActivity.this, ComposeActivity.class);
+//                    Intent i = new Intent(MoodActivity.this, QuoteActivity.class);
                     startActivity(i);
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                     Log.i("swiped left", "it worked");

@@ -155,49 +155,6 @@ public class EntriesAdapter extends RecyclerView.Adapter<EntriesAdapter.ViewHold
                 btnMood.setBackgroundColor(0xFF7294a3);
             }
 
-//            tvLoadMore.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    Log.i("EntriesAdapter", "CLICKED!!");
-//                    ParseUser currentUser = ParseUser.getCurrentUser();
-//                    ParseQuery<Entry> query = ParseQuery.getQuery(Entry.class);
-//                    query.setLimit(20);
-//                    query.whereMatches("user", currentUser.getObjectId());
-//                    query.whereGreaterThan("createdAt", lastDate);
-//                    query.addDescendingOrder("createdAt");
-//                    query.findInBackground(new FindCallback<Entry>() {
-//                        @Override
-//                        public void done(List<Entry> entries, ParseException e) {
-//                            // check for errors
-//                            if (e != null) {
-//                                Log.e("ole", "Issue with getting posts", e);
-//                                return;
-//                            }
-//                            if (entries.size() == 0) {
-//                                Toast.makeText(context, "No more entries", Toast.LENGTH_LONG).show();
-//                                return;
-//                            }
-//                            // for debugging purposes let's print every post description to logcat
-//                            for (Entry entry : entries) {
-//                                Log.i("ole", "infinite scroll entry");
-//                            }
-//                            Date currentDate = entries.get(0).getCreatedAt();
-//                            Intent intent = new Intent(context, ScrollActivity.class);
-//                            String dayOfTheWeek1 = (String) DateFormat.format("EEEE", currentDate); // Thursday
-//                            String day1         = (String) DateFormat.format("dd",   currentDate); // 20
-//                            String monthString1  = (String) DateFormat.format("MMM",  currentDate); // Jun
-//                            String monthNumber1  = (String) DateFormat.format("MM",   currentDate); // 06
-//                            String year1         = (String) DateFormat.format("yyyy", currentDate); // 2013
-//                            intent.putExtra("year", year1);
-//                            intent.putExtra("month", monthNumber1);
-//                            intent.putExtra("dayOfMonth", day1);
-//                            intent.putExtra("index",entries.size());
-//                            context.startActivity(intent);
-//                            //finish();
-//                        }
-//                    });
-//                }
-//            });
         }
 
         @Override
