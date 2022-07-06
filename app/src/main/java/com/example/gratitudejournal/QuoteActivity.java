@@ -11,6 +11,7 @@ import android.view.MotionEvent;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.codepath.asynchttpclient.AsyncHttpClient;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
@@ -27,12 +28,16 @@ import org.w3c.dom.Text;
 public class QuoteActivity extends AppCompatActivity {
 
     public static final String TAG = "QuoteActivity";
+    public static final String quotesAPI = "https://zenquotes.io/api/quotes"; //TODO: CHANGE THIS LATER TO HAVE KEYWORDS (will have to use string concatenation)
     float x1, x2, y1, y2;
     protected List<com.example.myapplication.Entry> allEntries;
     String[] selectedKeywords = {};
     String[] keywordArray = {"inspiration", "excellence", "happiness", "dreams", "courage",
             "confidence", "kindness", "success", "change", "future", "life", "living",
             "today", "choice", "freedom"};
+    String[] searchWords = {};
+    String[] quotes = {};
+    String[] authors = {};
     private TextView tvQuote;
     private TextView tvAuthor;
 
@@ -139,11 +144,39 @@ public class QuoteActivity extends AppCompatActivity {
             Log.i(TAG, "kw4 " + Arrays.toString(selectedKeywords));
         }
 
+
+        //TODO: Once you get the API key, you can do this once for each keyword.
+        // For now, I'm just doing the same random call 5 times. If you can't get the API key,
+        // use the keywords you selected the same way as you're planning to use the words
+        // from the user's previous entry (so like append those 5 words to the array of the
+        // longest few words from the entry, cut off the endings, and search through all the
+        // quotes for that root, and return it if found).
+        AsyncHttpClient client = new AsyncHttpClient();
+
+        String entryText = allEntries.get(0).getText();
+        searchWords = split(entryText);
+        searchWords = sortByLength(searchWords);
+
         //TODO: CHANGE THIS LATER
         tvQuote.setText("Inspirational quote goes here! it will probably be multiple lines, " +
                 "i hope textview adds more lines automatically");
         tvAuthor.setText("-Author's Name");
 
+    }
+
+    private String[] sortByLength(String[] searchWords) {
+        return searchWords;
+    }
+
+    private String[] split(String entryText) {
+        entryText = "I would love to have a dog, dogs are very fun, yes :)";
+        String[] s = entryText.split("\\s+");
+        for (int i = 0; i < s.length; i++) {
+            s[i] = s[i].replaceAll("[^\\w]", "");
+            Log.i(TAG, "THIS IS A WORD IN THE SPLIT " + s[i]);
+        }
+        Log.i(TAG, "THIS IS THE SPLIT STRING" + s);
+        return s;
     }
 
     private String[] keywordsFromCurrentScore(double moodScore) {

@@ -107,10 +107,11 @@ public class ComposeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.i(TAG, "Mood button");
-                Intent intent = new Intent(ComposeActivity.this, MoodActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(ComposeActivity.this, MoodActivity.class);
+//                startActivity(intent);
+                onBackPressed();
                 overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
-                //finish();
+//                finish();
             }
         });
 
