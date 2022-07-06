@@ -8,12 +8,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.codepath.asynchttpclient.AsyncHttpClient;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
-import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
@@ -25,7 +23,9 @@ import java.util.Comparator;
 import java.util.List;
 import com.example.myapplication.Entry;
 
-import org.w3c.dom.Text;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import okhttp3.Headers;
 
@@ -41,7 +41,9 @@ public class QuoteActivity extends AppCompatActivity {
             "confidence", "kindness", "success", "change", "future", "life", "living",
             "today", "choice", "freedom"};
     String[] searchWords = {};
-    String[] synonyms = {};
+    //String[] synonyms = {};
+    ArrayList<String> synonyms = new ArrayList<>();
+    ArrayList<String> roots = new ArrayList<>();
     String[] quotes = {};
     String[] authors = {};
     private TextView tvQuote;
@@ -169,8 +171,11 @@ public class QuoteActivity extends AppCompatActivity {
         searchWords = reverse(searchWords);
         // forTesting(searchWords, "sw3");
         searchWords = slicer(searchWords);
-        synonyms = getSynonyms(searchWords);
-        synonyms = rootFinder(searchWords);
+//        synonyms = getSynonyms(searchWords);
+        getSynonyms(searchWords);
+        Log.i(TAG, ":))))))) " + synonyms);
+        Log.i(TAG, "dlkfmvlfkdmbv" + roots);
+        // rootFinder(synonyms);
 
         //TODO: CHANGE THIS LATER
         tvQuote.setText("Inspirational quote goes here! it will probably be multiple lines, " +
@@ -179,17 +184,50 @@ public class QuoteActivity extends AppCompatActivity {
 
     }
 
-    private String[] getSynonyms(String[] sw) {
-        String[] syns = {};
+    private void getSynonyms(String[] sw) {
+//        synonyms = new ArrayList<>();
+//        final ArrayList[] syns = {new ArrayList()};
         String tempDictAPI = "";
         for (int i = 0; i< sw.length; i++) {
+            synonyms.add(sw[i]);
             tempDictAPI = dictAPI + sw[i];
             AsyncHttpClient client = new AsyncHttpClient();
             int finalI = i;
+            int finalI1 = i;
             client.get(tempDictAPI, new JsonHttpResponseHandler() {
                 @Override
                 public void onSuccess(int statusCode, Headers headers, JSON json) {
                     Log.i(TAG, sw[finalI] + " onSuccess");
+                    Log.i(TAG, json.toString());
+
+                    JSONArray jsonArray = json.jsonArray;
+                    try {
+                        JSONObject j = (JSONObject) jsonArray.get(0);
+                        //Log.i(TAG, "THIS IS THE WORD: " + j.getString("word"));
+                        JSONArray j2 = j.getJSONArray("meanings");
+                        for(int ind = 0; ind < j2.length(); ind++) {
+                            //Log.i(TAG, "THIS IS THE PART OF SPEECH " + j2.get(0));
+                            JSONObject j3 = (JSONObject) j2.get(ind);
+                            Object j4 = j3.get("synonyms");
+                            JSONArray j5 = (JSONArray) j4;
+                            for (int index = 0; index < j5.length(); index++){
+                                Log.i(TAG, ":) " + j5.get(index));
+                                synonyms.add(j5.get(index).toString());
+                                // Log.i(TAG, ":)( " + syns);
+                            }
+//                            Log.i(TAG, ":)( " + syns);
+                            Log.i(TAG, "synonyms: " + j.getString("word") + " " + j4);
+                        }
+//                        Log.i(TAG, ":)( " + syns);
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    Log.i(TAG, ":)( " + synonyms);
+                    if (finalI1 == sw.length -1) {
+                        rootFinder();
+                    }
                 }
 
                 @Override
@@ -197,41 +235,54 @@ public class QuoteActivity extends AppCompatActivity {
                     Log.i(TAG, sw[finalI] + " onFailure");
                 }
             });
+            Log.i(TAG, "LIST OF SYNONYMS1 :) " + synonyms);
         }
-
-        return syns;
+        Log.i(TAG, "LIST OF SYNONYMS2 :) " + synonyms);
+        //return syns;
     }
 
-    private String[] rootFinder(String[] words) {
-        String str = words[0];
-        for (int i = 0; i< words.length; i++) {
-            if (str.length() > 2 && str.substring(str.length() - 3).equals("es") || str.substring(str.length() - 3).equals("ed")) {
+    private void rootFinder() {
+        String str = synonyms.get(0);
+        Log.i(TAG, ":( " + synonyms.size());
+        for (int i = 0; i < synonyms.size(); i++) {
+            str = synonyms.get(i);
+//            Log.i(TAG, "dlkfmvlfkdmbv " + String.valueOf(str.length()) + " " + str.substring(str.length() - 1));
+//            if(str.length() > 1){
+//                Log.i(TAG, "true 1" + str.substring(str.length() - 2));
+//            }
+//            if(str.substring(str.length() - 1).equals("s")){
+//                Log.i(TAG, "true 2");
+//            }
+
+            if (str.length() > 2 && str.substring(str.length() - 2).equals("es") || str.substring(str.length() - 2).equals("ed")) {
                 str = str.substring(0,str.length()-2);
-                words[i] = str;
+                synonyms.set(i, str);
             }
-            else if (str.length() > 1 && str.substring(str.length() - 2).equals("s")) {
+            else if (str.length() > 1 && str.substring(str.length() - 1).equals("s")) {
+                Log.i(TAG, "dlkfmvlfkdmbv");
                 str = str.substring(0,str.length()-1);
-                words[i] = str;
+                synonyms.set(i, str);
             }
-            else if (str.length() > 3 && str.substring(str.length() - 4).equals("ing")) {
+            else if (str.length() > 3 && str.substring(str.length() - 3).equals("ing")) {
                 str = str.substring(0,str.length()-3);
-                words[i] = str;
+                synonyms.set(i, str);
             }
-            else if (str.length() > 4 && str.substring(str.length() - 5).equals("ship")) {
+            else if (str.length() > 4 && str.substring(str.length() - 4).equals("ship")) {
                 str = str.substring(0,str.length()-4);
-                words[i] = str;
+                synonyms.set(i, str);
             }
-            else if (str.length() > 5 && str.substring(str.length() - 6).equals("ation")) {
+            else if (str.length() > 5 && str.substring(str.length() - 5).equals("ation")) {
                 str = str.substring(0,str.length()-5);
-                words[i] = str;
+                synonyms.set(i, str);
             }
         }
-        return words;
+        roots.addAll(synonyms);
+        Log.i(TAG, "dlkfmvlfkdmbvaaa" + roots);
     }
 
     private String[] slicer(String[] words) {
         if (words.length > 15) {
-            words = Arrays.copyOfRange(keywordArray, 0, 16);
+            words = Arrays.copyOfRange(searchWords, 0, 15);
         }
         return words;
     }
