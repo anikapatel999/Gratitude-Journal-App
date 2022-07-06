@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.codepath.asynchttpclient.AsyncHttpClient;
+import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
@@ -20,15 +21,19 @@ import com.example.myapplication.User;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import com.example.myapplication.Entry;
 
 import org.w3c.dom.Text;
 
+import okhttp3.Headers;
+
 public class QuoteActivity extends AppCompatActivity {
 
     public static final String TAG = "QuoteActivity";
     public static final String quotesAPI = "https://zenquotes.io/api/quotes"; //TODO: CHANGE THIS LATER TO HAVE KEYWORDS (will have to use string concatenation)
+    public static final String dictAPI = "https://api.dictionaryapi.dev/api/v2/entries/en/";
     float x1, x2, y1, y2;
     protected List<com.example.myapplication.Entry> allEntries;
     String[] selectedKeywords = {};
@@ -36,6 +41,7 @@ public class QuoteActivity extends AppCompatActivity {
             "confidence", "kindness", "success", "change", "future", "life", "living",
             "today", "choice", "freedom"};
     String[] searchWords = {};
+    String[] synonyms = {};
     String[] quotes = {};
     String[] authors = {};
     private TextView tvQuote;
@@ -154,8 +160,17 @@ public class QuoteActivity extends AppCompatActivity {
         AsyncHttpClient client = new AsyncHttpClient();
 
         String entryText = allEntries.get(0).getText();
+        //entryText = "I would love to have a dog, dogs are very fun, yes :)";
         searchWords = split(entryText);
-        searchWords = sortByLength(searchWords);
+        // forTesting(searchWords, "sw1");
+        // sort searchWords by length
+        Arrays.sort(searchWords, Comparator.comparingInt(String::length));
+        // forTesting(searchWords, "sw2");
+        searchWords = reverse(searchWords);
+        // forTesting(searchWords, "sw3");
+        searchWords = slicer(searchWords);
+        synonyms = getSynonyms(searchWords);
+        synonyms = rootFinder(searchWords);
 
         //TODO: CHANGE THIS LATER
         tvQuote.setText("Inspirational quote goes here! it will probably be multiple lines, " +
@@ -164,12 +179,81 @@ public class QuoteActivity extends AppCompatActivity {
 
     }
 
-    private String[] sortByLength(String[] searchWords) {
-        return searchWords;
+    private String[] getSynonyms(String[] sw) {
+        String[] syns = {};
+        String tempDictAPI = "";
+        for (int i = 0; i< sw.length; i++) {
+            tempDictAPI = dictAPI + sw[i];
+            AsyncHttpClient client = new AsyncHttpClient();
+            int finalI = i;
+            client.get(tempDictAPI, new JsonHttpResponseHandler() {
+                @Override
+                public void onSuccess(int statusCode, Headers headers, JSON json) {
+                    Log.i(TAG, sw[finalI] + " onSuccess");
+                }
+
+                @Override
+                public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
+                    Log.i(TAG, sw[finalI] + " onFailure");
+                }
+            });
+        }
+
+        return syns;
+    }
+
+    private String[] rootFinder(String[] words) {
+        String str = words[0];
+        for (int i = 0; i< words.length; i++) {
+            if (str.length() > 2 && str.substring(str.length() - 3).equals("es") || str.substring(str.length() - 3).equals("ed")) {
+                str = str.substring(0,str.length()-2);
+                words[i] = str;
+            }
+            else if (str.length() > 1 && str.substring(str.length() - 2).equals("s")) {
+                str = str.substring(0,str.length()-1);
+                words[i] = str;
+            }
+            else if (str.length() > 3 && str.substring(str.length() - 4).equals("ing")) {
+                str = str.substring(0,str.length()-3);
+                words[i] = str;
+            }
+            else if (str.length() > 4 && str.substring(str.length() - 5).equals("ship")) {
+                str = str.substring(0,str.length()-4);
+                words[i] = str;
+            }
+            else if (str.length() > 5 && str.substring(str.length() - 6).equals("ation")) {
+                str = str.substring(0,str.length()-5);
+                words[i] = str;
+            }
+        }
+        return words;
+    }
+
+    private String[] slicer(String[] words) {
+        if (words.length > 15) {
+            words = Arrays.copyOfRange(keywordArray, 0, 16);
+        }
+        return words;
+    }
+
+    private void forTesting (String[] arr, String tag) {
+        for (int i = 0; i< arr.length; i++) {
+            System.out.println(tag + ": " + arr[i]);
+        }
+    }
+
+    private String[] reverse(String[] rev) {
+        for(int i = 0; i < rev.length / 2; i++)
+        {
+            String temp = rev[i];
+            rev[i] = rev[rev.length - i - 1];
+            rev[rev.length - i - 1] = temp;
+        }
+        return rev;
     }
 
     private String[] split(String entryText) {
-        entryText = "I would love to have a dog, dogs are very fun, yes :)";
+        // entryText = "I would love to have a dog, dogs are very fun, yes :)";
         String[] s = entryText.split("\\s+");
         for (int i = 0; i < s.length; i++) {
             s[i] = s[i].replaceAll("[^\\w]", "");
