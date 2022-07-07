@@ -182,8 +182,7 @@ public class QuoteActivity extends AppCompatActivity {
         // rootFinder(synonyms);
 
         //TODO: CHANGE THIS LATER
-//        tvQuote.setText("Inspirational quote goes here! it will probably be multiple lines, " +
-//                "i hope textview adds more lines automatically");
+        tvQuote.setText("Thank you for writing this entry");
 //        tvAuthor.setText("-Author's Name");
 
     }
@@ -324,6 +323,7 @@ public class QuoteActivity extends AppCompatActivity {
             }
             for (int j = 0; j < roots.size(); j++) {
                 if (quotes.get(i).equals("Too many requests. Obtain an auth key for unlimited access.")) {
+                    tvQuote.startAnimation(fade_in_anim);
                     tvQuote.setText("Thank you for writing this entry");
                     set = true;
                     break;
