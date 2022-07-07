@@ -44,8 +44,8 @@ public class QuoteActivity extends AppCompatActivity {
     //String[] synonyms = {};
     ArrayList<String> synonyms = new ArrayList<>();
     ArrayList<String> roots = new ArrayList<>();
-    String[] quotes = {};
-    String[] authors = {};
+    ArrayList<String> quotes = new ArrayList<>();
+    ArrayList<String> authors = new ArrayList<>();
     private TextView tvQuote;
     private TextView tvAuthor;
 
@@ -159,7 +159,6 @@ public class QuoteActivity extends AppCompatActivity {
         // from the user's previous entry (so like append those 5 words to the array of the
         // longest few words from the entry, cut off the endings, and search through all the
         // quotes for that root, and return it if found).
-        AsyncHttpClient client = new AsyncHttpClient();
 
         String entryText = allEntries.get(0).getText();
         //entryText = "I would love to have a dog, dogs are very fun, yes :)";
@@ -223,9 +222,11 @@ public class QuoteActivity extends AppCompatActivity {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-
-                    Log.i(TAG, ":)( " + synonyms);
                     if (finalI1 == sw.length -1) {
+                        for (int a = 0; a < 5; a++) {
+                            synonyms.add(0, selectedKeywords[a]);
+                        }
+                        Log.i(TAG, ":)( " + synonyms);
                         rootFinder();
                     }
                 }
@@ -246,13 +247,6 @@ public class QuoteActivity extends AppCompatActivity {
         Log.i(TAG, ":( " + synonyms.size());
         for (int i = 0; i < synonyms.size(); i++) {
             str = synonyms.get(i);
-//            Log.i(TAG, "dlkfmvlfkdmbv " + String.valueOf(str.length()) + " " + str.substring(str.length() - 1));
-//            if(str.length() > 1){
-//                Log.i(TAG, "true 1" + str.substring(str.length() - 2));
-//            }
-//            if(str.substring(str.length() - 1).equals("s")){
-//                Log.i(TAG, "true 2");
-//            }
 
             if (str.length() > 2 && str.substring(str.length() - 2).equals("es") || str.substring(str.length() - 2).equals("ed")) {
                 str = str.substring(0,str.length()-2);
@@ -278,6 +272,42 @@ public class QuoteActivity extends AppCompatActivity {
         }
         roots.addAll(synonyms);
         Log.i(TAG, "dlkfmvlfkdmbvaaa" + roots);
+        getQuotes();
+    }
+
+    private void getQuotes() {
+        for (int count = 0; count < 5; count++){
+            AsyncHttpClient client = new AsyncHttpClient();
+            int finalCount = count;
+            client.get(quotesAPI, new JsonHttpResponseHandler() {
+                @Override
+                public void onSuccess(int statusCode, Headers headers, JSON json) {
+                    Log.i(TAG, "onSuccess Quotes");
+                    JSONArray jsonArray = json.jsonArray;
+                    try {
+                        for (int i = 0; i < jsonArray.length(); i++){
+                            JSONObject j = (JSONObject) jsonArray.get(i);
+                            String quote = j.getString("q");
+                            String author = j.getString("a");
+                            quotes.add(quote);
+                            authors.add(author);
+                            Log.i(TAG, "FOR DEBUGGING " + quotes.size() + " " + authors.size());
+                        }
+//                        if (finalCount == 4) {
+//                            //CALL METHOD TO SEARCH THROUGH THE QUOTES
+//                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
+                    Log.i(TAG, "onFailure Quotes");
+                }
+            });
+        }
+
     }
 
     private String[] slicer(String[] words) {
