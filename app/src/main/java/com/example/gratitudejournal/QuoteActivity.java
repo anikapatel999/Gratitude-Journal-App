@@ -8,6 +8,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
 import com.codepath.asynchttpclient.AsyncHttpClient;
@@ -48,6 +50,7 @@ public class QuoteActivity extends AppCompatActivity {
     ArrayList<String> authors = new ArrayList<>();
     private TextView tvQuote;
     private TextView tvAuthor;
+    Animation fade_in_anim;
 
 
     @Override
@@ -57,6 +60,7 @@ public class QuoteActivity extends AppCompatActivity {
         setContentView(R.layout.activity_quote);
         tvQuote = findViewById(R.id.tvQuote);
         tvAuthor = findViewById(R.id.tvAuthor);
+        fade_in_anim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in);
 
         Log.i(TAG, "oncreateeeeeee");
         ParseUser currentUser = ParseUser.getCurrentUser();
@@ -64,6 +68,7 @@ public class QuoteActivity extends AppCompatActivity {
         if (currentUser2.getCurrentEntry().getText().equals("No entry")) {
             Intent intent = new Intent(QuoteActivity.this, HomeActivity.class);
             startActivity(intent);
+            finish();
         }
 //
 //        ArrayList<String> keywordArray = new ArrayList<String>();
@@ -177,9 +182,9 @@ public class QuoteActivity extends AppCompatActivity {
         // rootFinder(synonyms);
 
         //TODO: CHANGE THIS LATER
-        tvQuote.setText("Inspirational quote goes here! it will probably be multiple lines, " +
-                "i hope textview adds more lines automatically");
-        tvAuthor.setText("-Author's Name");
+//        tvQuote.setText("Inspirational quote goes here! it will probably be multiple lines, " +
+//                "i hope textview adds more lines automatically");
+//        tvAuthor.setText("-Author's Name");
 
     }
 
@@ -292,10 +297,11 @@ public class QuoteActivity extends AppCompatActivity {
                             quotes.add(quote);
                             authors.add(author);
                             Log.i(TAG, "FOR DEBUGGING " + quotes.size() + " " + authors.size());
+                            if (finalCount == 4 && (i == jsonArray.length() - 1)) {
+                                Log.i(TAG, "Yippee" + quotes.size());
+                                searchQuotes();
+                            }
                         }
-//                        if (finalCount == 4) {
-//                            //CALL METHOD TO SEARCH THROUGH THE QUOTES
-//                        }
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -308,6 +314,42 @@ public class QuoteActivity extends AppCompatActivity {
             });
         }
 
+    }
+
+    private void searchQuotes() {
+        boolean set = false;
+        for (int i = 0; i < quotes.size(); i++) {
+            if(set) {
+                break;
+            }
+            for (int j = 0; j < roots.size(); j++) {
+                if (quotes.get(i).equals("Too many requests. Obtain an auth key for unlimited access.")) {
+                    tvQuote.setText("Thank you for writing this entry");
+                    set = true;
+                    break;
+                }
+                if (quotes.get(i).contains(roots.get(j))) {
+                    // SHOULD I ADD A LIST OF WORDS THE QUOTE SHOULDNT CONTAIN?
+                    // ex: death, die, dying, loss, lose, lie, gone, youth, young, old, age, worst, pig (for that one obama quote lol)
+                    tvQuote.startAnimation(fade_in_anim);
+                    tvQuote.setText(quotes.get(i));
+                    tvAuthor.startAnimation(fade_in_anim);
+                    tvAuthor.setText("- " + authors.get(i));
+                    set = true;
+                    Log.i(TAG, "SET THE QUOTE FROM WORD SEARCH " + roots.get(j) + " " + quotes.get(i));
+                    break;
+                }
+            }
+        }
+        if (!set) {
+            // honestly the quotes are randomized anyway, i could just pick the first one
+            int ind = (int) Math.floor(Math.random()*(249-0+1)-.000001);
+            tvQuote.startAnimation(fade_in_anim);
+            tvQuote.setText(quotes.get(ind));
+            tvAuthor.startAnimation(fade_in_anim);
+            tvAuthor.setText("- " + authors.get(ind));
+            Log.i(TAG, "SET THE QUOTE FROM RANDOM");
+        }
     }
 
     private String[] slicer(String[] words) {
