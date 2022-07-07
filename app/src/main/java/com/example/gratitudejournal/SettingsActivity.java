@@ -3,6 +3,7 @@ package com.example.gratitudejournal;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -42,6 +43,7 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
         tMentionCloseFriends = findViewById(R.id.tMentionCloseFriends);
         tCloseFriendMentions = findViewById(R.id.tCloseFriendMentions);
         btnDone = findViewById(R.id.btnDone);
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.new_color)));
 
         btnDone.setOnClickListener(new View.OnClickListener() {
             @Override

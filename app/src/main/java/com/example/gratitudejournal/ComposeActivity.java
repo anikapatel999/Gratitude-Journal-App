@@ -3,6 +3,7 @@ package com.example.gratitudejournal;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -38,6 +39,7 @@ public class ComposeActivity extends AppCompatActivity {
         etText = findViewById(R.id.etText);
         btnMood = findViewById(R.id.btnMood);
         btnSave = findViewById(R.id.btnSave);
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.new_color)));
 
         // get the user's current journal entry
         User currentUser = (User) ParseUser.getCurrentUser();

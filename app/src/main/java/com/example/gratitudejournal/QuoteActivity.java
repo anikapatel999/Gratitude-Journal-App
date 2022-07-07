@@ -3,6 +3,7 @@ package com.example.gratitudejournal;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -61,6 +62,7 @@ public class QuoteActivity extends AppCompatActivity {
         tvQuote = findViewById(R.id.tvQuote);
         tvAuthor = findViewById(R.id.tvAuthor);
         fade_in_anim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in);
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.new_color)));
 
         Log.i(TAG, "oncreateeeeeee");
         ParseUser currentUser = ParseUser.getCurrentUser();
