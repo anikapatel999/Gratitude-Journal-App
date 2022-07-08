@@ -24,6 +24,7 @@ public class HomeActivity extends AppCompatActivity {
     public static final String TAG = "HomeActivity";
     private com.airbnb.lottie.LottieAnimationView avCompose;
     private com.airbnb.lottie.LottieAnimationView avCalendar;
+    private com.airbnb.lottie.LottieAnimationView avFriends;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +32,10 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         avCompose = findViewById(R.id.avCompose);
         avCalendar = findViewById(R.id.avCalendar);
+        avFriends = findViewById(R.id.avFriends);
+
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.new_color)));
+
         avCompose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,6 +55,17 @@ public class HomeActivity extends AppCompatActivity {
                 //finish();
             }
         });
+
+        avFriends.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i(TAG, "onClick friends animation");
+                Intent i = new Intent (HomeActivity.this, FriendsActivity.class);
+                startActivity(i);
+                //finish();
+            }
+        });
+
 
         Calendar calendar = Calendar.getInstance();
         calendar.set(
