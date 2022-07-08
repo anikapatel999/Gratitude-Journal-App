@@ -5,6 +5,7 @@
       <map>
         <entry key="app/src/main/res/layout/activity_calendar.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_compose.xml" value="0.16576086956521738" />
+        <entry key="app/src/main/res/layout/activity_friends.xml" value="0.26902173913043476" />
         <entry key="app/src/main/res/layout/activity_home.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.22382049560546877" />
         <entry key="app/src/main/res/layout/activity_mood.xml" value="0.1" />

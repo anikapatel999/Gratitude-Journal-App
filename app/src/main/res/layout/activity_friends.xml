@@ -1,9 +1,147 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".FriendsActivity">
+
+    <TextView
+        android:id="@+id/tvFriendsTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="30dp"
+        android:text="Friends"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvAddFriends"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="20dp"
+        android:text="To add a friend, enter their username here:"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvFriendsTitle" />
+
+    <EditText
+        android:id="@+id/etAddFriend"
+        android:layout_width="185dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:hint="username"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvAddFriends" />
+
+    <Button
+        android:id="@+id/btnAddFriend"
+        android:layout_width="65dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="225dp"
+        android:backgroundTint="@color/new_color"
+        android:text="Add"
+        app:layout_constraintLeft_toRightOf="@id/etAddFriend"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvAddFriends" />
+
+    <TextView
+        android:id="@+id/tvRemoveFriends"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="20dp"
+        android:text="To remove a friend, select their username:"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/etAddFriend" />
+
+    <Spinner
+        android:id="@+id/sRemoveFriend"
+        app:layout_constraintTop_toBottomOf="@+id/tvRemoveFriends"
+        android:layout_marginRight="118dp"
+        android:layout_marginLeft="30sp"
+        android:layout_marginTop="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:drawable/btn_dropdown"
+        android:spinnerMode="dropdown"
+        />
+
+    <View
+        android:id="@+id/vLine"
+        android:layout_width="420dp"
+        android:layout_height="2dp"
+        android:background="#FF769CAD"
+        android:layout_marginTop="35dp"
+        app:layout_constraintTop_toBottomOf="@id/sRemoveFriend"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/tvCloseFriendsTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="30dp"
+        android:text="Close Friends"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/vLine"/>
+
+    <TextView
+        android:id="@+id/tvAddCloseFriends"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="20dp"
+        android:text="To add a close friend, enter their username here:"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvCloseFriendsTitle" />
+
+    <EditText
+        android:id="@+id/etAddCloseFriend"
+        android:layout_width="185dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:hint="username"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvAddCloseFriends" />
+
+    <Button
+        android:id="@+id/btnAddCloseFriend"
+        android:layout_width="65dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="225dp"
+        android:backgroundTint="@color/new_color"
+        android:text="Add"
+        app:layout_constraintLeft_toRightOf="@id/etAddCloseFriend"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvAddCloseFriends" />
+
+    <TextView
+        android:id="@+id/tvRemoveCloseFriends"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="20dp"
+        android:text="To remove a close friend, select their username:"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/etAddCloseFriend" />
+
+    <Spinner
+        android:id="@+id/sRemoveCloseFriend"
+        app:layout_constraintTop_toBottomOf="@+id/tvRemoveCloseFriends"
+        android:layout_marginRight="118dp"
+        android:layout_marginLeft="30sp"
+        android:layout_marginTop="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:drawable/btn_dropdown"
+        android:spinnerMode="dropdown"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
