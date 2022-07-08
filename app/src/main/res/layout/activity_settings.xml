@@ -138,7 +138,7 @@
         android:layout_marginRight="100dp"
         android:layout_marginBottom="10dp"
         android:layout_weight="1"
-        android:backgroundTint="#F8BD7F"
+        android:backgroundTint="@color/new_color"
         android:text="Done!"
         tools:layout_height="50dp" />
 
