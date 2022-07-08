@@ -71,6 +71,12 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
             sTimeZoneDropdown.setSelection(ind);
         }
 
+        tMentionFriends.setChecked(currentUser2.getMentionFriends());
+        tFriendMentions.setChecked(currentUser2.getFriendMentions());
+        tMentionCloseFriends.setChecked(currentUser2.getMentionCloseFriends());
+        tCloseFriendMentions.setChecked(currentUser2.getCloseFriendMentions());
+
+
         tMentionFriends.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

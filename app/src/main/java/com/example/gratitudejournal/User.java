@@ -22,8 +22,8 @@ public class User extends ParseUser { //or is it ParseObject? does it matter?
 
     public static final String KEY_MENTIONFRIENDS = "mentionFriends";
     public static final String KEY_FRIENDMENTIONS = "friendMentionNotifs";
-    public static final String KEY_CLOSEFRIENDMENTIONS = "mentionCloseFriends";
-    public static final String KEY_MENTIONCLOSEFRIENDS = "closeFriendMentionNotifs";
+    public static final String KEY_CLOSEFRIENDMENTIONS = "closeFriendMentionNotifs";
+    public static final String KEY_MENTIONCLOSEFRIENDS = "mentionCloseFriends";
 
 
 
