@@ -61,7 +61,7 @@ public class User extends ParseUser { //or is it ParseObject? does it matter?
         return getJSONArray(KEY_CLOSEFRIENDS);
     }
 
-    public void setCloseFriends(String closeFriends) {
+    public void setCloseFriends(JSONArray closeFriends) {
         put(KEY_CLOSEFRIENDS, closeFriends);
     }
 

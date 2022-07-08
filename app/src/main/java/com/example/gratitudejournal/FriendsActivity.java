@@ -130,12 +130,120 @@ public class FriendsActivity extends AppCompatActivity {
                                     ex.printStackTrace();
                                 }
                             }
+                            for (int i = 0; i < closeFriends.length(); i++) {
+                                try {
+                                    if (closeFriends.get(i).getClass().equals(User.class)){
+                                        Log.i(TAG, "class issue");
+                                        User a = (User) closeFriends.get(i);
+                                        String uID = a.getObjectId();
+                                        if(nfID.equals(uID)) {
+                                            found = true;
+                                            Toast.makeText(FriendsActivity.this, "This user is already in your close friends list!", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                    else {
+                                        JSONObject a = (JSONObject) closeFriends.get(i);
+                                        String id = a.getString("objectId");
+                                        Log.i(TAG, "this HeLLO " + closeFriends);
+                                        if (nfID.equals(id)) {
+                                            Toast.makeText(FriendsActivity.this, "This user is already in your close friends list!", Toast.LENGTH_SHORT).show();
+                                            found = true;
+                                            break;
+                                        }
+                                    }
+
+                                } catch (JSONException ex) {
+                                    ex.printStackTrace();
+                                }
+                            }
                             if (found == false) {
                                 friends.put(newFriend);
                                 currentUser2.setFriends(friends);
                                 currentUser2.saveInBackground();
                                 Toast.makeText(FriendsActivity.this, "Friend added!", Toast.LENGTH_SHORT).show();
                                 etAddFriend.setText("");
+                            }
+                        }
+                        else {
+                            Toast.makeText(FriendsActivity.this, "User not found!", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            }
+        });
+
+
+        btnAddCloseFriend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String username = etAddCloseFriend.getText().toString();
+                ParseQuery<User> query = new ParseQuery(User.class);
+                query.whereEqualTo("username", username);
+                query.findInBackground(new FindCallback<User>() {
+                    @Override
+                    public void done(List<User> objects, ParseException e) {
+                        boolean found = false;
+                        if (objects.size() == 1){
+                            User newCloseFriend = objects.get(0);
+                            String nfID = newCloseFriend.getObjectId();
+                            for (int i = 0; i < closeFriends.length(); i++) {
+                                try {
+                                    if (closeFriends.get(i).getClass().equals(User.class)){
+                                        Log.i(TAG, "class issue");
+                                        User a = (User) closeFriends.get(i);
+                                        String uID = a.getObjectId();
+                                        if(nfID.equals(uID)) {
+                                            found = true;
+                                            Toast.makeText(FriendsActivity.this, "This user is already in your close friends list!", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                    else {
+                                        JSONObject a = (JSONObject) closeFriends.get(i);
+                                        String id = a.getString("objectId");
+                                        Log.i(TAG, "this HeLLO " + closeFriends);
+                                        if (nfID.equals(id)) {
+                                            Toast.makeText(FriendsActivity.this, "This user is already in your close friends list!", Toast.LENGTH_SHORT).show();
+                                            found = true;
+                                            break;
+                                        }
+                                    }
+
+                                } catch (JSONException ex) {
+                                    ex.printStackTrace();
+                                }
+                            }
+                            for (int i = 0; i < friends.length(); i++) {
+                                try {
+                                    if (friends.get(i).getClass().equals(User.class)){
+                                        Log.i(TAG, "class issue");
+                                        User a = (User) friends.get(i);
+                                        String uID = a.getObjectId();
+                                        if(nfID.equals(uID)) {
+                                            found = true;
+                                            Toast.makeText(FriendsActivity.this, "This user is already in your friends list!", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                    else {
+                                        JSONObject a = (JSONObject) friends.get(i);
+                                        String id = a.getString("objectId");
+                                        Log.i(TAG, "this HeLLO " + friends);
+                                        if (nfID.equals(id)) {
+                                            Toast.makeText(FriendsActivity.this, "This user is already in your friends list!", Toast.LENGTH_SHORT).show();
+                                            found = true;
+                                            break;
+                                        }
+                                    }
+
+                                } catch (JSONException ex) {
+                                    ex.printStackTrace();
+                                }
+                            }
+                            if (found == false) {
+                                closeFriends.put(newCloseFriend);
+                                currentUser2.setCloseFriends(closeFriends);
+                                currentUser2.saveInBackground();
+                                Toast.makeText(FriendsActivity.this, "Close friend added!", Toast.LENGTH_SHORT).show();
+                                etAddCloseFriend.setText("");
                             }
                         }
                         else {
