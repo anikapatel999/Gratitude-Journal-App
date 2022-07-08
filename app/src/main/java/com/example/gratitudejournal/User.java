@@ -20,6 +20,12 @@ public class User extends ParseUser { //or is it ParseObject? does it matter?
     public static final String KEY_VISCLOSEFRIENDMENTIONS = "visCloseFriendMentions";
     public static final String KEY_TIMEZONE = "timeZone";
 
+    public static final String KEY_MENTIONFRIENDS = "mentionFriends";
+    public static final String KEY_FRIENDMENTIONS = "friendMentionNotifs";
+    public static final String KEY_CLOSEFRIENDMENTIONS = "mentionCloseFriends";
+    public static final String KEY_MENTIONCLOSEFRIENDS = "closeFriendMentionNotifs";
+
+
 
     public static final String KEY_USER = "user";
 
@@ -81,6 +87,39 @@ public class User extends ParseUser { //or is it ParseObject? does it matter?
 
     public String getTimeZone() {
         return getString(KEY_TIMEZONE);
+    }
+
+    public void setFriendMentions(boolean mentions) {
+        put(KEY_FRIENDMENTIONS, mentions);
+    }
+
+    public boolean getFriendMentions() {
+        return getBoolean(KEY_FRIENDMENTIONS);
+    }
+
+    public void setMentionFriends(boolean mentions) {
+        put(KEY_MENTIONFRIENDS, mentions);
+    }
+
+    public boolean getMentionFriends() {
+        return getBoolean(KEY_MENTIONFRIENDS);
+    }
+
+
+    public void setCloseFriendMentions(boolean mentions) {
+        put(KEY_CLOSEFRIENDMENTIONS, mentions);
+    }
+
+    public boolean getCloseFriendMentions() {
+        return getBoolean(KEY_CLOSEFRIENDMENTIONS);
+    }
+
+    public void setMentionCloseFriends(boolean mentions) {
+        put(KEY_MENTIONCLOSEFRIENDS, mentions);
+    }
+
+    public boolean getMentionCloseFriends() {
+        return getBoolean(KEY_MENTIONCLOSEFRIENDS);
     }
 
 }

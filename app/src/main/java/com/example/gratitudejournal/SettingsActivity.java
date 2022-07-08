@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -45,6 +46,7 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
         btnDone = findViewById(R.id.btnDone);
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.new_color)));
 
+
         btnDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,6 +70,59 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
             int ind = findIndex(currentTimezone);
             sTimeZoneDropdown.setSelection(ind);
         }
+
+        tMentionFriends.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                currentUser2.setMentionFriends(isChecked);
+                currentUser2.saveInBackground(new SaveCallback() {
+                    @Override
+                    public void done(ParseException e) {
+                        Log.i(TAG, "saved1");
+                    }
+                });
+            }
+        });
+
+        tFriendMentions.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                currentUser2.setFriendMentions(isChecked);
+                currentUser2.saveInBackground(new SaveCallback() {
+                    @Override
+                    public void done(ParseException e) {
+                        Log.i(TAG, "saved1");
+                    }
+                });
+            }
+        });
+
+        tMentionCloseFriends.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                currentUser2.setMentionCloseFriends(isChecked);
+                currentUser2.saveInBackground(new SaveCallback() {
+                    @Override
+                    public void done(ParseException e) {
+                        Log.i(TAG, "saved1");
+                    }
+                });
+            }
+        });
+
+        tCloseFriendMentions.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                currentUser2.setCloseFriendMentions(isChecked);
+                currentUser2.saveInBackground(new SaveCallback() {
+                    @Override
+                    public void done(ParseException e) {
+                        Log.i(TAG, "saved1");
+                    }
+                });
+            }
+        });
+
     }
 
     @Override
