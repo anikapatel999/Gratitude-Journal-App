@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
@@ -51,6 +52,7 @@ public class QuoteActivity extends AppCompatActivity {
     ArrayList<String> authors = new ArrayList<>();
     private TextView tvQuote;
     private TextView tvAuthor;
+    private TextView tvCredit;
     Animation fade_in_anim;
     // boolean sentToRootFinder = false;
 
@@ -62,6 +64,7 @@ public class QuoteActivity extends AppCompatActivity {
         setContentView(R.layout.activity_quote);
         tvQuote = findViewById(R.id.tvQuote);
         tvAuthor = findViewById(R.id.tvAuthor);
+        tvCredit = findViewById(R.id.tvCredit);
         fade_in_anim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in);
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.new_color)));
 
@@ -372,6 +375,8 @@ public class QuoteActivity extends AppCompatActivity {
                     tvQuote.setText(quotes.get(i));
                     tvAuthor.startAnimation(fade_in_anim);
                     tvAuthor.setText("- " + authors.get(i));
+                    tvCredit.startAnimation(fade_in_anim);
+                    tvCredit.setVisibility(View.VISIBLE);
                     set = true;
                     Log.i(TAG, "SET THE QUOTE FROM WORD SEARCH " + roots.get(j) + " " + quotes.get(i));
                     break;
