@@ -443,13 +443,13 @@ public class QuoteActivity extends AppCompatActivity {
 
         String[] skw = {};
 
-        if (moodScore >= 30) {
+        if (moodScore > 30) {
             skw = Arrays.copyOfRange(keywordArray, 0, 5);
         }
-        else if (moodScore < 30 && moodScore > -30 ){
+        else if (moodScore <= 30 && moodScore >= -30 ){
             skw = Arrays.copyOfRange(keywordArray, 4, 10);
         }
-        else if (moodScore <= -30){
+        else if (moodScore < -30){
             skw = Arrays.copyOfRange(keywordArray, 9, 15);
         }
 
