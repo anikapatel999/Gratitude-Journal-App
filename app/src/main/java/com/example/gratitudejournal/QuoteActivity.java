@@ -52,6 +52,7 @@ public class QuoteActivity extends AppCompatActivity {
     private TextView tvQuote;
     private TextView tvAuthor;
     Animation fade_in_anim;
+    // boolean sentToRootFinder = false;
 
 
     @Override
@@ -228,11 +229,13 @@ public class QuoteActivity extends AppCompatActivity {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    if (finalI1 == sw.length -1) {
+                    Log.i(TAG, "FINAL TO COMPARE: " + String.valueOf(finalI1) + " " + String.valueOf(sw.length - 1));
+                    if (finalI1 == sw.length - 1) {
                         for (int a = 0; a < 5; a++) {
                             synonyms.add(0, selectedKeywords[a]);
                         }
                         Log.i(TAG, ":)( " + synonyms);
+                        // sentToRootFinder = true;
                         rootFinder();
                     }
                 }
@@ -240,6 +243,14 @@ public class QuoteActivity extends AppCompatActivity {
                 @Override
                 public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
                     Log.i(TAG, sw[finalI] + " onFailure");
+                    if (finalI1 == sw.length - 1) {
+                        for (int a = 0; a < 5; a++) {
+                            synonyms.add(0, selectedKeywords[a]);
+                        }
+                        Log.i(TAG, ":)( " + synonyms);
+                        // sentToRootFinder = true;
+                        rootFinder();
+                    }
                 }
             });
             Log.i(TAG, "LIST OF SYNONYMS1 :) " + synonyms);
@@ -249,33 +260,57 @@ public class QuoteActivity extends AppCompatActivity {
     }
 
     private void rootFinder() {
+//        synonyms.clear();
+//        synonyms.add(0, "success");
+//        synonyms.add(1, "running");
+//        synonyms.add(2, "friendship");
+//        synonyms.add(3, "hello");
+
         String str = synonyms.get(0);
         Log.i(TAG, ":( " + synonyms.size());
         for (int i = 0; i < synonyms.size(); i++) {
             str = synonyms.get(i);
 
-            if (str.length() > 2 && str.substring(str.length() - 2).equals("es") || str.substring(str.length() - 2).equals("ed")) {
-                str = str.substring(0,str.length()-2);
-                synonyms.set(i, str);
+            Log.i(TAG, "FIRST: " + str.length());
+
+            if (str.length() > 4) {
+                if (str.substring(str.length() - 4).equals("ship") || str.substring(str.length() - 4).equals("ness")){
+                    str = str.substring(0, str.length() - 4);
+                    synonyms.set(i, str);
+                }
             }
-            else if (str.length() > 1 && str.substring(str.length() - 1).equals("s")) {
-                Log.i(TAG, "dlkfmvlfkdmbv");
-                str = str.substring(0,str.length()-1);
-                synonyms.set(i, str);
+
+            if (str.length() > 2) {
+                //Log.i(TAG, "THESE ARE 1: ");
+                if (str.substring(str.length() - 2).equals("es") || str.substring(str.length() - 2).equals("ed")) {
+                    //Log.i(TAG, "THESE ARE 2: ");
+                    str = str.substring(0,str.length()-2);
+                    synonyms.set(i, str);
+                    Log.i(TAG, "executed: " + str + " " + synonyms.get(i));
+                }
             }
-            else if (str.length() > 3 && str.substring(str.length() - 3).equals("ing")) {
-                str = str.substring(0,str.length()-3);
-                synonyms.set(i, str);
+            if (str.length() > 1) {
+                if (str.substring(str.length() - 1).equals("s")) {
+                    Log.i(TAG, "dlkfmvlfkdmbv");
+                    str = str.substring(0, str.length() - 1);
+                    synonyms.set(i, str);
+                }
             }
-            else if (str.length() > 4 && str.substring(str.length() - 4).equals("ship")) {
-                str = str.substring(0,str.length()-4);
-                synonyms.set(i, str);
+            if (str.length() > 3) {
+                if( str.substring(str.length() - 3).equals("ing") || str.substring(str.length() - 3).equals("ful") || str.substring(str.length() - 3).equals("est")) {
+                    str = str.substring(0, str.length() - 3);
+                    synonyms.set(i, str);
+                }
             }
-            else if (str.length() > 5 && str.substring(str.length() - 5).equals("ation")) {
-                str = str.substring(0,str.length()-5);
-                synonyms.set(i, str);
+
+            if (str.length() > 5) {
+                if (str.substring(str.length() - 5).equals("ation")) {
+                    str = str.substring(0, str.length() - 5);
+                    synonyms.set(i, str);
+                }
             }
         }
+        Log.i (TAG, "THESE ARE THE SYNONYMS" + synonyms);
         roots.addAll(synonyms);
         Log.i(TAG, "dlkfmvlfkdmbvaaa" + roots);
         getQuotes();

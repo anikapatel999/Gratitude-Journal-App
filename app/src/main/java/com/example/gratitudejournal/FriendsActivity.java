@@ -280,6 +280,7 @@ public class FriendsActivity extends AppCompatActivity {
         // setVisible(false);
         //finish();
     }
+
     public void onSettings(MenuItem item) {
         Intent intent = new Intent(FriendsActivity.this, SettingsActivity.class);
         startActivity(intent);
