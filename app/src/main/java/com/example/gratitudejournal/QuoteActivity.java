@@ -135,6 +135,7 @@ public class QuoteActivity extends AppCompatActivity {
             // check if the user skipped any of the last 7 moods
             for (int i = 0; i < allEntries.size(); i++){
                 if(allEntries.get(i).getMood().equals("skip") || allEntries.get(i).getMood().equals("No mood selected")) {
+                    Log.i(TAG, "calc" + allEntries.get(i).getMood() + " " + allEntries.get(i).getCreatedAt());
                     sevenMoodsSelected = false;
                 }
             }
@@ -162,14 +163,6 @@ public class QuoteActivity extends AppCompatActivity {
             selectedKeywords = Arrays.copyOfRange(keywordArray, 4, 10);
             Log.i(TAG, "kw4 " + Arrays.toString(selectedKeywords));
         }
-
-
-        //TODO: Once you get the API key, you can do this once for each keyword.
-        // For now, I'm just doing the same random call 5 times. If you can't get the API key,
-        // use the keywords you selected the same way as you're planning to use the words
-        // from the user's previous entry (so like append those 5 words to the array of the
-        // longest few words from the entry, cut off the endings, and search through all the
-        // quotes for that root, and return it if found).
 
         String entryText = allEntries.get(0).getText();
         //entryText = "I would love to have a dog, dogs are very fun, yes :)";
@@ -468,19 +461,19 @@ public class QuoteActivity extends AppCompatActivity {
         //ADD AND SUBTRACT BASED ON THE MOODS OF THE PREVIOUS 6 DAYS
         for (int i = 1; i < allEntries.size(); i++) {
             if (allEntries.get(i).getMood().equals ("Terrible")) {
-                moodScore = moodScore - 2;
+                moodScore = moodScore - 3;
             }
             else if (allEntries.get(i).getMood().equals ("Bad")) {
-                moodScore = moodScore - 1;
+                moodScore = moodScore - 1.5;
             }
             else if (allEntries.get(i).getMood().equals ("Okay")) {
                 moodScore = moodScore + 0;
             }
             else if (allEntries.get(i).getMood().equals ("Good")) {
-                moodScore = moodScore + 1;
+                moodScore = moodScore + 1.5;
             }
             else if (allEntries.get(i).getMood().equals ("Amazing")) {
-                moodScore = moodScore + 2;
+                moodScore = moodScore + 3;
             }
         }
         Log.i(TAG, "calcTotalMoodScore: " + moodScore);
