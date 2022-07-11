@@ -408,9 +408,10 @@ public class FriendsActivity extends AppCompatActivity implements AdapterView.On
     }
 
     private void setRemoveCloseFriends() {
-        String[] closeFriendArray = new String[closeFriendUsernames.size()];
-        for (int i = 0; i < closeFriendUsernames.size(); i++){
-            closeFriendArray[i] = closeFriendUsernames.get(i);
+        String[] closeFriendArray = new String[closeFriendUsernames.size()+1];
+        closeFriendArray[0] = "---";
+        for (int i = 1; i < closeFriendUsernames.size() + 1; i++){
+            closeFriendArray[i] = closeFriendUsernames.get(i-1);
         }
         ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, closeFriendArray);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -477,33 +478,71 @@ public class FriendsActivity extends AppCompatActivity implements AdapterView.On
         Log.i(TAG, "oneee: " + parent.getId());
         Log.i(TAG, "oneee: " + view);
 
-        if(position != 0){
-            switch (parent.getId()) {
-                case R.id.sRemoveFriend:
-                    Log.i(TAG, "twooo");
-                    removeFriend(position);
-//            case R.id.sRemoveCloseFriend:
-//                //Log.i(TAG, "twoooooo");
-//                //removeCloseFriend(position);
+        if(position != 0) {
+            if (parent.getId() == R.id.sRemoveFriend) {
+                Log.i(TAG, "yes!!");
+                removeFriend(position);
+            }
+            if (parent.getId() == R.id.sRemoveCloseFriend) {
+                Log.i(TAG, "no!!");
+                removeCloseFriend(position);
             }
         }
     }
 
     private void removeCloseFriend(int position) {
+        String closeFriendToRemove = closeFriendUsernames.get(position-1);
+        ParseQuery<User> query = new ParseQuery(User.class);
+        query.whereEqualTo("username", closeFriendToRemove);
+        query.findInBackground(new FindCallback<User>() {
+            @Override
+            public void done(List<User> objects, ParseException e) {
+                if (objects.size() == 1) {
+                    User goneCloseFriend = objects.get(0);
+                    String nfID = goneCloseFriend.getObjectId();
+                    for (int i = 0; i < closeFriends.length(); i++) {
+                        try {
+                            if (closeFriends.get(i).getClass().equals(User.class)) {
+                                Log.i(TAG, "class issue");
+                                User a = (User) closeFriends.get(i);
+                                String uID = a.getObjectId();
+                                if (nfID.equals(uID)) {
+                                    closeFriends.remove(i);
+                                    Toast.makeText(FriendsActivity.this, "Close friend removed!", Toast.LENGTH_SHORT).show();
+                                    ParseUser currentUser = ParseUser.getCurrentUser();
+                                    User currentUser2 = (User) currentUser;
+                                    currentUser2.setCloseFriends(closeFriends);
+                                    currentUser2.saveInBackground();
+                                    //getFriendUsernames();
+                                    break;
+                                }
+                            } else {
+                                JSONObject a = (JSONObject) closeFriends.get(i);
+                                String id = a.getString("objectId");
+                                Log.i(TAG, "this HeLLO " + closeFriends);
+                                if (nfID.equals(id)) {
+                                    closeFriends.remove(i);
+                                    Toast.makeText(FriendsActivity.this, "close Friend removed!", Toast.LENGTH_SHORT).show();
+                                    ParseUser currentUser = ParseUser.getCurrentUser();
+                                    User currentUser2 = (User) currentUser;
+                                    currentUser2.setCloseFriends(closeFriends);
+                                    currentUser2.saveInBackground();
+                                    //getCloseFriendUsernames();
+                                    break;
+                                }
+                            }
+
+                        } catch (JSONException ex) {
+                            ex.printStackTrace();
+                        }
+                    }
+                }
+            }
+        });
+
     }
 
     private void removeFriend(int position) {
-//        ParseUser currentUser = ParseUser.getCurrentUser();
-//        User currentUser2 = (User) currentUser;
-//        friends.remove(position);
-//        currentUser2.setFriends(friends);
-//        currentUser2.saveInBackground(new SaveCallback() {
-//            @Override
-//            public void done(ParseException e) {
-//                Log.i(TAG, "attempted saving");
-//                getFriendUsernames();
-//            }
-//        });
         String friendToRemove = friendUsernames.get(position-1);
         ParseQuery<User> query = new ParseQuery(User.class);
         query.whereEqualTo("username", friendToRemove);
@@ -526,6 +565,8 @@ public class FriendsActivity extends AppCompatActivity implements AdapterView.On
                                     User currentUser2 = (User) currentUser;
                                     currentUser2.setFriends(friends);
                                     currentUser2.saveInBackground();
+                                    //getFriendUsernames();
+                                    //Activity.recreate();
                                     break;
                                 }
                             } else {
@@ -539,6 +580,7 @@ public class FriendsActivity extends AppCompatActivity implements AdapterView.On
                                     User currentUser2 = (User) currentUser;
                                     currentUser2.setFriends(friends);
                                     currentUser2.saveInBackground();
+                                    //getFriendUsernames();
                                     break;
                                 }
                             }
