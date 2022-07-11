@@ -566,7 +566,7 @@ public class FriendsActivity extends AppCompatActivity implements AdapterView.On
                                     currentUser2.setFriends(friends);
                                     currentUser2.saveInBackground();
                                     //getFriendUsernames();
-                                    //Activity.recreate();
+                                    recreate();
                                     break;
                                 }
                             } else {
@@ -581,6 +581,7 @@ public class FriendsActivity extends AppCompatActivity implements AdapterView.On
                                     currentUser2.setFriends(friends);
                                     currentUser2.saveInBackground();
                                     //getFriendUsernames();
+                                    recreate();
                                     break;
                                 }
                             }
