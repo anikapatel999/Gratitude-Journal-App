@@ -85,6 +85,11 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/sRemoveFriend" />
 
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:ignore="MissingConstraints" />
+
         <androidx.cardview.widget.CardView
             android:id="@+id/cvFriendsList"
             android:onClick="expandFriendsList"
@@ -125,7 +130,6 @@
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>
-
 
     <View
         android:id="@+id/vLine"

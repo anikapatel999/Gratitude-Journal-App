@@ -1,6 +1,7 @@
 package com.example.gratitudejournal;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.animation.LayoutTransition;
 import android.content.Intent;
@@ -13,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -36,7 +38,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FriendsActivity extends AppCompatActivity {
+public class FriendsActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
 
     public static final String TAG = "FriendsActivity";
 
@@ -97,10 +99,8 @@ public class FriendsActivity extends AppCompatActivity {
         // Make list of friend usernames
         getFriendUsernames();
 
-
         // Make list of close friend usernames
         getCloseFriendUsernames();
-
 
         //FOR ADDING FRIENDS
         btnAddFriend.setOnClickListener(new View.OnClickListener() {
@@ -376,7 +376,9 @@ public class FriendsActivity extends AppCompatActivity {
         }
         Log.i(TAG, "text" + text);
         tvCloseFriendsList.setText(text);
+        //TODO: ADJUST HEIGHT SO ALL TEXT FITS or make it scrollable
         tvCloseFriendsList.setVisibility(View.VISIBLE);
+        setRemoveCloseFriends();
     }
 
     private void setFriendsCardView() {
@@ -394,7 +396,30 @@ public class FriendsActivity extends AppCompatActivity {
         }
         Log.i(TAG, "text" + text);
         tvFriendsList.setText(text);
+        //TODO: ADJUST HEIGHT SO ALL TEXT FITS or make it scrollable?
         tvFriendsList.setVisibility(View.VISIBLE);
+        setRemoveFriends();
+    }
+
+    private void setRemoveCloseFriends() {
+        String[] closeFriendArray = new String[closeFriendUsernames.size()];
+        for (int i = 0; i < closeFriendUsernames.size(); i++){
+            closeFriendArray[i] = closeFriendUsernames.get(i);
+        }
+        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, closeFriendArray);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        sRemoveCloseFriend.setAdapter(adapter);
+    }
+
+
+    private void setRemoveFriends() {
+        String[] friendArray = new String[friendUsernames.size()];
+        for (int i = 0; i < friendUsernames.size(); i++){
+            friendArray[i] = friendUsernames.get(i);
+        }
+        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, friendArray);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        sRemoveFriend.setAdapter(adapter);
     }
 
     @Override
@@ -437,5 +462,15 @@ public class FriendsActivity extends AppCompatActivity {
 
         TransitionManager.beginDelayedTransition(llCloseFriends, new AutoTransition());
         tvCloseFriendsList.setVisibility(a);
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        //TODO: IMPLEMENT
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+        //TODO: IMPLEMENT
     }
 }
