@@ -516,6 +516,7 @@ public class FriendsActivity extends AppCompatActivity implements AdapterView.On
                                     currentUser2.setCloseFriends(closeFriends);
                                     currentUser2.saveInBackground();
                                     //getFriendUsernames();
+                                    recreate();
                                     break;
                                 }
                             } else {
@@ -530,6 +531,7 @@ public class FriendsActivity extends AppCompatActivity implements AdapterView.On
                                     currentUser2.setCloseFriends(closeFriends);
                                     currentUser2.saveInBackground();
                                     //getCloseFriendUsernames();
+                                    recreate();
                                     break;
                                 }
                             }
