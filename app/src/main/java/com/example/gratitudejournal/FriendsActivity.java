@@ -30,6 +30,7 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.example.myapplication.User;
+import com.parse.SaveCallback;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -95,6 +96,10 @@ public class FriendsActivity extends AppCompatActivity implements AdapterView.On
         User currentUser2 = (User) currentUser;
         friends = currentUser2.getFriends();
         closeFriends = currentUser2.getCloseFriends();
+
+        sRemoveFriend.setOnItemSelectedListener(this);
+        sRemoveCloseFriend.setOnItemSelectedListener(this);
+
 
         // Make list of friend usernames
         getFriendUsernames();
@@ -317,11 +322,12 @@ public class FriendsActivity extends AppCompatActivity implements AdapterView.On
     }
 
     private void getFriendUsernames() {
+        Log.i(TAG, "called");
         for (int i = 0; i < friends.length(); i++) {
-            Log.i(TAG, "A: " + friendUsernames);
+            Log.i(TAG, "Aaay: " + friendUsernames);
             try {
                 if (friends.get(i).getClass().equals(User.class)) {
-                    Log.i(TAG, "B: " + friendUsernames);
+                    Log.i(TAG, "Bee: " + friendUsernames);
                     User a = (User) friends.get(i);
                     String currentUsername = a.getUsername();
                     friendUsernames.add(currentUsername);
@@ -332,14 +338,14 @@ public class FriendsActivity extends AppCompatActivity implements AdapterView.On
                 } else {
                     JSONObject a = (JSONObject) friends.get(i);
                     String temp = a.getString("objectId");
-                    Log.i(TAG, "C: " + temp);
+                    Log.i(TAG, "Cee: " + temp);
                     ParseQuery<User> query = new ParseQuery(User.class);
                     query.whereEqualTo("objectId", temp);
                     int finalI = i;
                     query.findInBackground(new FindCallback<User>() {
                         @Override
                         public void done(List<User> objects, ParseException e) {
-                            Log.i(TAG, "D: " + objects);
+                            Log.i(TAG, "Dee: " + objects);
                             // objects size is always 0
                             if (objects.size() == 1) {
                                 User friend = objects.get(0);
@@ -383,7 +389,7 @@ public class FriendsActivity extends AppCompatActivity implements AdapterView.On
 
     private void setFriendsCardView() {
         tvFriendsList.setVisibility(View.GONE);
-        Log.i(TAG, "aaaaa");
+        Log.i(TAG, "friends aaaaa");
         String text = friendUsernames.toString();
         if (text.contains("[")) {
             text = text.substring(1, text.length());
@@ -413,9 +419,10 @@ public class FriendsActivity extends AppCompatActivity implements AdapterView.On
 
 
     private void setRemoveFriends() {
-        String[] friendArray = new String[friendUsernames.size()];
-        for (int i = 0; i < friendUsernames.size(); i++){
-            friendArray[i] = friendUsernames.get(i);
+        String[] friendArray = new String[friendUsernames.size()+1];
+        friendArray[0] = "---";
+        for (int i = 1; i < friendUsernames.size() + 1; i++){
+            friendArray[i] = friendUsernames.get(i-1);
         }
         ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, friendArray);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -467,6 +474,82 @@ public class FriendsActivity extends AppCompatActivity implements AdapterView.On
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         //TODO: IMPLEMENT
+        Log.i(TAG, "oneee: " + parent.getId());
+        Log.i(TAG, "oneee: " + view);
+
+        if(position != 0){
+            switch (parent.getId()) {
+                case R.id.sRemoveFriend:
+                    Log.i(TAG, "twooo");
+                    removeFriend(position);
+//            case R.id.sRemoveCloseFriend:
+//                //Log.i(TAG, "twoooooo");
+//                //removeCloseFriend(position);
+            }
+        }
+    }
+
+    private void removeCloseFriend(int position) {
+    }
+
+    private void removeFriend(int position) {
+//        ParseUser currentUser = ParseUser.getCurrentUser();
+//        User currentUser2 = (User) currentUser;
+//        friends.remove(position);
+//        currentUser2.setFriends(friends);
+//        currentUser2.saveInBackground(new SaveCallback() {
+//            @Override
+//            public void done(ParseException e) {
+//                Log.i(TAG, "attempted saving");
+//                getFriendUsernames();
+//            }
+//        });
+        String friendToRemove = friendUsernames.get(position-1);
+        ParseQuery<User> query = new ParseQuery(User.class);
+        query.whereEqualTo("username", friendToRemove);
+        query.findInBackground(new FindCallback<User>() {
+            @Override
+            public void done(List<User> objects, ParseException e) {
+                if (objects.size() == 1) {
+                    User goneFriend = objects.get(0);
+                    String nfID = goneFriend.getObjectId();
+                    for (int i = 0; i < friends.length(); i++) {
+                        try {
+                            if (friends.get(i).getClass().equals(User.class)) {
+                                Log.i(TAG, "class issue");
+                                User a = (User) friends.get(i);
+                                String uID = a.getObjectId();
+                                if (nfID.equals(uID)) {
+                                    friends.remove(i);
+                                    Toast.makeText(FriendsActivity.this, "Friend removed!", Toast.LENGTH_SHORT).show();
+                                    ParseUser currentUser = ParseUser.getCurrentUser();
+                                    User currentUser2 = (User) currentUser;
+                                    currentUser2.setFriends(friends);
+                                    currentUser2.saveInBackground();
+                                    break;
+                                }
+                            } else {
+                                JSONObject a = (JSONObject) friends.get(i);
+                                String id = a.getString("objectId");
+                                Log.i(TAG, "this HeLLO " + friends);
+                                if (nfID.equals(id)) {
+                                    friends.remove(i);
+                                    Toast.makeText(FriendsActivity.this, "Friend removed!", Toast.LENGTH_SHORT).show();
+                                    ParseUser currentUser = ParseUser.getCurrentUser();
+                                    User currentUser2 = (User) currentUser;
+                                    currentUser2.setFriends(friends);
+                                    currentUser2.saveInBackground();
+                                    break;
+                                }
+                            }
+
+                        } catch (JSONException ex) {
+                            ex.printStackTrace();
+                        }
+                    }
+            }
+        }
+    });
     }
 
     @Override
