@@ -95,93 +95,11 @@ public class FriendsActivity extends AppCompatActivity {
         closeFriends = currentUser2.getCloseFriends();
 
         // Make list of friend usernames
-        for (int i = 0; i < friends.length(); i++) {
-            Log.i(TAG, "A: " + friendUsernames);
-            try {
-                if (friends.get(i).getClass().equals(User.class)) {
-                    Log.i(TAG, "B: " + friendUsernames);
-                    User a = (User) friends.get(i);
-                    String currentUsername = a.getUsername();
-                    friendUsernames.add(currentUsername);
-                    if (friendUsernames.size() == friends.length()) {
-                        Log.i(TAG, "USER FRIEND USERNAMES LIST" + friendUsernames);
-                        setFriendsCardView();
-                    }
-                } else {
-                    JSONObject a = (JSONObject) friends.get(i);
-                    String temp = a.getString("objectId");
-                    Log.i(TAG, "C: " + temp);
-                    ParseQuery<User> query = new ParseQuery(User.class);
-                    query.whereEqualTo("objectId", temp);
-                    int finalI = i;
-                    query.findInBackground(new FindCallback<User>() {
-                        @Override
-                        public void done(List<User> objects, ParseException e) {
-                            Log.i(TAG, "D: " + objects);
-                            // objects size is always 0
-                            if (objects.size() == 1) {
-                                User friend = objects.get(0);
-                                String currentUsername2 = friend.getUsername();
-                                friendUsernames.add(currentUsername2);
-                                Log.i(TAG, "AA" + friendUsernames + " " + finalI + " " + (friends.length() - 1));
-                                if (friendUsernames.size() == friends.length()) {
-                                    Log.i(TAG, "FRIEND USERNAMES LIST" + friendUsernames);
-                                    setFriendsCardView();
-                                }
-                            }
-                        }
-                    });
-                }
-
-            } catch (JSONException ex) {
-                ex.printStackTrace();
-            }
-        }
+        getFriendUsernames();
 
 
         // Make list of close friend usernames
-        for (int i = 0; i < closeFriends.length(); i++) {
-            Log.i(TAG, "A: " + closeFriendUsernames);
-            try {
-                if (closeFriends.get(i).getClass().equals(User.class)) {
-                    Log.i(TAG, "B: " + closeFriendUsernames);
-                    User a = (User) closeFriends.get(i);
-                    String currentUsername = a.getUsername();
-                    closeFriendUsernames.add(currentUsername);
-                    if (closeFriendUsernames.size() == closeFriends.length()) {
-                        Log.i(TAG, "CLOSE FRIEND USERNAMES LIST" + closeFriendUsernames);
-                        setCloseFriendsCardView();
-                    }
-                } else {
-                    JSONObject a = (JSONObject) closeFriends.get(i);
-                    String temp = a.getString("objectId");
-                    Log.i(TAG, "C: " + temp);
-                    ParseQuery<User> query2 = new ParseQuery(User.class);
-                    query2.whereEqualTo("objectId", temp);
-                    int finalI = i;
-                    query2.findInBackground(new FindCallback<User>() {
-                        @Override
-                        public void done(List<User> objects, ParseException e) {
-                            Log.i(TAG, "D: " + objects);
-                            // objects size is always 0
-                            if (objects.size() == 1) {
-                                User closeFriend = objects.get(0);
-                                String currentUsername2 = closeFriend.getUsername();
-                                closeFriendUsernames.add(currentUsername2);
-                                Log.i(TAG, "AA" + closeFriendUsernames + " " + finalI + " " + (closeFriends.length() - 1));
-                                if (closeFriendUsernames.size() == closeFriends.length()) {
-                                    Log.i(TAG, "CLOSE FRIEND USERNAMES LIST" + closeFriendUsernames);
-                                    setCloseFriendsCardView();
-                                }
-                            }
-                        }
-                    });
-                }
-
-            } catch (JSONException ex) {
-                ex.printStackTrace();
-            }
-        }
+        getCloseFriendUsernames();
 
 
         //FOR ADDING FRIENDS
@@ -257,6 +175,7 @@ public class FriendsActivity extends AppCompatActivity {
                                     currentUser2.saveInBackground();
                                     Toast.makeText(FriendsActivity.this, "Friend added!", Toast.LENGTH_SHORT).show();
                                     etAddFriend.setText("");
+                                    getFriendUsernames();
                                 }
                             } else {
                                 Toast.makeText(FriendsActivity.this, "User not found!", Toast.LENGTH_SHORT).show();
@@ -339,6 +258,7 @@ public class FriendsActivity extends AppCompatActivity {
                                     currentUser2.saveInBackground();
                                     Toast.makeText(FriendsActivity.this, "Close friend added!", Toast.LENGTH_SHORT).show();
                                     etAddCloseFriend.setText("");
+                                    getCloseFriendUsernames();
                                 }
                             } else {
                                 Toast.makeText(FriendsActivity.this, "User not found!", Toast.LENGTH_SHORT).show();
@@ -349,10 +269,100 @@ public class FriendsActivity extends AppCompatActivity {
             }
         });
 
+    }
 
+    private void getCloseFriendUsernames() {
+        for (int i = 0; i < closeFriends.length(); i++) {
+            Log.i(TAG, "A: " + closeFriendUsernames);
+            try {
+                if (closeFriends.get(i).getClass().equals(User.class)) {
+                    Log.i(TAG, "B: " + closeFriendUsernames);
+                    User a = (User) closeFriends.get(i);
+                    String currentUsername = a.getUsername();
+                    closeFriendUsernames.add(currentUsername);
+                    if (closeFriendUsernames.size() == closeFriends.length()) {
+                        Log.i(TAG, "CLOSE FRIEND USERNAMES LIST" + closeFriendUsernames);
+                        setCloseFriendsCardView();
+                    }
+                } else {
+                    JSONObject a = (JSONObject) closeFriends.get(i);
+                    String temp = a.getString("objectId");
+                    Log.i(TAG, "C: " + temp);
+                    ParseQuery<User> query2 = new ParseQuery(User.class);
+                    query2.whereEqualTo("objectId", temp);
+                    int finalI = i;
+                    query2.findInBackground(new FindCallback<User>() {
+                        @Override
+                        public void done(List<User> objects, ParseException e) {
+                            Log.i(TAG, "D: " + objects);
+                            // objects size is always 0
+                            if (objects.size() == 1) {
+                                User closeFriend = objects.get(0);
+                                String currentUsername2 = closeFriend.getUsername();
+                                closeFriendUsernames.add(currentUsername2);
+                                Log.i(TAG, "AA" + closeFriendUsernames + " " + finalI + " " + (closeFriends.length() - 1));
+                                if (closeFriendUsernames.size() == closeFriends.length()) {
+                                    Log.i(TAG, "CLOSE FRIEND USERNAMES LIST" + closeFriendUsernames);
+                                    setCloseFriendsCardView();
+                                }
+                            }
+                        }
+                    });
+                }
+
+            } catch (JSONException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+
+    private void getFriendUsernames() {
+        for (int i = 0; i < friends.length(); i++) {
+            Log.i(TAG, "A: " + friendUsernames);
+            try {
+                if (friends.get(i).getClass().equals(User.class)) {
+                    Log.i(TAG, "B: " + friendUsernames);
+                    User a = (User) friends.get(i);
+                    String currentUsername = a.getUsername();
+                    friendUsernames.add(currentUsername);
+                    if (friendUsernames.size() == friends.length()) {
+                        Log.i(TAG, "USER FRIEND USERNAMES LIST" + friendUsernames);
+                        setFriendsCardView();
+                    }
+                } else {
+                    JSONObject a = (JSONObject) friends.get(i);
+                    String temp = a.getString("objectId");
+                    Log.i(TAG, "C: " + temp);
+                    ParseQuery<User> query = new ParseQuery(User.class);
+                    query.whereEqualTo("objectId", temp);
+                    int finalI = i;
+                    query.findInBackground(new FindCallback<User>() {
+                        @Override
+                        public void done(List<User> objects, ParseException e) {
+                            Log.i(TAG, "D: " + objects);
+                            // objects size is always 0
+                            if (objects.size() == 1) {
+                                User friend = objects.get(0);
+                                String currentUsername2 = friend.getUsername();
+                                friendUsernames.add(currentUsername2);
+                                Log.i(TAG, "AA" + friendUsernames + " " + finalI + " " + (friends.length() - 1));
+                                if (friendUsernames.size() == friends.length()) {
+                                    Log.i(TAG, "FRIEND USERNAMES LIST" + friendUsernames);
+                                    setFriendsCardView();
+                                }
+                            }
+                        }
+                    });
+                }
+
+            } catch (JSONException ex) {
+                ex.printStackTrace();
+            }
+        }
     }
 
     private void setCloseFriendsCardView() {
+        tvCloseFriendsList.setVisibility(View.GONE);
         Log.i(TAG, "aaaaa");
         String text = closeFriendUsernames.toString();
         if (text.contains("[")) {
@@ -366,9 +376,11 @@ public class FriendsActivity extends AppCompatActivity {
         }
         Log.i(TAG, "text" + text);
         tvCloseFriendsList.setText(text);
+        tvCloseFriendsList.setVisibility(View.VISIBLE);
     }
 
     private void setFriendsCardView() {
+        tvFriendsList.setVisibility(View.GONE);
         Log.i(TAG, "aaaaa");
         String text = friendUsernames.toString();
         if (text.contains("[")) {
@@ -382,6 +394,7 @@ public class FriendsActivity extends AppCompatActivity {
         }
         Log.i(TAG, "text" + text);
         tvFriendsList.setText(text);
+        tvFriendsList.setVisibility(View.VISIBLE);
     }
 
     @Override
