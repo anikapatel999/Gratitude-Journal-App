@@ -180,7 +180,8 @@ public class FriendsActivity extends AppCompatActivity implements AdapterView.On
                                     currentUser2.saveInBackground();
                                     Toast.makeText(FriendsActivity.this, "Friend added!", Toast.LENGTH_SHORT).show();
                                     etAddFriend.setText("");
-                                    getFriendUsernames();
+                                    //getFriendUsernames();
+                                    recreate();
                                 }
                             } else {
                                 Toast.makeText(FriendsActivity.this, "User not found!", Toast.LENGTH_SHORT).show();
@@ -263,7 +264,8 @@ public class FriendsActivity extends AppCompatActivity implements AdapterView.On
                                     currentUser2.saveInBackground();
                                     Toast.makeText(FriendsActivity.this, "Close friend added!", Toast.LENGTH_SHORT).show();
                                     etAddCloseFriend.setText("");
-                                    getCloseFriendUsernames();
+                                    recreate();
+                                    //getCloseFriendUsernames();
                                 }
                             } else {
                                 Toast.makeText(FriendsActivity.this, "User not found!", Toast.LENGTH_SHORT).show();
@@ -383,7 +385,7 @@ public class FriendsActivity extends AppCompatActivity implements AdapterView.On
         Log.i(TAG, "text" + text);
         tvCloseFriendsList.setText(text);
         //TODO: ADJUST HEIGHT SO ALL TEXT FITS or make it scrollable
-        tvCloseFriendsList.setVisibility(View.VISIBLE);
+        //tvCloseFriendsList.setVisibility(View.VISIBLE);
         setRemoveCloseFriends();
     }
 
@@ -403,7 +405,7 @@ public class FriendsActivity extends AppCompatActivity implements AdapterView.On
         Log.i(TAG, "text" + text);
         tvFriendsList.setText(text);
         //TODO: ADJUST HEIGHT SO ALL TEXT FITS or make it scrollable?
-        tvFriendsList.setVisibility(View.VISIBLE);
+       // tvFriendsList.setVisibility(View.VISIBLE);
         setRemoveFriends();
     }
 
@@ -565,7 +567,6 @@ public class FriendsActivity extends AppCompatActivity implements AdapterView.On
                                     User currentUser2 = (User) currentUser;
                                     currentUser2.setFriends(friends);
                                     currentUser2.saveInBackground();
-                                    //getFriendUsernames();
                                     recreate();
                                     break;
                                 }
@@ -580,7 +581,6 @@ public class FriendsActivity extends AppCompatActivity implements AdapterView.On
                                     User currentUser2 = (User) currentUser;
                                     currentUser2.setFriends(friends);
                                     currentUser2.saveInBackground();
-                                    //getFriendUsernames();
                                     recreate();
                                     break;
                                 }
@@ -597,6 +597,6 @@ public class FriendsActivity extends AppCompatActivity implements AdapterView.On
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
-        //TODO: IMPLEMENT
+        //TODO: IMPLEMENT or don't
     }
 }
