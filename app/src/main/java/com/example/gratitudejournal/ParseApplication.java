@@ -13,6 +13,7 @@ public class ParseApplication extends Application {
         super.onCreate();
 
         ParseObject.registerSubclass(com.example.myapplication.Entry.class);
+        ParseObject.registerSubclass(com.example.gratitudejournal.Mentions.class);
         ParseUser.registerSubclass(com.example.myapplication.User.class);
 
         Parse.initialize(new Parse.Configuration.Builder(this)
