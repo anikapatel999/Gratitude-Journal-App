@@ -7,6 +7,7 @@ import com.parse.ParseUser;
 
 import org.json.JSONArray;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @ParseClassName("Entry")
@@ -14,6 +15,10 @@ public class Entry extends ParseObject {
     public static final String KEY_MOOD = "mood";
     public static final String KEY_USER = "user";
     public static final String KEY_TEXT = "text";
+    public static final String KEY_FRIENDMENTIONS = "friendMentions";
+    public static final String KEY_CLOSEFRIENDMENTIONS = "closeFriendMentions";
+
+
 
 //    public Entry () {
 //        super();
@@ -41,6 +46,22 @@ public class Entry extends ParseObject {
 
     public void setUser(ParseUser user) {
         put(KEY_USER, user);
+    }
+
+    public JSONArray getFriendMentions() {
+        return getJSONArray(KEY_FRIENDMENTIONS);
+    }
+
+    public void setFriendMentions(ArrayList<String> friendMentions) {
+        put(KEY_FRIENDMENTIONS, friendMentions);
+    }
+
+    public JSONArray getCloseFriendMentions() {
+        return getJSONArray(KEY_CLOSEFRIENDMENTIONS);
+    }
+
+    public void setCloseFriendMentions(ArrayList<String> closeFriendMentions) {
+        put(KEY_CLOSEFRIENDMENTIONS, closeFriendMentions);
     }
 
 

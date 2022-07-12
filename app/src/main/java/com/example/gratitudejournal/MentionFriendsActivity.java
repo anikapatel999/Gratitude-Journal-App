@@ -32,6 +32,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import com.example.myapplication.Entry;
+import com.example.myapplication.User;
+
 public class MentionFriendsActivity extends AppCompatActivity {
 
     public static final String TAG = "MentionFriendsActivity";
@@ -80,7 +83,8 @@ public class MentionFriendsActivity extends AppCompatActivity {
 
         // set up the cardviews
         ParseUser currentUser = ParseUser.getCurrentUser();
-        com.example.myapplication.User currentUser2 = (com.example.myapplication.User) currentUser;
+        User currentUser2 = (User) currentUser;
+        Entry entry = currentUser2.getCurrentEntry();
         friends = currentUser2.getFriends();
         closeFriends = currentUser2.getCloseFriends();
         getFriendUsernames();
@@ -90,7 +94,7 @@ public class MentionFriendsActivity extends AppCompatActivity {
         //  -1. check if either section is empty. If it's not empty, call methods that do the following:
         //      -1. split the usernames entered and put them into a list.
         //      -2. check if list.length() < 3
-        //      3. check if the usernames are actually in the list of friend/close friend usernames
+        //      -3. check if the usernames are actually in the list of friend/close friend usernames
         //          (if not, send a toast that "username" is not a friend/close friend)
         //      4. if they are, update the mentions columns of the entry's object in parse
         //          (add another column so you can differentiate between friends and close friends)
@@ -135,6 +139,12 @@ public class MentionFriendsActivity extends AppCompatActivity {
                         }
                         if(allMatches == true) {
                             Log.i(TAG, "allMatches for friends was true");
+                            entry.setFriendMentions(friendMentions);
+                            try {
+                                entry.save();
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
                         }
                     }
 
@@ -168,6 +178,12 @@ public class MentionFriendsActivity extends AppCompatActivity {
                         }
                         if(allMatches == true) {
                             Log.i(TAG, "allMatches for close friends was true");
+                            entry.setCloseFriendMentions(closeFriendMentions);
+                            try {
+                                entry.save();
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
                         }
                     }
 
