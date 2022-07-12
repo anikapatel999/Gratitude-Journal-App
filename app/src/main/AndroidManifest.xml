@@ -18,6 +18,9 @@
         android:theme="@style/Theme.GratitudeJournal"
         tools:targetApi="31">
         <activity
+            android:name=".MentionFriendsActivity"
+            android:exported="false" />
+        <activity
             android:name=".FriendsActivity"
             android:exported="false" />
         <activity

@@ -158,8 +158,8 @@ public class ComposeActivity extends AppCompatActivity {
                 y2 = touchEvent.getY();
 
                 if(x1 > x2) {
-                    Intent i = new Intent(ComposeActivity.this, QuoteActivity.class);
-//                    Intent i = new Intent(MoodActivity.this, QuoteActivity.class);
+                    //Intent i = new Intent(ComposeActivity.this, QuoteActivity.class);
+                    Intent i = new Intent(ComposeActivity.this, MentionFriendsActivity.class);
                     startActivity(i);
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                     Log.i("swiped left", "it worked");
@@ -203,4 +203,5 @@ public class ComposeActivity extends AppCompatActivity {
         // setVisible(false);
         //finish();
     }
+
 }

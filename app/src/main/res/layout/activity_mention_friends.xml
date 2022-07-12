@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MentionFriendsActivity">
+
+    <TextView
+        android:id="@+id/tvFriends"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="20dp"
+        android:text="Mention friends"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvFriendsList"
+        android:onClick="expandFriendsList"
+        android:layout_width="260dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="10dp"
+        app:contentPadding="10dp"
+        android:layout_marginTop="15dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvFriends"
+        tools:ignore="MissingConstraints" >
+
+        <LinearLayout
+            android:id="@+id/llFriends"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:animateLayoutChanges="true"
+            >
+
+            <TextView
+                android:id="@+id/tvFriendsCardviewText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Friends list:"
+                android:textSize="17sp"
+                />
+
+            <TextView
+                android:id="@+id/tvFriendsList"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:text="No friends added!"
+                tools:text="This is a list of friends usernames, which will be separated by commas and spaces and will maybe spill over onto multiple lines like this example text!" />
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/tvFriendsPrompt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="20dp"
+        android:text="Enter the usernames of up to 3 friends\nyou would like to mention, separated by commas"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cvFriendsList" />
+
+    <EditText
+        android:id="@+id/etFriends"
+        android:layout_width="260dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:hint="user1, user2, user3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvFriendsPrompt" />
+
+
+    <TextView
+        android:id="@+id/tvCloseFriends"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="15dp"
+        android:text="Mention close friends"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/etFriends"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvCloseFriendsList"
+        android:layout_width="260dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="15dp"
+        android:onClick="expandFriendsList"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="10dp"
+        app:contentPadding="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvCloseFriends"
+        tools:ignore="MissingConstraints">
+
+        <LinearLayout
+            android:id="@+id/llCloseFriends"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:animateLayoutChanges="true"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvCloseFriendsCardviewText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Close friends list:"
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/tvCloseFriendsList"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="No close friends added!"
+                android:visibility="gone"
+                tools:text="This is a list of close friends usernames, which will be separated by commas and spaces and will maybe spill over onto multiple lines like this example text!" />
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/tvCloseFriendsPrompt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="20dp"
+        android:text="Enter the usernames of up to 3 close friends\nyou would like to mention, separated by commas"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cvCloseFriendsList" />
+
+    <EditText
+        android:id="@+id/etCloseFriends"
+        android:layout_width="260dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:hint="user1, user2, user3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvCloseFriendsPrompt" />
+
+    <TextView
+        android:id="@+id/tvSwipeLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:text="@string/swipe_left_to_continue_skip"
+        android:textSize="12sp"
+        android:layout_marginEnd="30dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/etCloseFriends"
+        tools:ignore="MissingConstraints" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

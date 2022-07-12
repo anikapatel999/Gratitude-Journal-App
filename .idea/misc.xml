@@ -5,10 +5,11 @@
       <map>
         <entry key="../../Library/Android/sdk/platforms/android-32/data/res/layout/simple_spinner_item.xml" value="0.21784420289855072" />
         <entry key="app/src/main/res/layout/activity_calendar.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/activity_compose.xml" value="0.16576086956521738" />
+        <entry key="app/src/main/res/layout/activity_compose.xml" value="0.22976226806640626" />
         <entry key="app/src/main/res/layout/activity_friends.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_home.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.22382049560546877" />
+        <entry key="app/src/main/res/layout/activity_mention_friends.xml" value="0.21784420289855072" />
         <entry key="app/src/main/res/layout/activity_mood.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_quote.xml" value="0.23331888927394012" />
         <entry key="app/src/main/res/layout/activity_scroll.xml" value="0.17718227610868564" />
