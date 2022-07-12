@@ -89,6 +89,8 @@ public class MentionFriendsActivity extends AppCompatActivity {
         closeFriends = currentUser2.getCloseFriends();
         getFriendUsernames();
         getCloseFriendUsernames();
+        setEtFriends(entry.getFriendMentions());
+        setEtCloseFriends(entry.getCloseFriendMentions());
 
         // TODO: when the user saves the friends / close friends to mention, for each category:
         //  -1. check if either section is empty. If it's not empty, call methods that do the following:
@@ -96,7 +98,7 @@ public class MentionFriendsActivity extends AppCompatActivity {
         //      -2. check if list.length() < 3
         //      -3. check if the usernames are actually in the list of friend/close friend usernames
         //          (if not, send a toast that "username" is not a friend/close friend)
-        //      4. if they are, update the mentions columns of the entry's object in parse
+        //      -4. if they are, update the mentions columns of the entry's object in parse
         //          (add another column so you can differentiate between friends and close friends)
         //          and honestly just add the usernames to the array, don't mess with pointers
         //          thats unnecessarily messy and takes too many queries - you can just
@@ -188,10 +190,54 @@ public class MentionFriendsActivity extends AppCompatActivity {
                     }
 
                 }
+                else {
+                    // TODO: SET THE MENTIONS AS A NEW EMPTY ARRAY LIST
+                }
 
             }
         });
 
+    }
+
+    private void setEtCloseFriends(JSONArray closeFriendMentions) {
+        ArrayList<String> fm = new ArrayList<>();
+        for(int i = 0; i < closeFriendMentions.length(); i++){
+            try {
+                fm.add(closeFriendMentions.get(i).toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        Log.i(TAG, "greetings!");
+        String text = fm.toString();
+        if (text.contains("[")) {
+            text = text.substring(1, text.length());
+        }
+        if (text.contains("]")) {
+            text = text.substring(0, text.length()-1);
+        }
+        Log.i(TAG, "text wheee: " + text);
+        etCloseFriends.setText(text);    }
+
+    private void setEtFriends(JSONArray friendMentions) {
+        ArrayList<String> fm = new ArrayList<>();
+        for(int i = 0; i < friendMentions.length(); i++){
+            try {
+                fm.add(friendMentions.get(i).toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        Log.i(TAG, "greetings2!");
+        String text = fm.toString();
+        if (text.contains("[")) {
+            text = text.substring(1, text.length());
+        }
+        if (text.contains("]")) {
+            text = text.substring(0, text.length()-1);
+        }
+        Log.i(TAG, "text wheee: " + text);
+        etFriends.setText(text);
     }
 
     private ArrayList<String> getCloseFriendsArray(String inputCloseFriends) {
