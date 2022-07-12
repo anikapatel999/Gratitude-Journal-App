@@ -28,6 +28,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -152,6 +153,16 @@ public class MentionFriendsActivity extends AppCompatActivity {
 
                 }
 
+                else {
+                    ArrayList<String> temp = new ArrayList<>();
+                    entry.setFriendMentions(temp);
+                    try {
+                        entry.save();
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                }
+
                 if (!inputCloseFriends.equals("")) {
                     // call method that puts usernames into a list (splits it at the ", "
                     closeFriendMentions = getCloseFriendsArray(inputCloseFriends);
@@ -191,7 +202,13 @@ public class MentionFriendsActivity extends AppCompatActivity {
 
                 }
                 else {
-                    // TODO: SET THE MENTIONS AS A NEW EMPTY ARRAY LIST
+                    ArrayList<String> temp = new ArrayList<>();
+                    entry.setCloseFriendMentions(temp);
+                    try {
+                        entry.save();
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
                 }
 
             }
