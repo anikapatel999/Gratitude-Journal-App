@@ -87,9 +87,9 @@ public class MentionFriendsActivity extends AppCompatActivity {
         getCloseFriendUsernames();
 
         // TODO: when the user saves the friends / close friends to mention, for each category:
-        //  1. check if either section is empty. If it's not empty, call methods that do the following:
-        //      1. split the usernames entered and put them into a list.
-        //      2. check if list.length() < 3
+        //  -1. check if either section is empty. If it's not empty, call methods that do the following:
+        //      -1. split the usernames entered and put them into a list.
+        //      -2. check if list.length() < 3
         //      3. check if the usernames are actually in the list of friend/close friend usernames
         //          (if not, send a toast that "username" is not a friend/close friend)
         //      4. if they are, update the mentions columns of the entry's object in parse
@@ -108,13 +108,34 @@ public class MentionFriendsActivity extends AppCompatActivity {
                 ArrayList<String> closeFriendMentions = new ArrayList<>();
 
                 if (!inputFriends.equals("")) {
-                    // call method that puts usernames into a list (splits it at the ", "
                     friendMentions = getFriendsArray(inputFriends);
-                    if (friendMentions.size() >= 3) {
+                    if (friendMentions.size() > 3) {
                         Toast.makeText(MentionFriendsActivity.this, "You can only mention up to 3 friends", Toast.LENGTH_SHORT).show();
                     }
                     else {
+                        int[] friendMatches = new int[friendMentions.size()];
+                        for (int a = 0; a < friendMatches.length; a++) {
+                            friendMatches[a] = 0;
+                        }
                         // check that each element in friendMentions is in friendUsernames
+                        for (int i = 0; i < friendMentions.size(); i++) {
+                            for (int j = 0; j < friendUsernames.size(); j++) {
+                                if (friendMentions.get(i).equals(friendUsernames.get(j))){
+                                    friendMatches[i] = 1;
+                                }
+                            }
+                        }
+                        boolean allMatches = true;
+                        for (int k = 0; k < friendMatches.length; k++) {
+                            if (friendMatches[k] == 0) {
+                                Toast.makeText(MentionFriendsActivity.this, friendMentions.get(k) + " is not in your friends list", Toast.LENGTH_SHORT).show();
+                                allMatches = false;
+                                break;
+                            }
+                        }
+                        if(allMatches == true) {
+                            Log.i(TAG, "allMatches for friends was true");
+                        }
                     }
 
                 }
@@ -122,11 +143,32 @@ public class MentionFriendsActivity extends AppCompatActivity {
                 if (!inputCloseFriends.equals("")) {
                     // call method that puts usernames into a list (splits it at the ", "
                     closeFriendMentions = getCloseFriendsArray(inputCloseFriends);
-                    if (closeFriendMentions.size() >= 3) {
+                    if (closeFriendMentions.size() > 3) {
                         Toast.makeText(MentionFriendsActivity.this, "You can only mention up to 3 close friends", Toast.LENGTH_SHORT).show();
                     }
                     else {
-                        // check that each element in closeFriendMentions is in closeFriendUsernames
+                        int[] closeFriendMatches = new int[closeFriendMentions.size()];
+                        for (int a = 0; a < closeFriendMatches.length; a++) {
+                            closeFriendMatches[a] = 0;
+                        }
+                        for (int i = 0; i < closeFriendMentions.size(); i++) {
+                            for (int j = 0; j < closeFriendUsernames.size(); j++) {
+                                if (closeFriendMentions.get(i).equals(closeFriendUsernames.get(j))){
+                                    closeFriendMatches[i] = 1;
+                                }
+                            }
+                        }
+                        boolean allMatches = true;
+                        for (int k = 0; k < closeFriendMatches.length; k++) {
+                            if (closeFriendMatches[k] == 0) {
+                                Toast.makeText(MentionFriendsActivity.this, closeFriendMentions.get(k) + " is not in your close friends list", Toast.LENGTH_SHORT).show();
+                                allMatches = false;
+                                break;
+                            }
+                        }
+                        if(allMatches == true) {
+                            Log.i(TAG, "allMatches for close friends was true");
+                        }
                     }
 
                 }
