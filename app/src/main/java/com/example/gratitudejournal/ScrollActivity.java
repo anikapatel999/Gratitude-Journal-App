@@ -333,7 +333,13 @@ public class ScrollActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.actionbarmenu, menu);
+        menu.findItem(R.id.mentions).setVisible(false);
         return true;
+    }
+
+    public void onMentions(MenuItem item) {
+        Intent intent = new Intent(ScrollActivity.this, ViewMentionsActivity.class);
+        startActivity(intent);
     }
 
     public void onLogout(MenuItem item) {

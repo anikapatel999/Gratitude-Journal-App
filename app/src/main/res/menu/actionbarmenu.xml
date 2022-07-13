@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/logout"
         android:title="@string/log_out"
@@ -11,11 +11,19 @@
         android:id="@+id/home"
         android:title="@string/home"
         android:icon="@drawable/ic_baseline_home_24"
-        android:onClick="onHome"/>
+        android:onClick="onHome"
+        app:showAsAction="always"/>
 
     <item
         android:id="@+id/settings"
         android:title="@string/settings"
         android:icon="@drawable/ic_baseline_settings_24"
-        android:onClick="onSettings"/>
+        android:onClick="onSettings" />
+
+    <item
+        android:id="@+id/mentions"
+        android:title="mentions"
+        android:icon="@drawable/ic_baseline_mail_outline_24"
+        android:onClick="onMentions"
+        app:showAsAction="always"/>
 </menu>

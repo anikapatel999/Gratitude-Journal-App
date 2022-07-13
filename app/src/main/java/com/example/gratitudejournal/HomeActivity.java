@@ -121,6 +121,11 @@ public class HomeActivity extends AppCompatActivity {
         //finish();
     }
 
+    public void onMentions(MenuItem item) {
+        Intent intent = new Intent(HomeActivity.this, ViewMentionsActivity.class);
+        startActivity(intent);
+    }
+
     //TODO: add a method that performs alarmmanager's tasks in case alarmmanager doesn't fire:
     // at the top of onCreate, call this method. The method should:
     // 1. check if user has a current entry.
