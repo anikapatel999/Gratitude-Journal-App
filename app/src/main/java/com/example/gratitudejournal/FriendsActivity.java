@@ -38,6 +38,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import com.example.myapplication.Entry;
 
 public class FriendsActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
 
@@ -65,6 +66,9 @@ public class FriendsActivity extends AppCompatActivity implements AdapterView.On
 
     ArrayList<String> friendUsernames = new ArrayList<>();
     ArrayList<String> closeFriendUsernames = new ArrayList<>();
+
+//    JSONArray mentionedFriends = new JSONArray();
+//    JSONArray mentionedCloseFriends = new JSONArray();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,8 +104,25 @@ public class FriendsActivity extends AppCompatActivity implements AdapterView.On
         sRemoveFriend.setOnItemSelectedListener(this);
         sRemoveCloseFriend.setOnItemSelectedListener(this);
 
+//        if (currentUser2.getCurrentEntry() != null) {
+//            Entry lastEntry = currentUser2.getCurrentEntry();
+//            JSONArray mentionedFriends = null;
+//            try {
+//                mentionedFriends = lastEntry.fetchIfNeeded().getJSONArray("friendMentions");
+//                Log.i(TAG, String.valueOf(mentionedFriends));
+//            } catch (ParseException e) {
+//                e.printStackTrace();
+//            }
+//
+//            JSONArray mentionedCloseFriends = null;
+//            try {
+//                mentionedCloseFriends = lastEntry.fetchIfNeeded().getJSONArray("closeFriendMentions");
+//            } catch (ParseException e) {
+//                e.printStackTrace();
+//            }
+//        }
 
-        // Make list of friend usernames
+            // Make list of friend usernames
         getFriendUsernames();
 
         // Make list of close friend usernames
@@ -547,9 +568,26 @@ public class FriendsActivity extends AppCompatActivity implements AdapterView.On
     }
 
     private void removeFriend(int position) {
+        ParseUser cu = ParseUser.getCurrentUser();
+        User cu2 = (User) cu;
+        JSONArray mentionedFriends = new JSONArray();
+        JSONArray mentionedCloseFriends = new JSONArray();
+
+        if (cu2.getCurrentEntry() != null) {
+            Entry lastEntry = cu2.getCurrentEntry();
+            try {
+                mentionedFriends = lastEntry.fetchIfNeeded().getJSONArray("friendMentions");
+                Log.i(TAG, String.valueOf(mentionedFriends));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+
         String friendToRemove = friendUsernames.get(position-1);
         ParseQuery<User> query = new ParseQuery(User.class);
         query.whereEqualTo("username", friendToRemove);
+        JSONArray finalMentionedFriends = mentionedFriends;
+        JSONArray finalMentionedFriends1 = mentionedFriends;
         query.findInBackground(new FindCallback<User>() {
             @Override
             public void done(List<User> objects, ParseException e) {
@@ -562,7 +600,17 @@ public class FriendsActivity extends AppCompatActivity implements AdapterView.On
                                 Log.i(TAG, "class issue");
                                 User a = (User) friends.get(i);
                                 String uID = a.getObjectId();
-                                if (nfID.equals(uID)) {
+                                boolean friendMentioned = false;
+                                for (int u = 0; u < finalMentionedFriends.length(); u++) {
+                                    Log.i(TAG, "got to loop: " + friendToRemove + " " + finalMentionedFriends.get(u));
+                                    if (finalMentionedFriends.get(u).toString().equals(friendToRemove)) {
+                                        Log.i(TAG, "friend already mentioned");
+                                        Toast.makeText(FriendsActivity.this, "This friend is already mentioned in your journal entry. Please remove the mention and try again", Toast.LENGTH_LONG).show();
+                                        friendMentioned = true;
+                                        break;
+                                    }
+                                }
+                                if (nfID.equals(uID) && !friendMentioned) {
                                     friends.remove(i);
                                     Toast.makeText(FriendsActivity.this, "Friend removed!", Toast.LENGTH_SHORT).show();
                                     ParseUser currentUser = ParseUser.getCurrentUser();
@@ -576,7 +624,18 @@ public class FriendsActivity extends AppCompatActivity implements AdapterView.On
                                 JSONObject a = (JSONObject) friends.get(i);
                                 String id = a.getString("objectId");
                                 Log.i(TAG, "this HeLLO " + friends);
-                                if (nfID.equals(id)) {
+                                boolean friendMentioned = false;
+
+                                for (int u = 0; u < finalMentionedFriends1.length(); u++) {
+                                    Log.i(TAG, "got to loop: " + friendToRemove + " " + finalMentionedFriends1.get(u));
+                                    if (finalMentionedFriends1.get(u).toString().equals(friendToRemove)) {
+                                        Log.i(TAG, "friend already mentioned");
+                                        Toast.makeText(FriendsActivity.this, "This friend is already mentioned in your journal entry. Please remove the mention and try again", Toast.LENGTH_LONG).show();
+                                        friendMentioned = true;
+                                        break;
+                                    }
+                                }
+                                if (nfID.equals(id) && !friendMentioned) {
                                     friends.remove(i);
                                     Toast.makeText(FriendsActivity.this, "Friend removed!", Toast.LENGTH_SHORT).show();
                                     ParseUser currentUser = ParseUser.getCurrentUser();
