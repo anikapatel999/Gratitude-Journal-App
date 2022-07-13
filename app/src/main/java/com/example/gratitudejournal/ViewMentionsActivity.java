@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,6 +20,7 @@ import com.parse.ParseUser;
 import java.util.List;
 
 public class ViewMentionsActivity extends AppCompatActivity {
+    public static final String TAG = "ViewMentionsActivity";
     TextView tvNoNew;
     Button btnFriends;
     Button btnCloseFriends;
@@ -42,8 +44,16 @@ public class ViewMentionsActivity extends AppCompatActivity {
             public void done(List<Mentions> objects, ParseException e) {
                 if (objects.size() > 0) {
                     tvNoNew.setVisibility(TextView.GONE);
-                    btnFriends.setVisibility(View.VISIBLE);
-                    btnCloseFriends.setVisibility(View.VISIBLE);
+                    for(int i = 0; i < objects.size(); i++) {
+                        boolean closeFriend = (boolean)objects.get(i).get("closeFriend");
+                        Log.i(TAG, "lkdfvmdlkvm: " + closeFriend);
+                        if (closeFriend){
+                            btnCloseFriends.setVisibility(View.VISIBLE);
+                        }
+                        else {
+                            btnFriends.setVisibility(View.VISIBLE);
+                        }
+                    }
                 }
             }
         });
