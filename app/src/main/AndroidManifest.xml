@@ -18,6 +18,12 @@
         android:theme="@style/Theme.GratitudeJournal"
         tools:targetApi="31">
         <activity
+            android:name=".ViewCloseFriendMentionsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ViewFriendMentionsActivity"
+            android:exported="false" />
+        <activity
             android:name=".ViewMentionsActivity"
             android:exported="false" />
         <activity
