@@ -6,4 +6,46 @@
     android:layout_height="match_parent"
     tools:context=".ViewMentionsActivity">
 
+    <TextView
+        android:id="@+id/tvNoNew"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No new mentions!"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:textSize="25sp"
+        />
+
+    <Button
+        android:id="@+id/btnFriends"
+        android:layout_width="300dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="-120dp"
+        android:layout_weight="1"
+        android:backgroundTint="@color/new_color"
+        android:text="View friend mentions"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_goneMarginTop="300dp"
+        android:visibility="gone"
+        tools:layout_height="50dp" />
+
+    <Button
+        android:id="@+id/btnCloseFriends"
+        android:layout_width="300dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="50dp"
+        android:layout_weight="1"
+        android:backgroundTint="@color/new_color"
+        android:text="View close friend mentions"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnFriends"
+        android:visibility="gone"
+        tools:layout_height="50dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

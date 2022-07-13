@@ -34,7 +34,6 @@ public class HomeActivity extends AppCompatActivity {
     private com.airbnb.lottie.LottieAnimationView avCompose;
     private com.airbnb.lottie.LottieAnimationView avCalendar;
     private com.airbnb.lottie.LottieAnimationView avFriends;
-    protected List<Mentions> allMentions = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,24 +86,6 @@ public class HomeActivity extends AppCompatActivity {
         );
         setAlarm(calendar.getTimeInMillis());
 
-
-        // check for any mentions
-//        ParseUser currentUser = ParseUser.getCurrentUser();
-//        ParseQuery<Mentions> query = new ParseQuery(Mentions.class);
-//        query.whereEqualTo("toUser", currentUser.getUsername());
-//        query.findInBackground(new FindCallback<Mentions>() {
-//            @Override
-//            public void done(List<Mentions> objects, ParseException e) {
-//                Log.i(TAG, String.valueOf(allMentions));
-//                if (objects.size() > 0) {
-//                    allMentions.addAll(objects);
-//                    Log.i(TAG, "mentions: " + String.valueOf(allMentions));
-//                    //onCreateOptionsMenu(Menu menu);
-//
-//                }
-//            }
-//        });
-
     }
 
     private void setAlarm(long timeInMillis) {
@@ -123,12 +104,8 @@ public class HomeActivity extends AppCompatActivity {
         query.findInBackground(new FindCallback<Mentions>() {
             @Override
             public void done(List<Mentions> objects, ParseException e) {
-                Log.i(TAG, String.valueOf(allMentions));
                 if (objects.size() > 0) {
-                    allMentions.addAll(objects);
-                    Log.i(TAG, "mentions: " + String.valueOf(allMentions));
                     menu.findItem(R.id.mentions).setIcon(R.drawable.ic_baseline_notifications_active_24);
-                    //onCreateOptionsMenu(Menu menu);
 
                 }
             }
