@@ -15,9 +15,18 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
+
+import com.example.myapplication.User;
+import com.example.myapplication.Entry;
+import com.example.gratitudejournal.Mentions;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -25,6 +34,7 @@ public class HomeActivity extends AppCompatActivity {
     private com.airbnb.lottie.LottieAnimationView avCompose;
     private com.airbnb.lottie.LottieAnimationView avCalendar;
     private com.airbnb.lottie.LottieAnimationView avFriends;
+    protected List<Mentions> allMentions = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +76,6 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-
         Calendar calendar = Calendar.getInstance();
         calendar.set(
                 calendar.get(Calendar.YEAR),
@@ -77,6 +86,25 @@ public class HomeActivity extends AppCompatActivity {
                 0
         );
         setAlarm(calendar.getTimeInMillis());
+
+
+        // check for any mentions
+//        ParseUser currentUser = ParseUser.getCurrentUser();
+//        ParseQuery<Mentions> query = new ParseQuery(Mentions.class);
+//        query.whereEqualTo("toUser", currentUser.getUsername());
+//        query.findInBackground(new FindCallback<Mentions>() {
+//            @Override
+//            public void done(List<Mentions> objects, ParseException e) {
+//                Log.i(TAG, String.valueOf(allMentions));
+//                if (objects.size() > 0) {
+//                    allMentions.addAll(objects);
+//                    Log.i(TAG, "mentions: " + String.valueOf(allMentions));
+//                    //onCreateOptionsMenu(Menu menu);
+//
+//                }
+//            }
+//        });
+
     }
 
     private void setAlarm(long timeInMillis) {
@@ -89,6 +117,23 @@ public class HomeActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        ParseQuery<Mentions> query = new ParseQuery(Mentions.class);
+        query.whereEqualTo("toUser", currentUser.getUsername());
+        query.findInBackground(new FindCallback<Mentions>() {
+            @Override
+            public void done(List<Mentions> objects, ParseException e) {
+                Log.i(TAG, String.valueOf(allMentions));
+                if (objects.size() > 0) {
+                    allMentions.addAll(objects);
+                    Log.i(TAG, "mentions: " + String.valueOf(allMentions));
+                    menu.findItem(R.id.mentions).setIcon(R.drawable.ic_baseline_notifications_active_24);
+                    //onCreateOptionsMenu(Menu menu);
+
+                }
+            }
+        });
+
         getMenuInflater().inflate(R.menu.actionbarmenu, menu);
         // menu.findItem(R.id.home).setVisible(Visibility.GONE);
         return true;
@@ -97,6 +142,7 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         menu.findItem(R.id.home).setVisible(false);
+
         return super.onPrepareOptionsMenu(menu);
     }
 

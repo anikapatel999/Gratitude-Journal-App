@@ -23,7 +23,7 @@
     <item
         android:id="@+id/mentions"
         android:title="mentions"
-        android:icon="@drawable/ic_baseline_mail_outline_24"
+        android:icon="@drawable/ic_baseline_notifications_24"
         android:onClick="onMentions"
         app:showAsAction="always"/>
 </menu>

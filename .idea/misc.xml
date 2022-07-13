@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../Library/Android/sdk/platforms/android-32/data/res/layout/simple_spinner_item.xml" value="0.21784420289855072" />
+        <entry key="app/src/main/res/drawable/ic_baseline_notifications_24.xml" value="0.153" />
         <entry key="app/src/main/res/layout/activity_calendar.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_compose.xml" value="0.22976226806640626" />
         <entry key="app/src/main/res/layout/activity_friends.xml" value="0.1" />
