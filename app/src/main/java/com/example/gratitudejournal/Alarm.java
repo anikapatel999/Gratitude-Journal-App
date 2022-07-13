@@ -15,6 +15,7 @@ import com.parse.SaveCallback;
 import com.example.myapplication.Entry;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 
 public class Alarm extends BroadcastReceiver {
 
@@ -37,7 +38,68 @@ public class Alarm extends BroadcastReceiver {
         User currentUser2 = (User) currentUser;
         if (currentUser2.getCurrentEntry() != null) {
             //Log.i(TAG, currentUser2.getCurrentEntry().getText());
-                Entry lastEntry = currentUser2.getCurrentEntry();
+            Entry lastEntry = currentUser2.getCurrentEntry();
+
+            JSONArray fm = null;
+            try {
+                fm = lastEntry.fetchIfNeeded().getJSONArray("friendMentions");
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            JSONArray cfm = null;
+            try {
+                cfm = lastEntry.fetchIfNeeded().getJSONArray("closeFriendMentions");
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            String entryId = lastEntry.getObjectId();
+
+            Log.i(TAG, String.valueOf(fm));
+            Log.i(TAG, String.valueOf(cfm));
+            Log.i(TAG, String.valueOf(entryId));
+
+            if(fm.length() > 0) {
+                for (int i = 0; i < fm.length(); i++){
+                    Mentions mention = new Mentions();
+                    mention.setFromUser(currentUser.getUsername());
+                    try {
+                        mention.setToUser(fm.get(i).toString());
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    mention.setMentionedEntry(entryId);
+                    mention.setCloseFriend(false);
+                    try {
+                        mention.save();
+                        Log.i(TAG, "friend mention saved");
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            if (cfm.length() > 0) {
+                for (int i = 0; i < cfm.length(); i++){
+                    Mentions mention = new Mentions();
+                    mention.setFromUser(currentUser.getUsername());
+                    try {
+                        mention.setToUser(cfm.get(i).toString());
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    mention.setMentionedEntry(entryId);
+                    mention.setCloseFriend(true);
+                    try {
+                        mention.save();
+                        Log.i(TAG, "close friend mention saved");
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
                 String mood = null; //getMood();
                 try {
                     mood = currentUser2.getCurrentEntry().fetchIfNeeded().getString("mood");
@@ -79,6 +141,10 @@ public class Alarm extends BroadcastReceiver {
                 }
 
                 if(mood.equals("skip") && text.equals("No entry")){
+                    lastEntry.deleteInBackground();
+                }
+
+                if(mood.equals("No mood selected") && text.equals("No entry")){
                     lastEntry.deleteInBackground();
                 }
 

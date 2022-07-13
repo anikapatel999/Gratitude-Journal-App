@@ -15,6 +15,7 @@ public class Mentions extends ParseObject {
     public static final String KEY_FROMUSER = "fromUser";
     public static final String KEY_TOUSER = "toUser";
     public static final String KEY_ENTRY = "entry";
+    public static final String KEY_CLOSEFRIEND = "closeFriend";
 
 
 
@@ -44,6 +45,14 @@ public class Mentions extends ParseObject {
 
     public void setMentionedEntry(String entry) {
         put(KEY_ENTRY, entry);
+    }
+
+    public boolean getCloseFriend() {
+        return getBoolean(KEY_CLOSEFRIEND);
+    }
+
+    public void setCloseFriend(boolean closeFriend) {
+        put(KEY_CLOSEFRIEND, closeFriend);
     }
 
 }
