@@ -26,7 +26,7 @@ public class ViewFriendMentionsActivity extends AppCompatActivity {
 
     ListView lvFriends;
 
-    public static final String TAG = "ViewMentionsActivity";
+    public static final String TAG = "ViewFriendMentionsActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,12 +37,8 @@ public class ViewFriendMentionsActivity extends AppCompatActivity {
 
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.new_color)));
 
-        //ArrayList<String> friendUsernames = getIntent().getStringArrayExtra("friends");
         ArrayList<String> friendUsernames = getIntent().getStringArrayListExtra("friends");
         ArrayList<String> entryIds = getIntent().getStringArrayListExtra("entryIds");
-
-        Log.i(TAG, "aaaaa" + String.valueOf(friendUsernames));
-
         ArrayList<String> userFreq = new ArrayList<>();
 
         Set<String> distinct = new HashSet<>(friendUsernames);
@@ -60,9 +56,9 @@ public class ViewFriendMentionsActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(ViewFriendMentionsActivity.this, android.R.layout.simple_list_item_1, userFreq);
         lvFriends.setAdapter(adapter);
 
-        Set<String> set = new HashSet<>(friendUsernames);
-        friendUsernames.clear();
-        friendUsernames.addAll(set);
+//        Set<String> set = new HashSet<>(friendUsernames);
+//        friendUsernames.clear();
+//        friendUsernames.addAll(set);
 
         for (int i = 0; i < entryIds.size(); i++) {
             ParseUser currentUser = ParseUser.getCurrentUser();

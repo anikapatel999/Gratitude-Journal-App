@@ -17,6 +17,7 @@
         <entry key="app/src/main/res/layout/activity_settings.xml" value="0.25205230712890625" />
         <entry key="app/src/main/res/layout/activity_signup.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_time_zone.xml" value="0.1671195652173913" />
+        <entry key="app/src/main/res/layout/activity_view_close_friend_entries.xml" value="0.24818840579710144" />
         <entry key="app/src/main/res/layout/activity_view_close_friend_mentions.xml" value="0.21829710144927536" />
         <entry key="app/src/main/res/layout/activity_view_friend_mentions.xml" value="0.21829710144927536" />
         <entry key="app/src/main/res/layout/activity_view_mentions.xml" value="0.21829710144927536" />
