@@ -39,6 +39,8 @@ public class ViewFriendMentionsActivity extends AppCompatActivity {
 
         //ArrayList<String> friendUsernames = getIntent().getStringArrayExtra("friends");
         ArrayList<String> friendUsernames = getIntent().getStringArrayListExtra("friends");
+        ArrayList<String> entryIds = getIntent().getStringArrayListExtra("entryIds");
+
         Log.i(TAG, "aaaaa" + String.valueOf(friendUsernames));
 
         ArrayList<String> userFreq = new ArrayList<>();
@@ -58,6 +60,28 @@ public class ViewFriendMentionsActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(ViewFriendMentionsActivity.this, android.R.layout.simple_list_item_1, userFreq);
         lvFriends.setAdapter(adapter);
 
+        Set<String> set = new HashSet<>(friendUsernames);
+        friendUsernames.clear();
+        friendUsernames.addAll(set);
+
+        for (int i = 0; i < entryIds.size(); i++) {
+            ParseUser currentUser = ParseUser.getCurrentUser();
+            ParseQuery<Mentions> query = new ParseQuery(Mentions.class);
+            query.whereEqualTo("objectId", entryIds.get(i));
+            //List<Mentions> mentions;
+            List<Mentions> mentions = null;
+            try {
+                mentions = query.find();
+                for (int j = 0; j < mentions.size(); j++) {
+                    Mentions m = mentions.get(j);
+                    // TODO: UNCOMMENT THE DELETE LINE BELOW!!
+                    //m.delete();
+                    Log.i(TAG, "deleted " + entryIds.get(i));
+                }
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
