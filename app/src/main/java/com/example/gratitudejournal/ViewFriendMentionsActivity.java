@@ -63,6 +63,7 @@ public class ViewFriendMentionsActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         Intent intent = new Intent(ViewFriendMentionsActivity.this, ViewMentionsActivity.class);
+        startActivity(intent);
         finish();
     }
 

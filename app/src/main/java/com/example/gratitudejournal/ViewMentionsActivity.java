@@ -67,6 +67,7 @@ public class ViewMentionsActivity extends AppCompatActivity {
                 //finalFriendUsernames.toArray();
                 intent.putExtra("friends", finalFriendUsernames);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -77,6 +78,7 @@ public class ViewMentionsActivity extends AppCompatActivity {
                 //finalCloseFriendUsernames.toArray();
                 intent.putExtra("closeFriends", finalCloseFriendUsernames);
                 startActivity(intent);
+                finish();
             }
         });
     }
