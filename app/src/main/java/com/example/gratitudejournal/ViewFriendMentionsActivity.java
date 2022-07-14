@@ -11,9 +11,16 @@ import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class ViewFriendMentionsActivity extends AppCompatActivity {
 
@@ -34,7 +41,21 @@ public class ViewFriendMentionsActivity extends AppCompatActivity {
         ArrayList<String> friendUsernames = getIntent().getStringArrayListExtra("friends");
         Log.i(TAG, "aaaaa" + String.valueOf(friendUsernames));
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(ViewFriendMentionsActivity.this, android.R.layout.simple_list_item_1, friendUsernames);
+        ArrayList<String> userFreq = new ArrayList<>();
+
+        Set<String> distinct = new HashSet<>(friendUsernames);
+        for (String s: distinct) {
+            System.out.println(s + ": " + Collections.frequency(friendUsernames, s));
+            if (Collections.frequency(friendUsernames, s) > 1) {
+                userFreq.add(s + " recently mentioned you in " + Collections.frequency(friendUsernames, s) + " entries");
+                //Log.i(TAG, String.valueOf(userFreq));
+            }
+            else {
+                userFreq.add(s + " recently mentioned you in an entry");
+            }
+        }
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(ViewFriendMentionsActivity.this, android.R.layout.simple_list_item_1, userFreq);
         lvFriends.setAdapter(adapter);
 
     }
