@@ -58,75 +58,82 @@ public class ViewMentionsActivity extends AppCompatActivity {
         friends = currentUser2.getFriends();
         closeFriends = currentUser2.getCloseFriends();
         getFriendUsernames();
-        getCloseFriendUsernames();
+        //getCloseFriendUsernames();
 
-        ParseQuery<Mentions> query = new ParseQuery(Mentions.class);
-        query.whereEqualTo("toUser", currentUser.getUsername());
-        query.findInBackground(new FindCallback<Mentions>() {
-            @Override
-            public void done(List<Mentions> objects, ParseException e) {
-                boolean friendsVis = false;
-                boolean closeFriendsVis = false;
-                if (objects.size() > 0) {
-                    for(int i = 0; i < objects.size(); i++) {
-                        boolean closeFriend = (boolean) objects.get(i).get("closeFriend");
-                        Log.i(TAG, "lkdfvmdlkvm: " + closeFriend);
-
-                        // if the user that sent the mention has the current user listed as a close friend:
-                        if (closeFriend){
-                            String usercf = objects.get(i).get("fromUser").toString();
-                            boolean cf = inArray(closeFriendUsernames, usercf);
-                            // if the current user has the sender as a close friend
-                            if (cf) {
-                                //btnCloseFriends.setVisibility(View.VISIBLE);
-                                closeFriendsVis = true;
-                                tvNoNew.setVisibility(TextView.GONE);
-                                finalCloseFriendUsernames.add(usercf);
-                            }
-                            else {
-                                String userf = objects.get(i).get("fromUser").toString();
-                                boolean f = inArray(friendUsernames, userf);
-                                // if the current user has the sender as a friend
-                                if (f) {
-                                    // btnFriends.setVisibility(View.VISIBLE);
-                                    friendsVis = true;
-                                    tvNoNew.setVisibility(TextView.GONE);
-                                    finalFriendUsernames.add(usercf);
-                                }
-                            }
-                            // if the current user does not have the sender as a friend/close friend, do nothing
-                        }
-                        else {
-                            //Log.i(TAG, "wheee: " + closeFriend);
-                            String usercf = objects.get(i).get("fromUser").toString();
-                            boolean cf = inArray(closeFriendUsernames, usercf);
-                            if (cf) {
-                                //btnFriends.setVisibility(View.VISIBLE);
-                                friendsVis = true;
-                                tvNoNew.setVisibility(TextView.GONE);
-                                finalFriendUsernames.add(usercf);
-                            }
-                            else {
-                                String userf = objects.get(i).get("fromUser").toString();
-                                boolean f = inArray(friendUsernames, userf);
-                                if (f) {
-                                    //btnFriends.setVisibility(View.VISIBLE);
-                                    friendsVis = true;
-                                    tvNoNew.setVisibility(TextView.GONE);
-                                    finalFriendUsernames.add(usercf);
-                                }
-                            }
-                        }
-                    }
-                }
-                if (friendsVis) {
-                    btnFriends.setVisibility(View.VISIBLE);
-                }
-                if (closeFriendsVis) {
-                    btnCloseFriends.setVisibility(View.VISIBLE);
-                }
-            }
-        });
+//        ParseQuery<Mentions> query = new ParseQuery(Mentions.class);
+//        query.whereEqualTo("toUser", currentUser.getUsername());
+//        query.findInBackground(new FindCallback<Mentions>() {
+//            @Override
+//            public void done(List<Mentions> objects, ParseException e) {
+//                Log.i(TAG, "did the query");
+//                boolean friendsVis = false;
+//                boolean closeFriendsVis = false;
+//                if (objects.size() > 0) {
+//                    for(int i = 0; i < objects.size(); i++) {
+//                        boolean closeFriend = (boolean) objects.get(i).get("closeFriend");
+//                        Log.i(TAG, "lkdfvmdlkvm: " + closeFriend);
+//
+//                        // if the user that sent the mention has the current user listed as a close friend:
+//                        if (closeFriend){
+//                            String usercf = objects.get(i).get("fromUser").toString();
+//                            boolean cf = inArray(closeFriendUsernames, usercf);
+//                            // if the current user has the sender as a close friend
+//                            if (cf) {
+//                                //btnCloseFriends.setVisibility(View.VISIBLE);
+//                                closeFriendsVis = true;
+//                                Log.i(TAG, "close friends visible = true");
+//                                tvNoNew.setVisibility(TextView.GONE);
+//                                finalCloseFriendUsernames.add(usercf);
+//                            }
+//                            else {
+//                                String userf = objects.get(i).get("fromUser").toString();
+//                                boolean f = inArray(friendUsernames, userf);
+//                                // if the current user has the sender as a friend
+//                                if (f) {
+//                                    // btnFriends.setVisibility(View.VISIBLE);
+//                                    friendsVis = true;
+//                                    Log.i(TAG, "friends visible1 = true");
+//                                    tvNoNew.setVisibility(TextView.GONE);
+//                                    finalFriendUsernames.add(usercf);
+//                                }
+//                            }
+//                            // if the current user does not have the sender as a friend/close friend, do nothing
+//                        }
+//                        else {
+//                            //Log.i(TAG, "wheee: " + closeFriend);
+//                            String usercf = objects.get(i).get("fromUser").toString();
+//                            boolean cf = inArray(closeFriendUsernames, usercf);
+//                            if (cf) {
+//                                //btnFriends.setVisibility(View.VISIBLE);
+//                                friendsVis = true;
+//                                Log.i(TAG, "friends visible2 = true");
+//                                tvNoNew.setVisibility(TextView.GONE);
+//                                finalFriendUsernames.add(usercf);
+//                            }
+//                            else {
+//                                String userf = objects.get(i).get("fromUser").toString();
+//                                boolean f = inArray(friendUsernames, userf);
+//                                if (f) {
+//                                    //btnFriends.setVisibility(View.VISIBLE);
+//                                    friendsVis = true;
+//                                    Log.i(TAG, "friends visible3 = true");
+//                                    tvNoNew.setVisibility(TextView.GONE);
+//                                    finalFriendUsernames.add(usercf);
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+//                if (friendsVis) {
+//                    btnFriends.setVisibility(View.VISIBLE);
+//                    Log.i(TAG, "set visible friends");
+//                }
+//                if (closeFriendsVis) {
+//                    btnCloseFriends.setVisibility(View.VISIBLE);
+//                    Log.i(TAG, "set visible close friends");
+//                }
+//            }
+//        });
 
         btnFriends.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -151,10 +158,18 @@ public class ViewMentionsActivity extends AppCompatActivity {
 
     private boolean inArray(ArrayList arr, String fromUser) {
         boolean contained = false;
+
+        for (int i = 0; i < arr.size(); i++) {
+            Log.i(TAG, "ele " + i + ": " + arr.get(i).toString());
+        }
+
+
         for (int i = 0; i < arr.size(); i++) {
             Log.i(TAG, "friends...: " + arr.get(i) + " " + fromUser);
             if (arr.get(i).toString().equals(fromUser)){
                 contained = true;
+                Log.i(TAG, "friend returned: " + arr.get(i) + " " + fromUser);
+                break;
             }
         }
         return contained;
@@ -171,6 +186,7 @@ public class ViewMentionsActivity extends AppCompatActivity {
                     closeFriendUsernames.add(currentUsername);
                     if (closeFriendUsernames.size() == closeFriends.length()) {
                         Log.i(TAG, "CLOSE FRIEND USERNAMES LIST" + closeFriendUsernames);
+                        getMentions();
                     }
                 } else {
                     JSONObject a = (JSONObject) closeFriends.get(i);
@@ -191,6 +207,7 @@ public class ViewMentionsActivity extends AppCompatActivity {
                                 Log.i(TAG, "AA" + closeFriendUsernames + " " + finalI + " " + (closeFriends.length() - 1));
                                 if (closeFriendUsernames.size() == closeFriends.length()) {
                                     Log.i(TAG, "CLOSE FRIEND USERNAMES LIST" + closeFriendUsernames);
+                                    getMentions();
                                 }
                             }
                         }
@@ -201,6 +218,87 @@ public class ViewMentionsActivity extends AppCompatActivity {
                 ex.printStackTrace();
             }
         }
+    }
+
+    private void getMentions() {
+
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        User currentUser2 = (User) currentUser;
+
+        ParseQuery<Mentions> query = new ParseQuery(Mentions.class);
+        query.whereEqualTo("toUser", currentUser.getUsername());
+        query.findInBackground(new FindCallback<Mentions>() {
+            @Override
+            public void done(List<Mentions> objects, ParseException e) {
+                Log.i(TAG, "did the query");
+                boolean friendsVis = false;
+                boolean closeFriendsVis = false;
+                if (objects.size() > 0) {
+                    for(int i = 0; i < objects.size(); i++) {
+                        boolean closeFriend = (boolean) objects.get(i).get("closeFriend");
+                        Log.i(TAG, "lkdfvmdlkvm: " + closeFriend);
+
+                        // if the user that sent the mention has the current user listed as a close friend:
+                        if (closeFriend){
+                            String usercf = objects.get(i).get("fromUser").toString();
+                            boolean cf = inArray(closeFriendUsernames, usercf);
+                            // if the current user has the sender as a close friend
+                            if (cf) {
+                                //btnCloseFriends.setVisibility(View.VISIBLE);
+                                closeFriendsVis = true;
+                                Log.i(TAG, "close friends visible = true");
+                                tvNoNew.setVisibility(TextView.GONE);
+                                finalCloseFriendUsernames.add(usercf);
+                            }
+                            else {
+                                String userf = objects.get(i).get("fromUser").toString();
+                                boolean f = inArray(friendUsernames, userf);
+                                // if the current user has the sender as a friend
+                                if (f) {
+                                    // btnFriends.setVisibility(View.VISIBLE);
+                                    friendsVis = true;
+                                    Log.i(TAG, "friends visible1 = true");
+                                    tvNoNew.setVisibility(TextView.GONE);
+                                    finalFriendUsernames.add(usercf);
+                                }
+                            }
+                            // if the current user does not have the sender as a friend/close friend, do nothing
+                        }
+                        else {
+                            //Log.i(TAG, "wheee: " + closeFriend);
+                            String usercf = objects.get(i).get("fromUser").toString();
+                            boolean cf = inArray(closeFriendUsernames, usercf);
+                            if (cf) {
+                                //btnFriends.setVisibility(View.VISIBLE);
+                                friendsVis = true;
+                                Log.i(TAG, "friends visible2 = true");
+                                tvNoNew.setVisibility(TextView.GONE);
+                                finalFriendUsernames.add(usercf);
+                            }
+                            else {
+                                String userf = objects.get(i).get("fromUser").toString();
+                                boolean f = inArray(friendUsernames, userf);
+                                if (f) {
+                                    //btnFriends.setVisibility(View.VISIBLE);
+                                    friendsVis = true;
+                                    Log.i(TAG, "friends visible3 = true");
+                                    tvNoNew.setVisibility(TextView.GONE);
+                                    finalFriendUsernames.add(usercf);
+                                }
+                            }
+                        }
+                    }
+                }
+                if (friendsVis) {
+                    btnFriends.setVisibility(View.VISIBLE);
+                    Log.i(TAG, "set visible friends");
+                }
+                if (closeFriendsVis) {
+                    btnCloseFriends.setVisibility(View.VISIBLE);
+                    Log.i(TAG, "set visible close friends");
+                }
+            }
+        });
     }
 
     private void getFriendUsernames() {
@@ -215,6 +313,7 @@ public class ViewMentionsActivity extends AppCompatActivity {
                     friendUsernames.add(currentUsername);
                     if (friendUsernames.size() == friends.length()) {
                         Log.i(TAG, "USER FRIEND USERNAMES LIST" + friendUsernames);
+                        getCloseFriendUsernames();
                     }
                 } else {
                     JSONObject a = (JSONObject) friends.get(i);
@@ -235,6 +334,7 @@ public class ViewMentionsActivity extends AppCompatActivity {
                                 Log.i(TAG, "AA" + friendUsernames + " " + finalI + " " + (friends.length() - 1));
                                 if (friendUsernames.size() == friends.length()) {
                                     Log.i(TAG, "FRIEND USERNAMES LIST" + friendUsernames);
+                                    getCloseFriendUsernames();
                                 }
                             }
                         }

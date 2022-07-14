@@ -106,7 +106,6 @@ public class HomeActivity extends AppCompatActivity {
             public void done(List<Mentions> objects, ParseException e) {
                 if (objects.size() > 0) {
                     menu.findItem(R.id.mentions).setIcon(R.drawable.ic_baseline_notifications_active_24);
-
                 }
             }
         });
