@@ -17,16 +17,23 @@ import android.widget.EditText;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
+import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import com.example.myapplication.User;
 import com.example.myapplication.Entry;
 import com.example.gratitudejournal.Mentions;
+import com.parse.SaveCallback;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -147,13 +154,5 @@ public class HomeActivity extends AppCompatActivity {
         Intent intent = new Intent(HomeActivity.this, ViewMentionsActivity.class);
         startActivity(intent);
     }
-
-    //TODO: add a method that performs alarmmanager's tasks in case alarmmanager doesn't fire:
-    // at the top of onCreate, call this method. The method should:
-    // 1. check if user has a current entry.
-    // 2. if the user does have a current entry, check the date.
-    // 3. if the user's current entry has a date that's before today's date
-    // (take time zones into account) perform all of alarmManager's tasks
-    // (probably don't use inBackground, do them synchronously? idk tho)
 
 }
