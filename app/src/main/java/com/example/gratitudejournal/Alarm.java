@@ -39,6 +39,8 @@ public class Alarm extends BroadcastReceiver {
         if (currentUser2.getCurrentEntry() != null) {
             //Log.i(TAG, currentUser2.getCurrentEntry().getText());
             Entry lastEntry = currentUser2.getCurrentEntry();
+            boolean sendFriendNotifs = currentUser2.getMentionFriends();
+            boolean sendCloseFriendNotifs = currentUser2.getMentionCloseFriends();
 
             JSONArray fm = null;
             try {
@@ -60,7 +62,7 @@ public class Alarm extends BroadcastReceiver {
             Log.i(TAG, String.valueOf(cfm));
             Log.i(TAG, String.valueOf(entryId));
 
-            if(fm.length() > 0) {
+            if(fm.length() > 0 && sendFriendNotifs) {
                 for (int i = 0; i < fm.length(); i++){
                     Mentions mention = new Mentions();
                     mention.setFromUser(currentUser.getUsername());
@@ -80,7 +82,7 @@ public class Alarm extends BroadcastReceiver {
                 }
             }
 
-            if (cfm.length() > 0) {
+            if (cfm.length() > 0 && sendCloseFriendNotifs) {
                 for (int i = 0; i < cfm.length(); i++){
                     Mentions mention = new Mentions();
                     mention.setFromUser(currentUser.getUsername());
