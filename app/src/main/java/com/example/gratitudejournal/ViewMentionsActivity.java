@@ -229,13 +229,21 @@ public class ViewMentionsActivity extends AppCompatActivity {
                         }
                     }
                 }
-                if (friendsVis) {
+                boolean friendNotifs = currentUser2.getFriendMentions();
+                boolean closeFriendNotifs = currentUser2.getCloseFriendMentions();
+                if (friendsVis && friendNotifs) {
                     btnFriends.setVisibility(View.VISIBLE);
                     Log.i(TAG, "set visible friends");
                 }
-                if (closeFriendsVis) {
+                if (closeFriendsVis && closeFriendNotifs) {
                     btnCloseFriends.setVisibility(View.VISIBLE);
                     Log.i(TAG, "set visible close friends");
+                }
+                if (!friendNotifs && !closeFriendNotifs){
+                    Log.i(TAG, "here");
+                    String text = "You have mention notifications disabled!";
+                    tvNoNew.setVisibility(View.VISIBLE);
+                    tvNoNew.setText(text);
                 }
             }
         });

@@ -106,16 +106,22 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         ParseUser currentUser = ParseUser.getCurrentUser();
-        ParseQuery<Mentions> query = new ParseQuery(Mentions.class);
-        query.whereEqualTo("toUser", currentUser.getUsername());
-        query.findInBackground(new FindCallback<Mentions>() {
-            @Override
-            public void done(List<Mentions> objects, ParseException e) {
-                if (objects.size() > 0) {
-                    menu.findItem(R.id.mentions).setIcon(R.drawable.ic_baseline_notifications_active_24);
+        //ParseUser currentUser2 = (User) currentUser;
+        boolean friendNotifs = ((User) currentUser).getFriendMentions();
+        boolean closeFriendNotifs = ((User) currentUser).getCloseFriendMentions();
+        if (friendNotifs || closeFriendNotifs) {
+            ParseQuery<Mentions> query = new ParseQuery(Mentions.class);
+            query.whereEqualTo("toUser", currentUser.getUsername());
+            query.findInBackground(new FindCallback<Mentions>() {
+                @Override
+                public void done(List<Mentions> objects, ParseException e) {
+                    if (objects.size() > 0) {
+                        menu.findItem(R.id.mentions).setIcon(R.drawable.ic_baseline_notifications_active_24);
+                    }
                 }
-            }
-        });
+            });
+        }
+
 
         getMenuInflater().inflate(R.menu.actionbarmenu, menu);
         // menu.findItem(R.id.home).setVisible(Visibility.GONE);
