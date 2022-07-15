@@ -35,6 +35,9 @@ public class ViewCloseFriendEntriesActivity extends AppCompatActivity {
     String selectedUser; //getIntent().getStringExtra("username");
     ArrayList<String> entriesToDisplay = new ArrayList<>();
 
+    ArrayList<String> closeFriendUsernames2 = new ArrayList<>();
+    ArrayList<Mentions> mentionsToDelete = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +58,16 @@ public class ViewCloseFriendEntriesActivity extends AppCompatActivity {
         closeFriendUsernames = getIntent().getStringArrayListExtra("closeFriends");
         entryIds = getIntent().getStringArrayListExtra("entryIds");
         selectedUser = getIntent().getStringExtra("username");
+
+        Log.i(TAG, "size " + String.valueOf(closeFriendUsernames.size()));
+        for (int i = 0; i < closeFriendUsernames.size(); i++){
+            Log.i(TAG, "size USERNAME" + closeFriendUsernames.get(i) + " " + i);
+            if (!closeFriendUsernames.get(i).equals(selectedUser)){
+                closeFriendUsernames2.add(closeFriendUsernames.get(i));
+            }
+        }
+        //closeFriendUsernames.remove(selectedUser);
+        Log.i(TAG, "size" + String.valueOf(closeFriendUsernames.size()));
 
         getMentions();
 
@@ -79,6 +92,7 @@ public class ViewCloseFriendEntriesActivity extends AppCompatActivity {
                             for (int i = 0; i < entryIds.size(); i++) {
                                 if (objects.get(j).getObjectId().equals(entryIds.get(i))) {
                                     entriesToDisplay.add(objects.get(j).getMentionedEntry());
+                                    mentionsToDelete.add(objects.get(j));
                                     if (i == entryIds.size() - 1 && j == objects.size() - 1) {
                                         getEntries();
                                     }
@@ -93,7 +107,6 @@ public class ViewCloseFriendEntriesActivity extends AppCompatActivity {
                     }
                 }
             });
-//        }
     }
 
     private void getEntries() {
@@ -113,12 +126,26 @@ public class ViewCloseFriendEntriesActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+        deleteMentions();
+    }
+
+    private void deleteMentions() {
+        for (int i = 0; i < mentionsToDelete.size(); i++) {
+            Mentions mention = mentionsToDelete.get(i);
+            Log.i(TAG, "deleted");
+            //TODO: UNCOMMENT THE DELETE HERE - just commented out for debugging / testing
+//            try {
+//                mention.delete();
+//            } catch (ParseException e) {
+//                e.printStackTrace();
+//            }
+        }
     }
 
     @Override
     public void onBackPressed() {
         Intent intent = new Intent(ViewCloseFriendEntriesActivity.this, ViewCloseFriendMentionsActivity.class);
-        intent.putExtra("closeFriends", closeFriendUsernames);
+        intent.putExtra("closeFriends", closeFriendUsernames2);
         intent.putExtra("entryIds", entryIds);
         startActivity(intent);
         finish();
