@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.WindowManager;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -43,6 +44,7 @@ public class ViewCloseFriendEntriesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_close_friend_entries);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
 
         rvEntries = (RecyclerView) findViewById(R.id.rvEntries);
         adapter = new EntriesAdapter(this, allEntries);
