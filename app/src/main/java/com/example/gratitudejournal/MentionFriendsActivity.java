@@ -144,7 +144,7 @@ public class MentionFriendsActivity extends AppCompatActivity {
                             Log.i(TAG, "allMatches for friends was true");
                             entry.setFriendMentions(friendMentions);
                             try {
-                                Toast.makeText(MentionFriendsActivity.this, "Saved!", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MentionFriendsActivity.this, "Friends saved!", Toast.LENGTH_SHORT).show();
                                 entry.save();
                             } catch (ParseException e) {
                                 e.printStackTrace();
@@ -158,7 +158,7 @@ public class MentionFriendsActivity extends AppCompatActivity {
                     ArrayList<String> temp = new ArrayList<>();
                     entry.setFriendMentions(temp);
                     try {
-                        Toast.makeText(MentionFriendsActivity.this, "Saved!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MentionFriendsActivity.this, "Friends saved!", Toast.LENGTH_SHORT).show();
                         entry.save();
                     } catch (ParseException e) {
                         e.printStackTrace();
@@ -196,7 +196,7 @@ public class MentionFriendsActivity extends AppCompatActivity {
                             entry.setCloseFriendMentions(closeFriendMentions);
                             try {
                                 entry.save();
-                                Toast.makeText(MentionFriendsActivity.this, "Saved!", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MentionFriendsActivity.this, "Close friends saved!", Toast.LENGTH_SHORT).show();
                             } catch (ParseException e) {
                                 e.printStackTrace();
                             }
@@ -209,7 +209,7 @@ public class MentionFriendsActivity extends AppCompatActivity {
                     entry.setCloseFriendMentions(temp);
                     try {
                         entry.save();
-                        Toast.makeText(MentionFriendsActivity.this, "Saved!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MentionFriendsActivity.this, "Close friends saved!", Toast.LENGTH_SHORT).show();
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
