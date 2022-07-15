@@ -108,6 +108,9 @@ public class ViewMentionsActivity extends AppCompatActivity {
     }
 
     private void getCloseFriendUsernames() {
+        if (closeFriends.length() == 0) {
+            getMentions();
+        }
         for (int i = 0; i < closeFriends.length(); i++) {
             Log.i(TAG, "A: " + closeFriendUsernames);
             try {
@@ -251,6 +254,9 @@ public class ViewMentionsActivity extends AppCompatActivity {
 
     private void getFriendUsernames() {
         Log.i(TAG, "called");
+        if (friends.length() == 0) {
+            getCloseFriendUsernames();
+        }
         for (int i = 0; i < friends.length(); i++) {
             Log.i(TAG, "Aaay: " + friendUsernames);
             try {
