@@ -8,6 +8,13 @@ import com.parse.ParseUser;
 
 public class ParseApplication extends Application {
 
+//    String amazing = "Amazing";
+//    String good = "Good";
+//    String okay = "Okay";
+//    String bad = "Bad";
+//    String terrible = "Terrible";
+//    String skip = "skip";
+
     @Override
     public void onCreate() {
         super.onCreate();

@@ -104,24 +104,6 @@ public class FriendsActivity extends AppCompatActivity implements AdapterView.On
         sRemoveFriend.setOnItemSelectedListener(this);
         sRemoveCloseFriend.setOnItemSelectedListener(this);
 
-//        if (currentUser2.getCurrentEntry() != null) {
-//            Entry lastEntry = currentUser2.getCurrentEntry();
-//            JSONArray mentionedFriends = null;
-//            try {
-//                mentionedFriends = lastEntry.fetchIfNeeded().getJSONArray("friendMentions");
-//                Log.i(TAG, String.valueOf(mentionedFriends));
-//            } catch (ParseException e) {
-//                e.printStackTrace();
-//            }
-//
-//            JSONArray mentionedCloseFriends = null;
-//            try {
-//                mentionedCloseFriends = lastEntry.fetchIfNeeded().getJSONArray("closeFriendMentions");
-//            } catch (ParseException e) {
-//                e.printStackTrace();
-//            }
-//        }
-
             // Make list of friend usernames
         getFriendUsernames();
 
@@ -300,18 +282,26 @@ public class FriendsActivity extends AppCompatActivity implements AdapterView.On
     }
 
     private void getCloseFriendUsernames() {
+        // for each index in the list of close friend pointers
         for (int i = 0; i < closeFriends.length(); i++) {
             Log.i(TAG, "A: " + closeFriendUsernames);
             try {
+                // if the close friend at that index is of the User class, get their username
+                // and add it to closeFriendUsernames
                 if (closeFriends.get(i).getClass().equals(User.class)) {
                     Log.i(TAG, "B: " + closeFriendUsernames);
                     User a = (User) closeFriends.get(i);
                     String currentUsername = a.getUsername();
                     closeFriendUsernames.add(currentUsername);
+                    // if we have gone through all the elements in closeFriends,
+                    // call getMentions()
                     if (closeFriendUsernames.size() == closeFriends.length()) {
                         Log.i(TAG, "CLOSE FRIEND USERNAMES LIST" + closeFriendUsernames);
                         setCloseFriendsCardView();
                     }
+                    // if the close friend is not a User, get their username by querying for the
+                    // matching objectId from parse and get the username from the object returned.
+                    // Add this username to closeFriendUsernames
                 } else {
                     JSONObject a = (JSONObject) closeFriends.get(i);
                     String temp = a.getString("objectId");
@@ -323,12 +313,13 @@ public class FriendsActivity extends AppCompatActivity implements AdapterView.On
                         @Override
                         public void done(List<User> objects, ParseException e) {
                             Log.i(TAG, "D: " + objects);
-                            // objects size is always 0
                             if (objects.size() == 1) {
                                 User closeFriend = objects.get(0);
                                 String currentUsername2 = closeFriend.getUsername();
                                 closeFriendUsernames.add(currentUsername2);
                                 Log.i(TAG, "AA" + closeFriendUsernames + " " + finalI + " " + (closeFriends.length() - 1));
+                                // if we have gone through all the elements in close friends,
+                                // call setCloseFriendsCardView()
                                 if (closeFriendUsernames.size() == closeFriends.length()) {
                                     Log.i(TAG, "CLOSE FRIEND USERNAMES LIST" + closeFriendUsernames);
                                     setCloseFriendsCardView();
@@ -346,18 +337,27 @@ public class FriendsActivity extends AppCompatActivity implements AdapterView.On
 
     private void getFriendUsernames() {
         Log.i(TAG, "called");
+
+        // for each index in the list of friend pointers
         for (int i = 0; i < friends.length(); i++) {
             Log.i(TAG, "Aaay: " + friendUsernames);
             try {
+                // if the friend at that index is of the User class, get their username and add it
+                // to friendUsernames
                 if (friends.get(i).getClass().equals(User.class)) {
                     Log.i(TAG, "Bee: " + friendUsernames);
                     User a = (User) friends.get(i);
                     String currentUsername = a.getUsername();
                     friendUsernames.add(currentUsername);
+                    // if we have gone through all the elements in friends,
+                    // call getCloseFriendUsernames()
                     if (friendUsernames.size() == friends.length()) {
                         Log.i(TAG, "USER FRIEND USERNAMES LIST" + friendUsernames);
                         setFriendsCardView();
                     }
+                    // if the friend is not a User, get their username by querying for the
+                    // matching objectId from parse and get the username from the object returned.
+                    // Add this username to friendUsernames
                 } else {
                     JSONObject a = (JSONObject) friends.get(i);
                     String temp = a.getString("objectId");
@@ -369,12 +369,13 @@ public class FriendsActivity extends AppCompatActivity implements AdapterView.On
                         @Override
                         public void done(List<User> objects, ParseException e) {
                             Log.i(TAG, "Dee: " + objects);
-                            // objects size is always 0
                             if (objects.size() == 1) {
                                 User friend = objects.get(0);
                                 String currentUsername2 = friend.getUsername();
                                 friendUsernames.add(currentUsername2);
                                 Log.i(TAG, "AA" + friendUsernames + " " + finalI + " " + (friends.length() - 1));
+                                // if we have gone through all the elements in friends,
+                                // call setFriendsCardView()
                                 if (friendUsernames.size() == friends.length()) {
                                     Log.i(TAG, "FRIEND USERNAMES LIST" + friendUsernames);
                                     setFriendsCardView();

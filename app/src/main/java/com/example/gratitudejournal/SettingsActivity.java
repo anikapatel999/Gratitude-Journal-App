@@ -23,6 +23,8 @@ import com.parse.ParseUser;
 import com.example.myapplication.User;
 import com.parse.SaveCallback;
 
+import java.util.TimeZone;
+
 public class SettingsActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
 
     public static final String TAG = "SignupActivity";
@@ -45,6 +47,10 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
         tCloseFriendMentions = findViewById(R.id.tCloseFriendMentions);
         btnDone = findViewById(R.id.btnDone);
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.new_color)));
+
+//        String[] tz = TimeZone.getAvailableIDs();
+//        Log.i(TAG, "TIMEZONES " + tz.length);
+//        Log.i(TAG, "TIMEZONES " + TimeZone.getTimeZone("CTT"));
 
 
         btnDone.setOnClickListener(new View.OnClickListener() {

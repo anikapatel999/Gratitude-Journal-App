@@ -108,21 +108,31 @@ public class ViewMentionsActivity extends AppCompatActivity {
     }
 
     private void getCloseFriendUsernames() {
+        //if there are no close friends, get the mentions
+        // (makes sure this function is still called if the code below does not execute)
         if (closeFriends.length() == 0) {
             getMentions();
         }
+        // for each index in the list of close friend pointers
         for (int i = 0; i < closeFriends.length(); i++) {
             Log.i(TAG, "A: " + closeFriendUsernames);
             try {
+                // if the close friend at that index is of the User class, get their username
+                // and add it to closeFriendUsernames
                 if (closeFriends.get(i).getClass().equals(com.example.myapplication.User.class)) {
                     Log.i(TAG, "B: " + closeFriendUsernames);
                     com.example.myapplication.User a = (com.example.myapplication.User) closeFriends.get(i);
                     String currentUsername = a.getUsername();
                     closeFriendUsernames.add(currentUsername);
+                    // if we have gone through all the elements in closeFriends,
+                    // call getMentions()
                     if (closeFriendUsernames.size() == closeFriends.length()) {
                         Log.i(TAG, "CLOSE FRIEND USERNAMES LIST" + closeFriendUsernames);
                         getMentions();
                     }
+                    // if the close friend is not a User, get their username by querying for the
+                    // matching objectId from parse and get the username from the object returned.
+                    // Add this username to closeFriendUsernames
                 } else {
                     JSONObject a = (JSONObject) closeFriends.get(i);
                     String temp = a.getString("objectId");
@@ -134,12 +144,13 @@ public class ViewMentionsActivity extends AppCompatActivity {
                         @Override
                         public void done(List<com.example.myapplication.User> objects, ParseException e) {
                             Log.i(TAG, "D: " + objects);
-                            // objects size is always 0
                             if (objects.size() == 1) {
                                 com.example.myapplication.User closeFriend = objects.get(0);
                                 String currentUsername2 = closeFriend.getUsername();
                                 closeFriendUsernames.add(currentUsername2);
                                 Log.i(TAG, "AA" + closeFriendUsernames + " " + finalI + " " + (closeFriends.length() - 1));
+                                // if we have gone through all the elements in close friends,
+                                // call getMentions()
                                 if (closeFriendUsernames.size() == closeFriends.length()) {
                                     Log.i(TAG, "CLOSE FRIEND USERNAMES LIST" + closeFriendUsernames);
                                     getMentions();
@@ -254,21 +265,32 @@ public class ViewMentionsActivity extends AppCompatActivity {
 
     private void getFriendUsernames() {
         Log.i(TAG, "called");
+
+        //if there are no friends, get the close friends usernames
+        // (makes sure this function is still called if the code below does not execute)
         if (friends.length() == 0) {
             getCloseFriendUsernames();
         }
+        // for each index in the list of friend pointers
         for (int i = 0; i < friends.length(); i++) {
             Log.i(TAG, "Aaay: " + friendUsernames);
             try {
+                // if the friend at that index is of the User class, get their username and add it
+                // to friendUsernames
                 if (friends.get(i).getClass().equals(com.example.myapplication.User.class)) {
                     Log.i(TAG, "Bee: " + friendUsernames);
                     com.example.myapplication.User a = (com.example.myapplication.User) friends.get(i);
                     String currentUsername = a.getUsername();
                     friendUsernames.add(currentUsername);
+                    // if we have gone through all the elements in friends,
+                    // call getCloseFriendUsernames()
                     if (friendUsernames.size() == friends.length()) {
                         Log.i(TAG, "USER FRIEND USERNAMES LIST" + friendUsernames);
                         getCloseFriendUsernames();
                     }
+                    // if the friend is not a User, get their username by querying for the
+                    // matching objectId from parse and get the username from the object returned.
+                    // Add this username to friendUsernames
                 } else {
                     JSONObject a = (JSONObject) friends.get(i);
                     String temp = a.getString("objectId");
@@ -280,12 +302,13 @@ public class ViewMentionsActivity extends AppCompatActivity {
                         @Override
                         public void done(List<com.example.myapplication.User> objects, ParseException e) {
                             Log.i(TAG, "Dee: " + objects);
-                            // objects size is always 0
                             if (objects.size() == 1) {
                                 com.example.myapplication.User friend = objects.get(0);
                                 String currentUsername2 = friend.getUsername();
                                 friendUsernames.add(currentUsername2);
                                 Log.i(TAG, "AA" + friendUsernames + " " + finalI + " " + (friends.length() - 1));
+                                // if we have gone through all the elements in friends,
+                                // call getCloseFriendUsernames()
                                 if (friendUsernames.size() == friends.length()) {
                                     Log.i(TAG, "FRIEND USERNAMES LIST" + friendUsernames);
                                     getCloseFriendUsernames();
