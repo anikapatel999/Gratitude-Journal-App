@@ -104,7 +104,7 @@ public class MentionFriendsActivity extends AppCompatActivity {
         //          and honestly just add the usernames to the array, don't mess with pointers
         //          thats unnecessarily messy and takes too many queries - you can just
         //          query for whereEqualsTo the username
-        //      5. Load the mentions into the editTexts upon opening the activity
+        //      - 5. Load the mentions into the editTexts upon opening the activity
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override

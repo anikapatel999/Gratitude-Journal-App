@@ -115,9 +115,12 @@ public class FriendsActivity extends AppCompatActivity implements AdapterView.On
             @Override
             public void onClick(View v) {
                 String username = etAddFriend.getText().toString();
+                // check that the user isn't trying to add themselves
                 if (currentUser.getUsername().equals(username)) {
                     Toast.makeText(FriendsActivity.this, "You cannot add yourself!", Toast.LENGTH_SHORT).show();
                 } else {
+                    // make a query that searches for a user with a username that
+                    // matches the one the current user entered
                     ParseQuery<User> query = new ParseQuery(User.class);
                     query.whereEqualTo("username", username);
                     query.findInBackground(new FindCallback<User>() {
@@ -128,6 +131,7 @@ public class FriendsActivity extends AppCompatActivity implements AdapterView.On
                                 User newFriend = objects.get(0);
                                 String nfID = newFriend.getObjectId();
                                 for (int i = 0; i < friends.length(); i++) {
+                                    // check if the user is already in the current user's friends list
                                     try {
                                         if (friends.get(i).getClass().equals(User.class)) {
                                             Log.i(TAG, "class issue");
@@ -152,6 +156,7 @@ public class FriendsActivity extends AppCompatActivity implements AdapterView.On
                                         ex.printStackTrace();
                                     }
                                 }
+                                // check if the user is already in the current user's close friends list
                                 for (int i = 0; i < closeFriends.length(); i++) {
                                     try {
                                         if (closeFriends.get(i).getClass().equals(User.class)) {
@@ -177,6 +182,7 @@ public class FriendsActivity extends AppCompatActivity implements AdapterView.On
                                         ex.printStackTrace();
                                     }
                                 }
+                                // if a user with the username exists and is not already added to a list
                                 if (found == false) {
                                     friends.put(newFriend);
                                     currentUser2.setFriends(friends);
@@ -186,6 +192,7 @@ public class FriendsActivity extends AppCompatActivity implements AdapterView.On
                                     //getFriendUsernames();
                                     recreate();
                                 }
+                                // if a user with the username does not exist
                             } else {
                                 Toast.makeText(FriendsActivity.this, "User not found!", Toast.LENGTH_SHORT).show();
                             }

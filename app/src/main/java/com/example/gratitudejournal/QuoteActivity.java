@@ -103,27 +103,6 @@ public class QuoteActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-//        query.findInBackground(new FindCallback<Entry>() {
-//            @Override
-//            public void done(List<Entry> entries, ParseException e) {
-//                Log.i(TAG, "findinbackground " + query);
-//                // check for errors
-//                if (e != null) {
-//                    Log.e(TAG, "Issue with getting entries", e);
-//                    return;
-//                }
-//                if (entries.size() == 0) {
-//                    return;
-//                }
-//                // for debugging purposes let's print every post description to logcat
-//                for (Entry entry : entries) {
-//                    Log.i(TAG, "entry from the query: " + entry.getText());
-//                }
-//                Log.i(TAG, "got to this point");
-//                allEntries.addAll(entries);
-//            }
-//        });
-
         //CALCULATE THE MOOD SCORE
         Boolean sevenMoodsSelected = true;
         double moodScore = 0;
