@@ -104,13 +104,72 @@ public class QuoteActivity extends AppCompatActivity {
         }
 
         //CALCULATE THE MOOD SCORE
-        Boolean sevenMoodsSelected = true;
-        double moodScore = 0;
+//        Boolean sevenMoodsSelected = true;
+//        double moodScore = 0;
 
         // check that the user does have 7 entries
         Log.i(TAG, "all entries: " + allEntries);
-        if (allEntries.size() == 7) {
+        modifySelectedKeywords();
+//        if (allEntries.size() == 7) {
+//            // check if the user skipped any of the last 7 moods
+//            for (int i = 0; i < allEntries.size(); i++){
+//                if(allEntries.get(i).getMood().equals("skip") || allEntries.get(i).getMood().equals("No mood selected")) {
+//                    Log.i(TAG, "calc" + allEntries.get(i).getMood() + " " + allEntries.get(i).getCreatedAt());
+//                    sevenMoodsSelected = false;
+//                }
+//            }
+//            // if the user selected all of the 7 past moods
+//            if (sevenMoodsSelected) {
+//                moodScore = calcCurrentMoodScore();
+//                moodScore = calcTotalMoodScore(moodScore);
+//                selectedKeywords = keywordsFromTotalScore(moodScore);
+//                Log.i(TAG, "kw1 " + Arrays.toString(selectedKeywords));
+//            }
+//            // if the user did not select all of the 7 past moods but did select the current mood
+//            else if (!(allEntries.get(0).getMood().equals("skip")) && !(allEntries.get(0).getMood().equals("No mood selected"))) {
+//                moodScore = calcCurrentMoodScore();
+//                selectedKeywords = keywordsFromCurrentScore(moodScore);
+//                Log.i(TAG, "kw2 " + Arrays.toString(selectedKeywords));
+//            }
+//            // if the user did neither
+//            else {
+//                selectedKeywords = Arrays.copyOfRange(keywordArray, 4, 10);
+//                Log.i(TAG, "kw3 " + Arrays.toString(selectedKeywords));
+//            }
+//        }
+//        // if the user does not have 7 past entries
+//        else {
+//            selectedKeywords = Arrays.copyOfRange(keywordArray, 4, 10);
+//            Log.i(TAG, "kw4 " + Arrays.toString(selectedKeywords));
+//        }
 
+        String entryText = allEntries.get(0).getText();
+        //entryText = "I would love to have a dog, dogs are very fun, yes :)";
+        searchWords = split(entryText);
+        // forTesting(searchWords, "sw1");
+        // sort searchWords by length
+        Arrays.sort(searchWords, Comparator.comparingInt(String::length));
+        // forTesting(searchWords, "sw2");
+        searchWords = reverse(searchWords);
+        // forTesting(searchWords, "sw3");
+        searchWords = slicer(searchWords);
+//        synonyms = getSynonyms(searchWords);
+        getSynonyms(searchWords);
+        Log.i(TAG, ":))))))) " + synonyms);
+        Log.i(TAG, "dlkfmvlfkdmbv" + roots);
+        // rootFinder(synonyms);
+
+        //TODO: CHANGE THIS LATER
+        tvQuote.setText("Thank you for writing this entry");
+//        tvAuthor.setText("-Author's Name");
+
+    }
+
+    private void modifySelectedKeywords() {
+        Boolean sevenMoodsSelected = true;
+        double moodScore = 0;
+
+        if (allEntries.size() == 7) {
             // check if the user skipped any of the last 7 moods
             for (int i = 0; i < allEntries.size(); i++){
                 if(allEntries.get(i).getMood().equals("skip") || allEntries.get(i).getMood().equals("No mood selected")) {
@@ -142,27 +201,6 @@ public class QuoteActivity extends AppCompatActivity {
             selectedKeywords = Arrays.copyOfRange(keywordArray, 4, 10);
             Log.i(TAG, "kw4 " + Arrays.toString(selectedKeywords));
         }
-
-        String entryText = allEntries.get(0).getText();
-        //entryText = "I would love to have a dog, dogs are very fun, yes :)";
-        searchWords = split(entryText);
-        // forTesting(searchWords, "sw1");
-        // sort searchWords by length
-        Arrays.sort(searchWords, Comparator.comparingInt(String::length));
-        // forTesting(searchWords, "sw2");
-        searchWords = reverse(searchWords);
-        // forTesting(searchWords, "sw3");
-        searchWords = slicer(searchWords);
-//        synonyms = getSynonyms(searchWords);
-        getSynonyms(searchWords);
-        Log.i(TAG, ":))))))) " + synonyms);
-        Log.i(TAG, "dlkfmvlfkdmbv" + roots);
-        // rootFinder(synonyms);
-
-        //TODO: CHANGE THIS LATER
-        tvQuote.setText("Thank you for writing this entry");
-//        tvAuthor.setText("-Author's Name");
-
     }
 
     private void getSynonyms(String[] sw) {

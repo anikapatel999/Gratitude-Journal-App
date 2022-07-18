@@ -31,6 +31,7 @@ import org.json.JSONObject;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 import com.example.myapplication.Entry;
@@ -120,26 +121,16 @@ public class MentionFriendsActivity extends AppCompatActivity {
                         Toast.makeText(MentionFriendsActivity.this, "You can only mention up to 3 friends", Toast.LENGTH_SHORT).show();
                     }
                     else {
-                        int[] friendMatches = new int[friendMentions.size()];
-                        for (int a = 0; a < friendMatches.length; a++) {
-                            friendMatches[a] = 0;
-                        }
-                        // check that each element in friendMentions is in friendUsernames
-                        for (int i = 0; i < friendMentions.size(); i++) {
-                            for (int j = 0; j < friendUsernames.size(); j++) {
-                                if (friendMentions.get(i).equals(friendUsernames.get(j))){
-                                    friendMatches[i] = 1;
-                                }
-                            }
-                        }
                         boolean allMatches = true;
-                        for (int k = 0; k < friendMatches.length; k++) {
-                            if (friendMatches[k] == 0) {
-                                Toast.makeText(MentionFriendsActivity.this, friendMentions.get(k) + " is not in your friends list", Toast.LENGTH_SHORT).show();
+                        // HashSet<String> friendMentionsSet = new HashSet<>(friendMentions);
+                        HashSet<String> friendUsernamesSet = new HashSet<>(friendUsernames);
+                        for (int i = 0; i < friendMentions.size(); i++) {
+                            if (!friendUsernamesSet.contains(friendMentions.get(i))) {
+                                Toast.makeText(MentionFriendsActivity.this, friendMentions.get(i) + " is not in your friends list", Toast.LENGTH_SHORT).show();
                                 allMatches = false;
-                                break;
                             }
                         }
+
                         if(allMatches == true) {
                             Log.i(TAG, "allMatches for friends was true");
                             entry.setFriendMentions(friendMentions);
@@ -150,6 +141,36 @@ public class MentionFriendsActivity extends AppCompatActivity {
                                 e.printStackTrace();
                             }
                         }
+//                        int[] friendMatches = new int[friendMentions.size()];
+//                        for (int a = 0; a < friendMatches.length; a++) {
+//                            friendMatches[a] = 0;
+//                        }
+//                        // check that each element in friendMentions is in friendUsernames
+//                        for (int i = 0; i < friendMentions.size(); i++) {
+//                            for (int j = 0; j < friendUsernames.size(); j++) {
+//                                if (friendMentions.get(i).equals(friendUsernames.get(j))){
+//                                    friendMatches[i] = 1;
+//                                }
+//                            }
+//                        }
+//                        boolean allMatches = true;
+//                        for (int k = 0; k < friendMatches.length; k++) {
+//                            if (friendMatches[k] == 0) {
+//                                Toast.makeText(MentionFriendsActivity.this, friendMentions.get(k) + " is not in your friends list", Toast.LENGTH_SHORT).show();
+//                                allMatches = false;
+//                                break;
+//                            }
+//                        }
+//                        if(allMatches == true) {
+//                            Log.i(TAG, "allMatches for friends was true");
+//                            entry.setFriendMentions(friendMentions);
+//                            try {
+//                                Toast.makeText(MentionFriendsActivity.this, "Friends saved!", Toast.LENGTH_SHORT).show();
+//                                entry.save();
+//                            } catch (ParseException e) {
+//                                e.printStackTrace();
+//                            }
+//                        }
                     }
 
                 }
@@ -172,35 +193,56 @@ public class MentionFriendsActivity extends AppCompatActivity {
                         Toast.makeText(MentionFriendsActivity.this, "You can only mention up to 3 close friends", Toast.LENGTH_SHORT).show();
                     }
                     else {
-                        int[] closeFriendMatches = new int[closeFriendMentions.size()];
-                        for (int a = 0; a < closeFriendMatches.length; a++) {
-                            closeFriendMatches[a] = 0;
-                        }
-                        for (int i = 0; i < closeFriendMentions.size(); i++) {
-                            for (int j = 0; j < closeFriendUsernames.size(); j++) {
-                                if (closeFriendMentions.get(i).equals(closeFriendUsernames.get(j))){
-                                    closeFriendMatches[i] = 1;
-                                }
-                            }
-                        }
                         boolean allMatches = true;
-                        for (int k = 0; k < closeFriendMatches.length; k++) {
-                            if (closeFriendMatches[k] == 0) {
-                                Toast.makeText(MentionFriendsActivity.this, closeFriendMentions.get(k) + " is not in your close friends list", Toast.LENGTH_SHORT).show();
+                        // HashSet<String> friendMentionsSet = new HashSet<>(friendMentions);
+                        HashSet<String> closeFriendUsernamesSet = new HashSet<>(closeFriendUsernames);
+                        for (int i = 0; i < closeFriendMentions.size(); i++) {
+                            if (!closeFriendUsernamesSet.contains(closeFriendMentions.get(i))) {
+                                Toast.makeText(MentionFriendsActivity.this, closeFriendMentions.get(i) + " is not in your close friends list", Toast.LENGTH_SHORT).show();
                                 allMatches = false;
-                                break;
                             }
                         }
+
                         if(allMatches == true) {
                             Log.i(TAG, "allMatches for close friends was true");
                             entry.setCloseFriendMentions(closeFriendMentions);
                             try {
-                                entry.save();
                                 Toast.makeText(MentionFriendsActivity.this, "Close friends saved!", Toast.LENGTH_SHORT).show();
+                                entry.save();
                             } catch (ParseException e) {
                                 e.printStackTrace();
                             }
                         }
+//                        int[] closeFriendMatches = new int[closeFriendMentions.size()];
+//                        for (int a = 0; a < closeFriendMatches.length; a++) {
+//                            closeFriendMatches[a] = 0;
+//                        }
+//                        for (int i = 0; i < closeFriendMentions.size(); i++) {
+//                            for (int j = 0; j < closeFriendUsernames.size(); j++) {
+//                                if (closeFriendMentions.get(i).equals(closeFriendUsernames.get(j))){
+//                                    closeFriendMatches[i] = 1;
+//                                }
+//                            }
+//                        }
+//                        boolean allMatches = true;
+//                        for (int k = 0; k < closeFriendMatches.length; k++) {
+//                            if (closeFriendMatches[k] == 0) {
+//                                Toast.makeText(MentionFriendsActivity.this, closeFriendMentions.get(k) + " is not in your close friends list", Toast.LENGTH_SHORT).show();
+//                                allMatches = false;
+//                                break;
+//                            }
+//                        }
+//                        if(allMatches == true) {
+//                            Log.i(TAG, "allMatches for close friends was true");
+//                            entry.setCloseFriendMentions(closeFriendMentions);
+//                            try {
+//                                entry.save();
+//                                Toast.makeText(MentionFriendsActivity.this, "Close friends saved!", Toast.LENGTH_SHORT).show();
+//                            } catch (ParseException e) {
+//                                e.printStackTrace();
+//                            }
+//                        }
+
                     }
 
                 }
