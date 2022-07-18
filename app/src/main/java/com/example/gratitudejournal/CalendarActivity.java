@@ -25,25 +25,31 @@ import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 import com.example.myapplication.User;
+import com.skyhope.eventcalenderlibrary.listener.CalenderDayClickListener;
+import com.skyhope.eventcalenderlibrary.model.DayContainerModel;
 
 public class CalendarActivity extends AppCompatActivity {
 
     public static final String TAG = "CalendarActivity";
 
-    CalendarView cvCalendar;
+    // CalendarView cvCalendar;
+    com.skyhope.eventcalenderlibrary.CalenderEvent cvCalendar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
 
-        cvCalendar = (CalendarView) findViewById(R.id.cvCalendar);
+        // cvCalendar = (CalendarView) findViewById(R.id.cvCalendar);
+        cvCalendar = findViewById(R.id.cvCalendar);
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.new_color)));
 
-        cvCalendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+        cvCalendar.initCalderItemClickCallback(new CalenderDayClickListener() {
             @Override
-            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
-
+            public void onGetDay(DayContainerModel dayContainerModel) {
+                int year = dayContainerModel.getYear();
+                int month = dayContainerModel.getMonthNumber();
+                int dayOfMonth = dayContainerModel.getDay();
                 ParseUser currentUser = ParseUser.getCurrentUser();
                 ParseQuery<Entry> query = new ParseQuery(Entry.class);
                 //LocalDate date = LocalDate.of(year, month, dayOfMonth);
@@ -94,6 +100,62 @@ public class CalendarActivity extends AppCompatActivity {
                 });
             }
         });
+
+
+//        cvCalendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+//            @Override
+//            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
+//
+//                ParseUser currentUser = ParseUser.getCurrentUser();
+//                ParseQuery<Entry> query = new ParseQuery(Entry.class);
+//                //LocalDate date = LocalDate.of(year, month, dayOfMonth);
+//                // WHY DOES IT THINK THE YEAR IS 3922?????? (some georgian calendar stuff,
+//                // starts at 1900 so you have to subtract 1900)
+//                // and the months start indexing at 0 which is ??? anyway Date objects are just really gross
+//                User currentUser2 = (User) currentUser;
+//                String timezone = currentUser2.getTimeZone();
+//                Double timezoneDifference = getTimeDifference(timezone);
+//
+//                Date date = new Date(year-1900, month, dayOfMonth);
+//                Date d1 = new Date((long) (date.getTime() - (timezoneDifference * 60 * 60 * 1000)));
+//                Date d2 = new Date(d1.getTime() + (1 * 25 * 60 * 60 * 1000));
+//                query.whereGreaterThanOrEqualTo("createdAt", d1);
+//                query.whereLessThan("createdAt", d2);
+//                query.whereMatches("user", currentUser.getObjectId());
+//                Log.i(TAG, "query: " + query);
+//
+//                query.findInBackground(new FindCallback<Entry>() {
+//                    @Override
+//                    public void done(List<Entry> entries, ParseException e) {
+//                        // check for errors
+//                        Log.i(TAG, "IT DID SOMETHING " + entries);
+//                        if (e != null) {
+//                            Log.e(TAG, "Issue with getting entries", e);
+//                            return;
+//                        }
+//                        // for debugging purposes let's print every post description to logcat
+//                        if (entries.size() > 0) {
+//                            Toast.makeText(CalendarActivity.this, "selected date " + (month + 1) + "/" + dayOfMonth + "/" + year, Toast.LENGTH_LONG).show();
+//                            Intent intent = new Intent(CalendarActivity.this, ScrollActivity.class);
+//                            String dayOfTheWeek1 = (String) DateFormat.format("EEEE", d1); // Thursday
+//                            String day1         = (String) DateFormat.format("dd",   d1); // 20
+//                            String monthString1  = (String) DateFormat.format("MMM",  d1); // Jun
+//                            String monthNumber1  = (String) DateFormat.format("MM",   d1); // 06
+//                            String year1         = (String) DateFormat.format("yyyy", d1); // 2013
+//                            intent.putExtra("year", year1);
+//                            intent.putExtra("month", monthNumber1);
+//                            intent.putExtra("dayOfMonth", day1);
+//                            // String date2 = (String.valueOf(dayOfMonth) + String.valueOf(month) + String.valueOf(year));
+//                            // intent.putExtra("date", date2);
+//                            startActivity(intent);
+//                        }
+//                        else {
+//                            Toast.makeText(CalendarActivity.this, "No entry at " + (month + 1) + "/" + dayOfMonth + "/" + year, Toast.LENGTH_LONG).show();
+//                        }
+//                    }
+//                });
+//            }
+//        });
     }
 
     private Double getTimeDifference(String timezone) {

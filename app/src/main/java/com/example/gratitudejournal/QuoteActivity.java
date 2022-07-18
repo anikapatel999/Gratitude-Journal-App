@@ -363,7 +363,7 @@ public class QuoteActivity extends AppCompatActivity {
                 }
                 if (quotes.get(i).contains(roots.get(j))) {
                     // SHOULD I ADD A LIST OF WORDS THE QUOTE SHOULDNT CONTAIN?
-                    // ex: death, die, dying, loss, lose, lie, gone, youth, young, old, age, worst, pig (for that one obama quote lol)
+                    // ex: death, die, dying, loss, lose, lie, gone, youth, young, old, age, worst, god, pig (for that one obama quote lol)
                     tvQuote.startAnimation(fade_in_anim);
                     tvQuote.setText(quotes.get(i));
                     tvAuthor.startAnimation(fade_in_anim);
