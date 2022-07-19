@@ -122,7 +122,7 @@ public class EntriesAdapter extends RecyclerView.Adapter<EntriesAdapter.ViewHold
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            if (mood.equals("skip")) {
+            if (mood.equals(Globals.skip)) {
                 mood = "No mood selected";
             }
 
@@ -131,23 +131,23 @@ public class EntriesAdapter extends RecyclerView.Adapter<EntriesAdapter.ViewHold
 
             // change the colors of the mood and save buttons depending on the mood the user
             // has selected
-            if(mood.equals("Amazing")){
+            if(mood.equals(Globals.amazing)){
                 btnMood.setBackgroundColor(0xFFF8CC7F);
             }
 
-            else if(mood.equals("Good")){
+            else if(mood.equals(Globals.good)){
                 btnMood.setBackgroundColor(0xFFD2B08C);
             }
 
-            else if(mood.equals("Okay")){
+            else if(mood.equals(Globals.okay)){
                 btnMood.setBackgroundColor(0xFF808080);
             }
 
-            else if(mood.equals("Bad")){
+            else if(mood.equals(Globals.bad)){
                 btnMood.setBackgroundColor(0xFF374C56);
             }
 
-            else if(mood.equals("Terrible")){
+            else if(mood.equals(Globals.terrible)){
                 btnMood.setBackgroundColor(0xFF04202F);
             }
 

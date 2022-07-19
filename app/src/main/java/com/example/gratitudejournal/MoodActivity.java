@@ -56,7 +56,8 @@ public class MoodActivity extends AppCompatActivity {
                 Log.i(TAG, "Amazing button");
                 ParseUser currentUser = ParseUser.getCurrentUser();
                 // User currentUser = (User) ParseUser.getCurrentUser();
-                String mood = "Amazing";
+                //String mood = "Amazing";
+                String mood = Globals.amazing;
                 saveEntry(mood, currentUser);
             }
         });
@@ -67,7 +68,8 @@ public class MoodActivity extends AppCompatActivity {
                 Log.i(TAG, "Good button");
                 ParseUser currentUser = ParseUser.getCurrentUser();
                 // User currentUser = (User) ParseUser.getCurrentUser();
-                String mood = "Good";
+                //String mood = "Good";
+                String mood = Globals.good;
                 saveEntry(mood, currentUser);
             }
         });
@@ -78,7 +80,7 @@ public class MoodActivity extends AppCompatActivity {
                 Log.i(TAG, "Okay button");
                 ParseUser currentUser = ParseUser.getCurrentUser();
                 // User currentUser = (User) ParseUser.getCurrentUser();
-                String mood = "Okay";
+                String mood = Globals.okay;
                 saveEntry(mood, currentUser);
             }
         });
@@ -89,7 +91,7 @@ public class MoodActivity extends AppCompatActivity {
                 Log.i(TAG, "Bad button");
                 ParseUser currentUser = ParseUser.getCurrentUser();
                 // User currentUser = (User) ParseUser.getCurrentUser();
-                String mood = "Bad";
+                String mood = Globals.bad;
                 saveEntry(mood, currentUser);
             }
         });
@@ -100,7 +102,7 @@ public class MoodActivity extends AppCompatActivity {
                 Log.i(TAG, "Terrible button");
                 ParseUser currentUser = ParseUser.getCurrentUser();
                 // User currentUser = (User) ParseUser.getCurrentUser();
-                String mood = "Terrible";
+                String mood = Globals.terrible;
                 saveEntry(mood, currentUser);
             }
         });
@@ -167,7 +169,7 @@ public class MoodActivity extends AppCompatActivity {
                     User currentUser2 = (User) currentUser;
                     if(currentUser2.getCurrentEntry() == null) {
                         // Log.i(TAG, "IF STATEMENT EXECUTED" + currentUser.toString());
-                        saveEntry("skip", currentUser);
+                        saveEntry(Globals.skip, currentUser);
                     }
                     Intent i = new Intent(MoodActivity.this, ComposeActivity.class);
 //                    Intent i = new Intent(MoodActivity.this, QuoteActivity.class);

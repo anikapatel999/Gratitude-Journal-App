@@ -36,7 +36,7 @@ import okhttp3.Headers;
 public class QuoteActivity extends AppCompatActivity {
 
     public static final String TAG = "QuoteActivity";
-    public static final String quotesAPI = "https://zenquotes.io/api/quotes"; //TODO: CHANGE THIS LATER TO HAVE KEYWORDS (will have to use string concatenation)
+    public static final String quotesAPI = "https://zenquotes.io/api/quotes";
     public static final String dictAPI = "https://api.dictionaryapi.dev/api/v2/entries/en/";
     float x1, x2, y1, y2;
     protected List<com.example.myapplication.Entry> allEntries;
@@ -71,7 +71,7 @@ public class QuoteActivity extends AppCompatActivity {
         Log.i(TAG, "oncreateeeeeee");
         ParseUser currentUser = ParseUser.getCurrentUser();
         User currentUser2 = (User) currentUser;
-        if (currentUser2.getCurrentEntry().getText().equals("No entry")) {
+        if (currentUser2.getCurrentEntry().getText().equals(Globals.no_entry)) {
             Intent intent = new Intent(QuoteActivity.this, HomeActivity.class);
             startActivity(intent);
             finish();
@@ -172,7 +172,7 @@ public class QuoteActivity extends AppCompatActivity {
         if (allEntries.size() == 7) {
             // check if the user skipped any of the last 7 moods
             for (int i = 0; i < allEntries.size(); i++){
-                if(allEntries.get(i).getMood().equals("skip") || allEntries.get(i).getMood().equals("No mood selected")) {
+                if(allEntries.get(i).getMood().equals(Globals.skip) || allEntries.get(i).getMood().equals("No mood selected")) {
                     Log.i(TAG, "calc" + allEntries.get(i).getMood() + " " + allEntries.get(i).getCreatedAt());
                     sevenMoodsSelected = false;
                 }
@@ -185,7 +185,7 @@ public class QuoteActivity extends AppCompatActivity {
                 Log.i(TAG, "kw1 " + Arrays.toString(selectedKeywords));
             }
             // if the user did not select all of the 7 past moods but did select the current mood
-            else if (!(allEntries.get(0).getMood().equals("skip")) && !(allEntries.get(0).getMood().equals("No mood selected"))) {
+            else if (!(allEntries.get(0).getMood().equals(Globals.skip)) && !(allEntries.get(0).getMood().equals("No mood selected"))) {
                 moodScore = calcCurrentMoodScore();
                 selectedKeywords = keywordsFromCurrentScore(moodScore);
                 Log.i(TAG, "kw2 " + Arrays.toString(selectedKeywords));
@@ -477,19 +477,19 @@ public class QuoteActivity extends AppCompatActivity {
     private double calcTotalMoodScore(double moodScore) {
         //ADD AND SUBTRACT BASED ON THE MOODS OF THE PREVIOUS 6 DAYS
         for (int i = 1; i < allEntries.size(); i++) {
-            if (allEntries.get(i).getMood().equals ("Terrible")) {
+            if (allEntries.get(i).getMood().equals (Globals.terrible)) {
                 moodScore = moodScore - 3;
             }
-            else if (allEntries.get(i).getMood().equals ("Bad")) {
+            else if (allEntries.get(i).getMood().equals (Globals.bad)) {
                 moodScore = moodScore - 1.5;
             }
-            else if (allEntries.get(i).getMood().equals ("Okay")) {
+            else if (allEntries.get(i).getMood().equals (Globals.okay)) {
                 moodScore = moodScore + 0;
             }
-            else if (allEntries.get(i).getMood().equals ("Good")) {
+            else if (allEntries.get(i).getMood().equals (Globals.good)) {
                 moodScore = moodScore + 1.5;
             }
-            else if (allEntries.get(i).getMood().equals ("Amazing")) {
+            else if (allEntries.get(i).getMood().equals (Globals.amazing)) {
                 moodScore = moodScore + 3;
             }
         }
@@ -504,19 +504,19 @@ public class QuoteActivity extends AppCompatActivity {
         double moodScore = 0;
         String currentMood = allEntries.get(0).getMood();
 
-        if (currentMood.equals ("Terrible")) {
+        if (currentMood.equals (Globals.terrible)) {
             moodScore = -30;
         }
-        else if (currentMood.equals ("Bad")) {
+        else if (currentMood.equals (Globals.bad)) {
             moodScore = -15;
         }
-        else if (currentMood.equals ("Okay")) {
+        else if (currentMood.equals (Globals.okay)) {
             moodScore = 0;
         }
-        else if (currentMood.equals ("Good")) {
+        else if (currentMood.equals (Globals.good)) {
             moodScore = 15;
         }
-        else if (currentMood.equals ("Amazing")) {
+        else if (currentMood.equals (Globals.amazing)) {
             moodScore = 30;
         }
         Log.i(TAG, "calcCurrentMoodScore: " + moodScore);

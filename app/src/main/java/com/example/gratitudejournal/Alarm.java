@@ -142,11 +142,11 @@ public class Alarm extends BroadcastReceiver {
                     e.printStackTrace();
                 }
 
-                if(mood.equals("skip") && text.equals("No entry") && fm.length() == 0 && cfm.length() == 0){
+                if(mood.equals(Globals.skip) && text.equals(Globals.no_entry) && fm.length() == 0 && cfm.length() == 0){
                     lastEntry.deleteInBackground();
                 }
 
-                if(mood.equals("No mood selected") && text.equals("No entry") && fm.length() == 0 && cfm.length() == 0){
+                if(mood.equals("No mood selected") && text.equals(Globals.no_entry) && fm.length() == 0 && cfm.length() == 0){
                     lastEntry.deleteInBackground();
                 }
 
