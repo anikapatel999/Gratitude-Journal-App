@@ -2,6 +2,7 @@ package com.example.gratitudejournal;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
@@ -43,6 +44,9 @@ public class CalendarActivity extends AppCompatActivity {
         // cvCalendar = (CalendarView) findViewById(R.id.cvCalendar);
         cvCalendar = findViewById(R.id.cvCalendar);
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.new_color)));
+
+        ConstraintLayout cl = findViewById(R.id.cl);
+        cl.setBackgroundResource(R.color.warm);
 
         cvCalendar.initCalderItemClickCallback(new CalenderDayClickListener() {
             @Override

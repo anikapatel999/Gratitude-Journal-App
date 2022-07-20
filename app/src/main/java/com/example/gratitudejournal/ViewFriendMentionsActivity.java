@@ -1,6 +1,7 @@
 package com.example.gratitudejournal;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
@@ -38,6 +39,9 @@ public class ViewFriendMentionsActivity extends AppCompatActivity {
         lvFriends = findViewById(R.id.lvFriends);
 
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.new_color)));
+
+        ConstraintLayout cl = findViewById(R.id.cl);
+        cl.setBackgroundResource(R.color.warm);
 
         ArrayList<String> friendUsernames = getIntent().getStringArrayListExtra("friends");
         ArrayList<String> entryIds = getIntent().getStringArrayListExtra("entryIds");

@@ -1,6 +1,7 @@
 package com.example.gratitudejournal;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
@@ -47,6 +48,9 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
         tCloseFriendMentions = findViewById(R.id.tCloseFriendMentions);
         btnDone = findViewById(R.id.btnDone);
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.new_color)));
+
+        ConstraintLayout cl = findViewById(R.id.cl);
+        cl.setBackgroundResource(R.color.warm);
 
 //        String[] tz = TimeZone.getAvailableIDs();
 //        Log.i(TAG, "TIMEZONES " + tz.length);

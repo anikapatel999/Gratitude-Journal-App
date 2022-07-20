@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
+import android.widget.LinearLayout;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -45,6 +46,9 @@ public class ViewCloseFriendEntriesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_close_friend_entries);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
+
+        LinearLayout ll = findViewById(R.id.ll);
+        ll.setBackgroundResource(R.color.warm);
 
         rvEntries = (RecyclerView) findViewById(R.id.rvEntries);
         adapter = new EntriesAdapter(this, allEntries);

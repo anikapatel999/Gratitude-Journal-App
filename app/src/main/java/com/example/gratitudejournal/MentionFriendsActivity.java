@@ -1,6 +1,7 @@
 package com.example.gratitudejournal;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.animation.LayoutTransition;
 import android.content.Intent;
@@ -67,6 +68,9 @@ public class MentionFriendsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_mention_friends);
 
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.new_color)));
+
+        ConstraintLayout cl = findViewById(R.id.cl);
+        cl.setBackgroundResource(R.color.warm);
 
         llFriends = findViewById(R.id.llFriends);
         tvFriendsCardviewText = findViewById(R.id.tvFriendsCardviewText);

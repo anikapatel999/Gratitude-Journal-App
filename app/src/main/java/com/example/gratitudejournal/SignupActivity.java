@@ -1,6 +1,7 @@
 package com.example.gratitudejournal;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
@@ -34,6 +35,10 @@ public class SignupActivity extends AppCompatActivity {
         etPassword = findViewById(R.id.etPassword);
         btnSignup = findViewById(R.id.btnSignup);
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.new_color)));
+
+        ConstraintLayout cl = findViewById(R.id.cl);
+        cl.setBackgroundResource(R.color.warm);
+
         btnSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

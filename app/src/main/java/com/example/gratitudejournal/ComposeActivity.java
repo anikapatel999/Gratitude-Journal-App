@@ -1,6 +1,7 @@
 package com.example.gratitudejournal;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
@@ -40,6 +41,9 @@ public class ComposeActivity extends AppCompatActivity {
         btnMood = findViewById(R.id.btnMood);
         btnSave = findViewById(R.id.btnSave);
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.new_color)));
+
+        ConstraintLayout cl = findViewById(R.id.cl);
+        cl.setBackgroundResource(R.color.warm);
 
         // get the user's current journal entry
         User currentUser = (User) ParseUser.getCurrentUser();

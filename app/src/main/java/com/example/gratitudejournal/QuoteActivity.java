@@ -1,6 +1,7 @@
 package com.example.gratitudejournal;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
@@ -67,6 +68,9 @@ public class QuoteActivity extends AppCompatActivity {
         tvCredit = findViewById(R.id.tvCredit);
         fade_in_anim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in);
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.new_color)));
+
+        ConstraintLayout cl = findViewById(R.id.cl);
+        cl.setBackgroundResource(R.color.warm);
 
         Log.i(TAG, "oncreateeeeeee");
         ParseUser currentUser = ParseUser.getCurrentUser();

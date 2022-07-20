@@ -1,6 +1,7 @@
 package com.example.gratitudejournal;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
@@ -49,6 +50,9 @@ public class MoodActivity extends AppCompatActivity {
         btnBad = findViewById(R.id.btnBad);
         btnTerrible = findViewById(R.id.btnTerrible);
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.new_color)));
+
+        ConstraintLayout cl = findViewById(R.id.cl);
+        cl.setBackgroundResource(R.color.warm);
 
         btnAmazing.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -101,6 +101,9 @@ public class FriendsActivity extends AppCompatActivity implements AdapterView.On
 
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.new_color)));
 
+        ConstraintLayout cl = findViewById(R.id.cl);
+        cl.setBackgroundResource(R.color.warm);
+
         ParseUser currentUser = ParseUser.getCurrentUser();
         User currentUser2 = (User) currentUser;
         friends = currentUser2.getFriends();

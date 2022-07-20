@@ -1,6 +1,7 @@
 package com.example.gratitudejournal;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -49,6 +50,9 @@ public class HomeActivity extends AppCompatActivity {
         avCompose = findViewById(R.id.avCompose);
         avCalendar = findViewById(R.id.avCalendar);
         avFriends = findViewById(R.id.avFriends);
+
+        ConstraintLayout cl = findViewById(R.id.cl);
+        cl.setBackgroundResource(R.color.warm);
 
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.new_color)));
 
