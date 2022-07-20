@@ -220,6 +220,7 @@ public class FriendsActivity extends AppCompatActivity implements AdapterView.On
                         @Override
                         public void done(List<User> objects, ParseException e) {
                             boolean found = false;
+                            boolean found2 = false;
                             if (objects.size() == 1) {
                                 User newCloseFriend = objects.get(0);
                                 String nfID = newCloseFriend.getObjectId();
@@ -250,7 +251,8 @@ public class FriendsActivity extends AppCompatActivity implements AdapterView.On
 //                                        ex.printStackTrace();
 //                                    }
 //                                }
-                                found = inFriendsList(nfID, found);
+//                                found = inFriendsList(nfID, found);
+                                found2 = inFriendsList(nfID, found);
 //                                for (int i = 0; i < friends.length(); i++) {
 //                                    try {
 //                                        if (friends.get(i).getClass().equals(User.class)) {
@@ -276,7 +278,7 @@ public class FriendsActivity extends AppCompatActivity implements AdapterView.On
 //                                        ex.printStackTrace();
 //                                    }
 //                                }
-                                if (found == false) {
+                                if (found == false && found2 == false) {
                                     closeFriends.put(newCloseFriend);
                                     currentUser2.setCloseFriends(closeFriends);
                                     currentUser2.saveInBackground();
@@ -284,6 +286,23 @@ public class FriendsActivity extends AppCompatActivity implements AdapterView.On
                                     etAddCloseFriend.setText("");
                                     recreate();
                                     //getCloseFriendUsernames();
+                                }
+                                else if (found == false && found2 == true) {
+                                    int ind = 0;
+                                    for (int j = 0; j < friendUsernames.size(); j++) {
+                                        if (friendUsernames.get(j).equals(username)) {
+                                            ind = j;
+                                            Log.i(TAG, "AAAAA " + friendUsernames.get(j));
+                                            break;
+                                        }
+                                    }
+                                    closeFriends.put(newCloseFriend);
+                                    currentUser2.setCloseFriends(closeFriends);
+                                    currentUser2.saveInBackground();
+                                    Toast.makeText(FriendsActivity.this, "Close friend added!", Toast.LENGTH_SHORT).show();
+                                    etAddCloseFriend.setText("");
+                                    removeFriend(ind+1);
+                                    recreate();
                                 }
                             } else {
                                 Toast.makeText(FriendsActivity.this, "User not found!", Toast.LENGTH_SHORT).show();
