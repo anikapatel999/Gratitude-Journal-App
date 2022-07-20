@@ -13,7 +13,7 @@
         android:layout_margin="20dp"
         android:layout_marginTop="90dp"
         android:gravity="center"
-        android:text="Please select you timezone \n (this can be changed later in settings)"
+        android:text="@string/please_select_you_timezone_n_this_can_be_changed_later_in_settings"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -39,7 +39,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Do you want to notify friends \n when you mention them in a journal entry?"
+        android:text="@string/do_you_want_to_notify_friends_n_when_you_mention_them_in_a_journal_entry"
         tools:ignore="MissingConstraints" />
 
     <ToggleButton
@@ -50,8 +50,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:checked="true"
-        android:textOff="NO"
-        android:textOn="YES"
+        android:textOff="@string/no"
+        android:textOn="@string/yes"
         tools:ignore="MissingConstraints" />
 
     <TextView
@@ -63,7 +63,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Do you want to be notified \n when friends mention you in a journal entry?"
+        android:text="@string/do_you_want_to_be_notified_n_when_friends_mention_you_in_a_journal_entry"
         tools:ignore="MissingConstraints" />
 
     <ToggleButton
@@ -74,8 +74,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:checked="true"
-        android:textOff="NO"
-        android:textOn="YES"
+        android:textOff="@string/no"
+        android:textOn="@string/yes"
         tools:ignore="MissingConstraints" />
 
     <TextView
@@ -87,7 +87,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Do you want to notify close friends \n when you mention them in a journal entry?"
+        android:text="@string/do_you_want_to_notify_close_friends_n_when_you_mention_them_in_a_journal_entry"
         tools:ignore="MissingConstraints" />
 
     <ToggleButton
@@ -98,8 +98,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:checked="true"
-        android:textOff="NO"
-        android:textOn="YES"
+        android:textOff="@string/no"
+        android:textOn="@string/yes"
         tools:ignore="MissingConstraints" />
 
     <TextView
@@ -111,7 +111,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Do you want to be notified \n when close friends mention you in a journal entry?"
+        android:text="@string/do_you_want_to_be_notified_n_when_close_friends_mention_you_in_a_journal_entry"
         tools:ignore="MissingConstraints" />
 
     <ToggleButton
@@ -122,8 +122,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:checked="true"
-        android:textOff="NO"
-        android:textOn="YES"
+        android:textOff="@string/no"
+        android:textOn="@string/yes"
         tools:ignore="MissingConstraints" />
 
     <Button
@@ -139,7 +139,7 @@
         android:layout_marginBottom="10dp"
         android:layout_weight="1"
         android:backgroundTint="@color/new_color"
-        android:text="Done!"
+        android:text="@string/done"
         tools:layout_height="50dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

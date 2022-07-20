@@ -15,7 +15,7 @@
         android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         tools:layout_editor_absoluteY="58dp"
-        android:text="Mood:"
+        android:text="@string/mood"
         tools:ignore="MissingConstraints" />
 
     <EditText

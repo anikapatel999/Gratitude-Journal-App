@@ -32,7 +32,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             android:gravity="center"
-            android:text="Compose or edit your journal entry" />
+            android:text="@string/compose_or_edit_your_journal_entry" />
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/avCalendar"
@@ -56,7 +56,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             android:gravity="center"
-            android:text="View past entries" />
+            android:text="@string/view_past_entries" />
 
 
         <com.airbnb.lottie.LottieAnimationView
@@ -81,7 +81,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             android:gravity="center"
-            android:text="View or edit friends and close friends" />
+            android:text="@string/view_or_edit_friends_and_close_friends" />
 
 
         <com.airbnb.lottie.LottieAnimationView

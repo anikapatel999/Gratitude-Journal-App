@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:layout_marginTop="20dp"
-        android:text="Mention friends"
+        android:text="@string/mention_friends"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -45,7 +45,7 @@
                 android:id="@+id/tvFriendsCardviewText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Friends list:"
+                android:text="@string/friends_list"
                 android:textSize="17sp"
                 />
 
@@ -54,7 +54,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:visibility="gone"
-                android:text="No friends added!"
+                android:text="@string/no_friends_added"
                 tools:text="This is a list of friends usernames, which will be separated by commas and spaces and will maybe spill over onto multiple lines like this example text!" />
 
         </LinearLayout>
@@ -66,7 +66,7 @@
         android:layout_height="wrap_content"
         android:layout_marginRight="30dp"
         android:layout_marginTop="20dp"
-        android:text="Enter the usernames of up to 3 friends\nyou would like to mention, separated by commas"
+        android:text="@string/enter_the_usernames_of_up_to_3_friends_nyou_would_like_to_mention_separated_by_commas"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/cvFriendsList" />
@@ -76,7 +76,7 @@
         android:layout_width="260dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
-        android:hint="user1, user2, user3"
+        android:hint="@string/user1_user2_user3"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvFriendsPrompt" />
 
@@ -87,7 +87,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:layout_marginTop="15dp"
-        android:text="Mention close friends"
+        android:text="@string/mention_close_friends"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@+id/etFriends"
@@ -119,14 +119,14 @@
                 android:id="@+id/tvCloseFriendsCardviewText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Close friends list:"
+                android:text="@string/close_friends_list"
                 android:textSize="17sp" />
 
             <TextView
                 android:id="@+id/tvCloseFriendsList"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="No close friends added!"
+                android:text="@string/no_close_friends_added"
                 android:visibility="gone"
                 tools:text="This is a list of close friends usernames, which will be separated by commas and spaces and will maybe spill over onto multiple lines like this example text!" />
 
@@ -139,7 +139,7 @@
         android:layout_height="wrap_content"
         android:layout_marginRight="30dp"
         android:layout_marginTop="20dp"
-        android:text="Enter the usernames of up to 3 close friends\nyou would like to mention, separated by commas"
+        android:text="@string/enter_the_usernames_of_up_to_3_close_friends_nyou_would_like_to_mention_separated_by_commas"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/cvCloseFriendsList" />
@@ -149,7 +149,7 @@
         android:layout_width="260dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
-        android:hint="user1, user2, user3"
+        android:hint="@string/user1_user2_user3"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvCloseFriendsPrompt" />
 

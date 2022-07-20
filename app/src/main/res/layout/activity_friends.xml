@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:layout_marginTop="30dp"
-        android:text="Friends"
+        android:text="@string/friends"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -29,7 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:layout_marginTop="20dp"
-        android:text="To add a friend, enter their username here:"
+        android:text="@string/to_add_a_friend_enter_their_username_here"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvFriendsTitle" />
 
@@ -38,7 +38,7 @@
         android:layout_width="185dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
-        android:hint="username"
+        android:hint="@string/username"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvAddFriends" />
 
@@ -48,7 +48,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="225dp"
         android:backgroundTint="@color/new_color"
-        android:text="Add"
+        android:text="@string/add"
         app:layout_constraintLeft_toRightOf="@id/etAddFriend"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvAddFriends" />
@@ -59,7 +59,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:layout_marginTop="20dp"
-        android:text="To remove a friend, select their username:"
+        android:text="@string/to_remove_a_friend_select_their_username"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/etAddFriend" />
 
@@ -81,7 +81,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:layout_marginTop="20dp"
-            android:text="Click below to view friends:"
+            android:text="@string/click_below_to_view_friends"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/sRemoveFriend" />
 
@@ -116,7 +116,7 @@
                     android:id="@+id/tvFriendsCardviewText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Friends list:"
+                    android:text="@string/friends_list"
                     android:textSize="17sp"
                     />
 
@@ -125,7 +125,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:visibility="gone"
-                    android:text="No friends added!"
+                    android:text="@string/no_friends_added"
                     tools:text="This is a list of friends usernames, which will be separated by commas and spaces and will maybe spill over onto multiple lines like this example text!" />
 
             </LinearLayout>
@@ -146,7 +146,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:layout_marginTop="30dp"
-        android:text="Close Friends"
+        android:text="@string/close_friends"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -158,7 +158,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:layout_marginTop="20dp"
-        android:text="To add a close friend, enter their username here:"
+        android:text="@string/to_add_a_close_friend_enter_their_username_here"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvCloseFriendsTitle" />
 
@@ -167,7 +167,7 @@
         android:layout_width="185dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
-        android:hint="username"
+        android:hint="@string/username"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvAddCloseFriends" />
 
@@ -177,7 +177,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="225dp"
         android:backgroundTint="@color/new_color"
-        android:text="Add"
+        android:text="@string/add"
         app:layout_constraintLeft_toRightOf="@id/etAddCloseFriend"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvAddCloseFriends" />
@@ -188,7 +188,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:layout_marginTop="20dp"
-        android:text="To remove a close friend, select their username:"
+        android:text="@string/to_remove_a_close_friend_select_their_username"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/etAddCloseFriend" />
 
@@ -211,7 +211,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:layout_marginTop="20dp"
-            android:text="Click below to view close friends:"
+            android:text="@string/click_below_to_view_close_friends"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/sRemoveCloseFriend" />
 
@@ -241,7 +241,7 @@
                     android:id="@+id/tvCloseFriendsCardviewText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Close friends list:"
+                    android:text="@string/close_friends_list"
                     android:textSize="17sp"
                     />
 
@@ -250,7 +250,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:visibility="gone"
-                    android:text="No close friends added!"
+                    android:text="@string/no_close_friends_added"
                     tools:text="This is a list of friends usernames, which will be separated by commas and spaces and will maybe spill over onto multiple lines like this example text!" />
 
             </LinearLayout>

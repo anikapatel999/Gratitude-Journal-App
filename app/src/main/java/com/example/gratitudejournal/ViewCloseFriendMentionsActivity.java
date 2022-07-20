@@ -12,6 +12,7 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.parse.ParseUser;
@@ -24,6 +25,7 @@ import java.util.Set;
 public class ViewCloseFriendMentionsActivity extends AppCompatActivity {
 
     ListView lvCloseFriends;
+    TextView tvSeenAll;
 
     public static final String TAG = "ViewCloseFriendMentionsActivity";
 
@@ -34,12 +36,17 @@ public class ViewCloseFriendMentionsActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
 
         lvCloseFriends = findViewById(R.id.lvCloseFriends);
+        tvSeenAll = findViewById(R.id.tvSeenAll);
 
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.new_color)));
 
         ArrayList<String> closeFriendUsernames = getIntent().getStringArrayListExtra("closeFriends");
         ArrayList<String> entryIds = getIntent().getStringArrayListExtra("entryIds");
         ArrayList<String> userFreq = new ArrayList<>();
+
+        if(closeFriendUsernames.size() == 0) {
+            tvSeenAll.setVisibility(View.VISIBLE);
+        }
 
         Set<String> distinct = new HashSet<>(closeFriendUsernames);
         for (String s: distinct) {
