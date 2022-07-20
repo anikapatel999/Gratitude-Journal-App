@@ -71,7 +71,7 @@
             android:layout_weight="1"
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
-            app:lottie_url="https://assets5.lottiefiles.com/packages/lf20_o6taxtxj.json" />
+            app:lottie_url="https://assets1.lottiefiles.com/packages/lf20_xegzncqe.json" />
 
         <TextView
             android:id="@+id/tvFriends"
@@ -87,7 +87,7 @@
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/avPlaceholder2"
-            android:layout_marginTop="-25dp"
+            android:layout_marginTop="-10dp"
             android:layout_width="300dp"
             android:layout_height="300dp"
             android:layout_weight="1"
@@ -96,7 +96,7 @@
             app:layout_constraintTop_toBottomOf="@+id/tvFriends"
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
-            app:lottie_url="https://assets2.lottiefiles.com/packages/lf20_lphquaqr.json" />
+            app:lottie_url="https://assets7.lottiefiles.com/packages/lf20_t9m3krxs.json" />
 
         <TextView
             android:id="@+id/tvStats"
