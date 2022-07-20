@@ -78,33 +78,33 @@ public class ComposeActivity extends AppCompatActivity {
         // change the colors of the mood and save buttons depending on the mood the user
         // has selected
         if(mood.equals(Globals.amazing)){
-            btnMood.setBackgroundColor(0xFFF8CC7F);
-            btnSave.setBackgroundColor(0xFFF8CC7F);
+            btnMood.setBackgroundColor(btnMood.getContext().getResources().getColor(R.color.amazing));
+            btnSave.setBackgroundColor(btnSave.getContext().getResources().getColor(R.color.amazing));
         }
 
         else if(mood.equals(Globals.good)){
-            btnMood.setBackgroundColor(0xFFD2B08C);
-            btnSave.setBackgroundColor(0xFFD2B08C);
+            btnMood.setBackgroundColor(btnMood.getContext().getResources().getColor(R.color.good));
+            btnSave.setBackgroundColor(btnSave.getContext().getResources().getColor(R.color.good));
         }
 
         else if(mood.equals(Globals.okay)){
-            btnMood.setBackgroundColor(0xFF808080);
-            btnSave.setBackgroundColor(0xFF808080);
+            btnMood.setBackgroundColor(btnMood.getContext().getResources().getColor(R.color.okay));
+            btnSave.setBackgroundColor(btnSave.getContext().getResources().getColor(R.color.okay));
         }
 
         else if(mood.equals(Globals.bad)){
-            btnMood.setBackgroundColor(0xFF374C56);
-            btnSave.setBackgroundColor(0xFF374C56);
+            btnMood.setBackgroundColor(btnMood.getContext().getResources().getColor(R.color.bad));
+            btnSave.setBackgroundColor(btnSave.getContext().getResources().getColor(R.color.bad));
         }
 
         else if(mood.equals(Globals.terrible)){
-            btnMood.setBackgroundColor(0xFF04202F);
-            btnSave.setBackgroundColor(0xFF04202F);
+            btnMood.setBackgroundColor(btnMood.getContext().getResources().getColor(R.color.terrible));
+            btnSave.setBackgroundColor(btnSave.getContext().getResources().getColor(R.color.terrible));
         }
 
         else if(mood.equals("No mood selected")) {
-            btnMood.setBackgroundColor(0xFF7294a3);
-            btnSave.setBackgroundColor(0xFF7294a3);
+            btnMood.setBackgroundColor(btnMood.getContext().getResources().getColor(R.color.skip));
+            btnSave.setBackgroundColor(btnSave.getContext().getResources().getColor(R.color.skip));
 
         }
 

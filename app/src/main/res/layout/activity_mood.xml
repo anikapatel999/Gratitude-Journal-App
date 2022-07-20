@@ -43,7 +43,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:layout_weight="1"
-        android:backgroundTint="#D2B08C"
+        android:backgroundTint="@color/good"
         android:text="@string/good"
         tools:layout_height="50dp" />
 
@@ -57,7 +57,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:layout_weight="1"
-        android:backgroundTint="#808080"
+        android:backgroundTint="@color/okay"
         android:text="@string/okay"
         tools:layout_height="50dp" />
 
@@ -71,7 +71,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:layout_weight="1"
-        android:backgroundTint="#374C56"
+        android:backgroundTint="@color/bad"
         android:text="@string/bad"
         tools:layout_height="50dp" />
 
@@ -85,7 +85,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:layout_weight="1"
-        android:backgroundTint="#04202F"
+        android:backgroundTint="@color/terrible"
         android:text="@string/terrible"
         tools:layout_height="50dp" />
 
