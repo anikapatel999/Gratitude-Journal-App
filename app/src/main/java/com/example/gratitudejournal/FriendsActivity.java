@@ -23,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.parse.FindCallback;
 import com.parse.Parse;
 import com.parse.ParseException;
@@ -43,6 +44,8 @@ import com.example.myapplication.Entry;
 public class FriendsActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
 
     public static final String TAG = "FriendsActivity";
+
+    ConstraintLayout cl;
 
     EditText etAddFriend;
     EditText etAddCloseFriend;
@@ -74,6 +77,8 @@ public class FriendsActivity extends AppCompatActivity implements AdapterView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friends);
+
+        cl = findViewById(R.id.cl);
 
         etAddFriend = findViewById(R.id.etAddFriend);
         etAddCloseFriend = findViewById(R.id.etAddCloseFriend);
@@ -127,13 +132,20 @@ public class FriendsActivity extends AppCompatActivity implements AdapterView.On
                         @Override
                         public void done(List<User> objects, ParseException e) {
                             boolean found = false;
+                            boolean found2 = false;
                             if (objects.size() == 1) {
                                 User newFriend = objects.get(0);
                                 String nfID = newFriend.getObjectId();
 
                                 found = inCloseFriendsList(nfID);
+                                if (found) {
+                                    Toast.makeText(FriendsActivity.this, "This user is already in your close friends list!", Toast.LENGTH_SHORT).show();
+                                }
 
-                                found = inFriendsList(nfID, found);
+                                found2 = inFriendsList(nfID);
+                                if (found2) {
+                                    Toast.makeText(FriendsActivity.this, "This user is already in your friends list!", Toast.LENGTH_SHORT).show();
+                                }
 
 //                                for (int i = 0; i < friends.length(); i++) {
 //                                    // check if the user is already in the current user's friends list
@@ -188,7 +200,7 @@ public class FriendsActivity extends AppCompatActivity implements AdapterView.On
 //                                    }
 //                                }
                                 // if a user with the username exists and is not already added to a list
-                                if (found == false) {
+                                if (found == false && found2 == false) {
                                     friends.put(newFriend);
                                     currentUser2.setFriends(friends);
                                     currentUser2.saveInBackground();
@@ -226,6 +238,9 @@ public class FriendsActivity extends AppCompatActivity implements AdapterView.On
                                 String nfID = newCloseFriend.getObjectId();
 
                                 found = inCloseFriendsList(nfID);
+                                if (found) {
+                                    Toast.makeText(FriendsActivity.this, "This user is already in your close friends list!", Toast.LENGTH_SHORT).show();
+                                }
 //                                for (int i = 0; i < closeFriends.length(); i++) {
 //                                    try {
 //                                        if (closeFriends.get(i).getClass().equals(User.class)) {
@@ -252,7 +267,8 @@ public class FriendsActivity extends AppCompatActivity implements AdapterView.On
 //                                    }
 //                                }
 //                                found = inFriendsList(nfID, found);
-                                found2 = inFriendsList(nfID, found);
+                                found2 = inFriendsList(nfID);
+
 //                                for (int i = 0; i < friends.length(); i++) {
 //                                    try {
 //                                        if (friends.get(i).getClass().equals(User.class)) {
@@ -296,13 +312,22 @@ public class FriendsActivity extends AppCompatActivity implements AdapterView.On
                                             break;
                                         }
                                     }
-                                    closeFriends.put(newCloseFriend);
-                                    currentUser2.setCloseFriends(closeFriends);
-                                    currentUser2.saveInBackground();
-                                    Toast.makeText(FriendsActivity.this, "Close friend added!", Toast.LENGTH_SHORT).show();
-                                    etAddCloseFriend.setText("");
-                                    removeFriend(ind+1);
-                                    recreate();
+                                    Snackbar mySnackbar = Snackbar.make(cl,
+                                            "Promote friend to close friend?", Snackbar.LENGTH_LONG);
+                                    int finalInd = ind;
+                                    mySnackbar.setAction("yes", new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View v) {
+                                                    closeFriends.put(newCloseFriend);
+                                                    currentUser2.setCloseFriends(closeFriends);
+                                                    currentUser2.saveInBackground();
+                                                    Toast.makeText(FriendsActivity.this, "Close friend added!", Toast.LENGTH_SHORT).show();
+                                                    etAddCloseFriend.setText("");
+                                                    removeFriend(finalInd +1);
+                                                    recreate();
+                                                }
+                                            });
+                                            mySnackbar.show();
                                 }
                             } else {
                                 Toast.makeText(FriendsActivity.this, "User not found!", Toast.LENGTH_SHORT).show();
@@ -315,7 +340,8 @@ public class FriendsActivity extends AppCompatActivity implements AdapterView.On
 
     }
 
-    private boolean inFriendsList(String nfID, boolean found) {
+    private boolean inFriendsList(String nfID) {
+        boolean found = false;
         for (int i = 0; i < friends.length(); i++) {
             try {
                 if (friends.get(i).getClass().equals(User.class)) {
@@ -324,14 +350,14 @@ public class FriendsActivity extends AppCompatActivity implements AdapterView.On
                     String uID = a.getObjectId();
                     if (nfID.equals(uID)) {
                         found = true;
-                        Toast.makeText(FriendsActivity.this, "This user is already in your friends list!", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(FriendsActivity.this, "This user is already in your friends list!", Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     JSONObject a = (JSONObject) friends.get(i);
                     String id = a.getString("objectId");
                     Log.i(TAG, "this HeLLO " + friends);
                     if (nfID.equals(id)) {
-                        Toast.makeText(FriendsActivity.this, "This user is already in your friends list!", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(FriendsActivity.this, "This user is already in your friends list!", Toast.LENGTH_SHORT).show();
                         found = true;
                         break;
                     }
@@ -354,7 +380,7 @@ public class FriendsActivity extends AppCompatActivity implements AdapterView.On
                     String uID = a.getObjectId();
                     if (nfID.equals(uID)) {
                         found = true;
-                        Toast.makeText(FriendsActivity.this, "This user is already in your close friends list!", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(FriendsActivity.this, "This user is already in your close friends list!", Toast.LENGTH_SHORT).show();
                         break;
                     }
                 } else {
@@ -362,7 +388,7 @@ public class FriendsActivity extends AppCompatActivity implements AdapterView.On
                     String id = a.getString("objectId");
                     Log.i(TAG, "this HeLLO " + closeFriends);
                     if (nfID.equals(id)) {
-                        Toast.makeText(FriendsActivity.this, "This user is already in your close friends list!", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(FriendsActivity.this, "This user is already in your close friends list!", Toast.LENGTH_SHORT).show();
                         found = true;
                         break;
                     }
