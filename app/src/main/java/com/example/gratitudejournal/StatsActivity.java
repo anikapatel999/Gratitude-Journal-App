@@ -19,6 +19,7 @@ import com.anychart.AnyChartView;
 import com.anychart.chart.common.dataentry.DataEntry;
 import com.anychart.chart.common.dataentry.ValueDataEntry;
 import com.anychart.charts.Cartesian;
+import com.anychart.charts.Pie;
 import com.anychart.core.cartesian.series.Line;
 import com.anychart.data.Mapping;
 import com.anychart.data.Set;
@@ -38,17 +39,20 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 
 public class StatsActivity extends AppCompatActivity {
 
-    // AnyChartView cvStats1;
+    public static final String TAG = "StatsActivity";
     GraphView gvStats1;
     TextView tvNoMoods;
-    TextView tvTitle;
+    TextView tvTitle1;
     Animation fade_in_anim;
+    AnyChartView acvStats2;
     //int max_x;
-    public static final String TAG = "StatsActivity";
+    ArrayList<String> allMoodsArray = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +66,10 @@ public class StatsActivity extends AppCompatActivity {
 
         gvStats1 = findViewById(R.id.gvStats1);
         tvNoMoods = findViewById(R.id.tvNoMoods);
-        tvTitle = findViewById(R.id.tvTitle);
+        tvTitle1 = findViewById(R.id.tvTitle1);
+
+        acvStats2 = findViewById(R.id.acvStats2);
+
         fade_in_anim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in);
 
         // get the array of moods
@@ -82,7 +89,7 @@ public class StatsActivity extends AppCompatActivity {
 //        gvStats1.getViewport().setXAxisBoundsManual(true);
 //        gvStats1.getViewport().setMaxX(max_x + 2);
 
-        // set axes of graph
+        // set axes of line graph
         gvStats1.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter()
         {
             @Override
@@ -100,6 +107,25 @@ public class StatsActivity extends AppCompatActivity {
             }
         });
 
+        makePieChart();
+    }
+
+    private void makePieChart() {
+
+        HashSet<String> allMoodsSet = new HashSet<>(allMoodsArray);
+        Log.i(TAG, "freq amazing: " + Collections.frequency(allMoodsArray, Globals.amazing));
+        Log.i(TAG, "freq good: " + Collections.frequency(allMoodsArray, Globals.good));
+        Pie pie = AnyChart.pie();
+        List<DataEntry> data = new ArrayList<>();
+        data.add(new ValueDataEntry(Globals.amazing, Collections.frequency(allMoodsArray, Globals.amazing)));
+        data.add(new ValueDataEntry(Globals.good, Collections.frequency(allMoodsArray, Globals.good)));
+        data.add(new ValueDataEntry(Globals.okay, Collections.frequency(allMoodsArray, Globals.okay)));
+        data.add(new ValueDataEntry(Globals.bad, Collections.frequency(allMoodsArray, Globals.bad)));
+        data.add(new ValueDataEntry(Globals.terrible, Collections.frequency(allMoodsArray, Globals.terrible)));
+        pie.data(data);
+//        String[] colors = {"#90caf9", "#80cbc4", "#aed581", "#e6ee9c", "#ffcc80"};
+//        pie.palette(colors);
+        acvStats2.setChart(pie);
     }
 
     private LineGraphSeries<DataPoint> setSeries(LineGraphSeries<DataPoint> series) {
@@ -130,7 +156,7 @@ public class StatsActivity extends AppCompatActivity {
     }
 
     public DataPoint[] getData(JSONArray allMoods) {
-        ArrayList<String> allMoodsArray = new ArrayList<>();
+//        ArrayList<String> allMoodsArray = new ArrayList<>();
         for(int i = 0; i < allMoods.length(); i++) {
             try {
                 if (!allMoods.get(i).toString().equals(Globals.skip) && !allMoods.get(i).toString().equals("No mood selected")){
@@ -144,7 +170,7 @@ public class StatsActivity extends AppCompatActivity {
         if (allMoodsArray.size() == 0) {
             gvStats1.setVisibility(View.GONE);
             tvNoMoods.setVisibility(View.VISIBLE);
-            tvTitle.setVisibility(View.GONE);
+            tvTitle1.setVisibility(View.GONE);
         }
 
         int n = allMoodsArray.size();
