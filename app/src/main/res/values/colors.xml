@@ -19,4 +19,9 @@
 
     <color name="amazing_transparent">#88F8CC7F</color>
 
+    <color name="ets">#FFC3C3C3</color>
+    <color name="login">#FF455A63</color>
+    <color name="signup">#FFF8BD7F</color>
+
+
 </resources>

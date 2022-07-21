@@ -14,11 +14,27 @@
         android:layout_height="wrap_content"
         tools:ignore="MissingConstraints" /> -->
 
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/happiness_over_time"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginBottom="50dp"
+        app:layout_constraintBottom_toTopOf="@+id/gvStats1"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textColor="@color/new_color"
+        android:textSize="25sp"
+        />
+
+
     <com.jjoe64.graphview.GraphView
         android:id="@+id/gvStats1"
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="10dp"
         android:layout_marginEnd="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,7 +46,7 @@
         android:id="@+id/tvNoMoods"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="You haven't logged any moods yet!"
+        android:text="@string/you_haven_t_logged_any_moods_yet"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"

@@ -33,7 +33,7 @@
         android:layout_marginRight="45dp"
         android:layout_marginBottom="10dp"
         android:layout_weight="1"
-        android:backgroundTint="#C3C3C3"
+        android:backgroundTint="@color/ets"
         android:ems="10"
         android:hint="@string/username" />
 
@@ -49,7 +49,7 @@
         android:layout_marginRight="45dp"
         android:layout_marginBottom="0dp"
         android:layout_weight="1"
-        android:backgroundTint="#C3C3C3"
+        android:backgroundTint="@color/ets"
         android:ems="10"
         android:hint="@string/password"
         android:inputType="textPassword" />
@@ -66,7 +66,7 @@
         android:layout_marginRight="45dp"
         android:layout_marginBottom="0dp"
         android:layout_weight="1"
-        android:backgroundTint="#455A63"
+        android:backgroundTint="@color/login"
         android:text="@string/sign_up"
         tools:layout_height="50dp" />
 

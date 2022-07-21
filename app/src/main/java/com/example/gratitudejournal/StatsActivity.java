@@ -44,6 +44,7 @@ public class StatsActivity extends AppCompatActivity {
     // AnyChartView cvStats1;
     GraphView gvStats1;
     TextView tvNoMoods;
+    TextView tvTitle;
     Animation fade_in_anim;
 
     @Override
@@ -58,38 +59,28 @@ public class StatsActivity extends AppCompatActivity {
 
         gvStats1 = findViewById(R.id.gvStats1);
         tvNoMoods = findViewById(R.id.tvNoMoods);
+        tvTitle = findViewById(R.id.tvTitle);
         fade_in_anim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in);
 
-
-        ParseUser currentUser = ParseUser.getCurrentUser();
-        User currentUser2 = (User) currentUser;
-        JSONArray allMoods = currentUser2.getMoods();
-
+        // get the array of moods
+        JSONArray allMoods = getArray();
 
         LineGraphSeries<DataPoint> series;
         series = new LineGraphSeries<DataPoint>(getData(allMoods));
 
-        series.setTitle("Happiness Over Time");
+//        series.setTitle("Happiness Over Time");
+//        gvStats1.getLegendRenderer().setVisible(true);
 
         GridLabelRenderer gridLabel = gvStats1.getGridLabelRenderer();
-        gridLabel.setHorizontalAxisTitleTextSize(50);
-        gridLabel.setHorizontalAxisTitle("\n \n \n \n \n \n \n Each day you logged a mood");
-        gridLabel.setHorizontalAxisTitleColor(getResources().getColor(R.color.new_color));
-        gridLabel.setVerticalAxisTitleTextSize(50);
-        gridLabel.setVerticalAxisTitle("Happiness");
-        gridLabel.setVerticalAxisTitleColor(getResources().getColor(R.color.new_color));
+        gridLabel = setGridLabel(gridLabel);
 
         gvStats1.startAnimation(fade_in_anim);
         gvStats1.addSeries(series);
 
         //series.setColor(R.color.new_color);
-        series.setColor(getResources().getColor(R.color.new_color));
-        series.setThickness(15);
-        series.setDrawBackground(true);
-        series.setBackgroundColor(getResources().getColor(R.color.amazing_transparent));
-        series.setDrawDataPoints(true);
-        series.setDataPointsRadius(12);
+        series = setSeries(series);
 
+        // set axes of graph
         gvStats1.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter()
         {
             @Override
@@ -109,6 +100,32 @@ public class StatsActivity extends AppCompatActivity {
 
     }
 
+    private LineGraphSeries<DataPoint> setSeries(LineGraphSeries<DataPoint> series) {
+        series.setColor(getResources().getColor(R.color.new_color));
+        series.setThickness(15);
+        series.setDrawBackground(true);
+        series.setBackgroundColor(getResources().getColor(R.color.amazing_transparent));
+        series.setDrawDataPoints(true);
+        series.setDataPointsRadius(12);
+        return series;
+    }
+
+    private GridLabelRenderer setGridLabel(GridLabelRenderer gridLabel) {
+        gridLabel.setHorizontalAxisTitleTextSize(50);
+        gridLabel.setHorizontalAxisTitle("\n \n \n \n \n \n \n Each day you logged a mood");
+        gridLabel.setHorizontalAxisTitleColor(getResources().getColor(R.color.new_color));
+        gridLabel.setVerticalAxisTitleTextSize(50);
+        gridLabel.setVerticalAxisTitle("Happiness");
+        gridLabel.setVerticalAxisTitleColor(getResources().getColor(R.color.new_color));
+        return gridLabel;
+    }
+
+    private JSONArray getArray() {
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        User currentUser2 = (User) currentUser;
+        return currentUser2.getMoods();
+    }
+
     public DataPoint[] getData(JSONArray allMoods) {
         ArrayList<String> allMoodsArray = new ArrayList<>();
         for(int i = 0; i < allMoods.length(); i++) {
@@ -124,6 +141,7 @@ public class StatsActivity extends AppCompatActivity {
         if (allMoodsArray.size() == 0) {
             gvStats1.setVisibility(View.GONE);
             tvNoMoods.setVisibility(View.VISIBLE);
+            tvTitle.setVisibility(View.GONE);
         }
 
         int n = allMoodsArray.size();     //to find out the no. of data-points
