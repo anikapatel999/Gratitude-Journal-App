@@ -12,4 +12,10 @@ public class Globals extends Application {
     public static final String skip = "skip";
     public static final String no_entry = "No entry";
 
+    public static final String amazingColor = "#F8CC7F";
+    public static final String goodColor = "#D2B08C";
+    public static final String okayColor = "#808080";
+    public static final String badColor = "#374C56";
+    public static final String terribleColor = "#04202F";
+
 }

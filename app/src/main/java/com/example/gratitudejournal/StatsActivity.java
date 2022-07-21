@@ -123,8 +123,8 @@ public class StatsActivity extends AppCompatActivity {
         data.add(new ValueDataEntry(Globals.bad, Collections.frequency(allMoodsArray, Globals.bad)));
         data.add(new ValueDataEntry(Globals.terrible, Collections.frequency(allMoodsArray, Globals.terrible)));
         pie.data(data);
-//        String[] colors = {"#90caf9", "#80cbc4", "#aed581", "#e6ee9c", "#ffcc80"};
-//        pie.palette(colors);
+        String[] colors = {Globals.amazingColor, Globals.goodColor, Globals.okayColor, Globals.badColor, Globals.terribleColor};
+        pie.palette(colors);
         acvStats2.setChart(pie);
     }
 
