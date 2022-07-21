@@ -47,7 +47,7 @@ public class StatsActivity extends AppCompatActivity {
     TextView tvNoMoods;
     TextView tvTitle;
     Animation fade_in_anim;
-    int max_x;
+    //int max_x;
     public static final String TAG = "StatsActivity";
 
     @Override
@@ -119,7 +119,6 @@ public class StatsActivity extends AppCompatActivity {
         //gridLabel.setVerticalAxisTitleTextSize(50);
         //gridLabel.setVerticalAxisTitle("Happiness");
         gridLabel.setVerticalAxisTitleColor(getResources().getColor(R.color.new_color));
-        //gridLabel.setPadding(100);
         gridLabel.setHumanRounding(false);
         return gridLabel;
     }
@@ -185,8 +184,8 @@ public class StatsActivity extends AppCompatActivity {
                     break;
             }
         }
-        max_x = values.length;
-        Log.i(TAG, "# POINTS: " + max_x);
+//        max_x = values.length;
+        Log.i(TAG, "# POINTS: " + values.length);
         return values;
     }
 

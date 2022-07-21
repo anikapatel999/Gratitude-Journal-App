@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.jjoe64.graphview.series.DataPoint;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.example.myapplication.User;
@@ -77,35 +78,32 @@ public class ComposeActivity extends AppCompatActivity {
 
         // change the colors of the mood and save buttons depending on the mood the user
         // has selected
-        if(mood.equals(Globals.amazing)){
-            btnMood.setBackgroundColor(btnMood.getContext().getResources().getColor(R.color.amazing));
-            btnSave.setBackgroundColor(btnSave.getContext().getResources().getColor(R.color.amazing));
-        }
 
-        else if(mood.equals(Globals.good)){
-            btnMood.setBackgroundColor(btnMood.getContext().getResources().getColor(R.color.good));
-            btnSave.setBackgroundColor(btnSave.getContext().getResources().getColor(R.color.good));
-        }
+        switch (mood) {
+            case Globals.terrible:
+                btnMood.setBackgroundColor(btnMood.getContext().getResources().getColor(R.color.skip));
+                btnSave.setBackgroundColor(btnSave.getContext().getResources().getColor(R.color.skip));
+                break;
 
-        else if(mood.equals(Globals.okay)){
-            btnMood.setBackgroundColor(btnMood.getContext().getResources().getColor(R.color.okay));
-            btnSave.setBackgroundColor(btnSave.getContext().getResources().getColor(R.color.okay));
-        }
+            case Globals.bad:
+                btnMood.setBackgroundColor(btnMood.getContext().getResources().getColor(R.color.terrible));
+                btnSave.setBackgroundColor(btnSave.getContext().getResources().getColor(R.color.terrible));
+                break;
 
-        else if(mood.equals(Globals.bad)){
-            btnMood.setBackgroundColor(btnMood.getContext().getResources().getColor(R.color.bad));
-            btnSave.setBackgroundColor(btnSave.getContext().getResources().getColor(R.color.bad));
-        }
+            case Globals.okay:
+                btnMood.setBackgroundColor(btnMood.getContext().getResources().getColor(R.color.okay));
+                btnSave.setBackgroundColor(btnSave.getContext().getResources().getColor(R.color.okay));
+                break;
 
-        else if(mood.equals(Globals.terrible)){
-            btnMood.setBackgroundColor(btnMood.getContext().getResources().getColor(R.color.terrible));
-            btnSave.setBackgroundColor(btnSave.getContext().getResources().getColor(R.color.terrible));
-        }
+            case Globals.good:
+                btnMood.setBackgroundColor(btnMood.getContext().getResources().getColor(R.color.good));
+                btnSave.setBackgroundColor(btnSave.getContext().getResources().getColor(R.color.good));
+                break;
 
-        else if(mood.equals("No mood selected")) {
-            btnMood.setBackgroundColor(btnMood.getContext().getResources().getColor(R.color.skip));
-            btnSave.setBackgroundColor(btnSave.getContext().getResources().getColor(R.color.skip));
-
+            case Globals.amazing:
+                btnMood.setBackgroundColor(btnMood.getContext().getResources().getColor(R.color.amazing));
+                btnSave.setBackgroundColor(btnSave.getContext().getResources().getColor(R.color.amazing));
+                break;
         }
 
         // navigate back to the mood selection activity if the user clicks on the mood button

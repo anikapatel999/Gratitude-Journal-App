@@ -47,16 +47,6 @@ public class ScrollActivity extends AppCompatActivity {
     static int y;
 
 
-//    private int visibleThreshold = 5;
-//    // The current offset index of data you have loaded
-//    private int currentPage = 0;
-//    // The total number of items in the dataset after the last load
-//    private int previousTotalItemCount = 0;
-//    // True if we are still waiting for the last set of data to load.
-//    private boolean loading = true;
-//    // Sets the starting page index
-//    private int startingPageIndex = 0;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,98 +80,9 @@ public class ScrollActivity extends AppCompatActivity {
         queryPosts(d2, 0);
 
         scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager) {
-//            @Override
-//            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-//                // super.onScrolled(recyclerView, dx, dy);
-//                y = dy;
-//                // Log.i(TAG, "OOOOOO " + y);
-//            }
-
-//            @Override
-//            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-//                super.onScrollStateChanged(recyclerView, newState);
-//                if(RecyclerView.SCROLL_STATE_DRAGGING==newState){
-//                    Log.i(TAG, "weird scroll");
-//                    //fragProductLl.setVisibility(View.GONE);
-//                }
-//                if(RecyclerView.SCROLL_STATE_IDLE==newState){
-//                    // fragProductLl.setVisibility(View.VISIBLE);
-//                    if(y < 0){
-//                        // fragProductLl.setVisibility(View.VISIBLE);
-//                        Log.i(TAG, "SCROLL UP " + y);
-//
-//                    }
-//                    else{
-//                        y=0;
-//                        // fragProductLl.setVisibility(View.GONE);
-//                    }
-//                }
-//            }
-
-//            @Override
-//            public void onScrolled(RecyclerView view, int dx, int dy) {
-//                y = dy;
-//                Log.i(TAG, "THIS IS THE Y VAL: " + y);
-//                int lastVisibleItemPosition = 0;
-//                int totalItemCount = mLayoutManager.getItemCount();
-//
-//                if (mLayoutManager instanceof StaggeredGridLayoutManager) {
-//                    int[] lastVisibleItemPositions = ((StaggeredGridLayoutManager) mLayoutManager).findLastVisibleItemPositions(null);
-//                    // get maximum element within the list
-//                    lastVisibleItemPosition = getLastVisibleItem(lastVisibleItemPositions);
-//                } else if (mLayoutManager instanceof GridLayoutManager) {
-//                    lastVisibleItemPosition = ((GridLayoutManager) mLayoutManager).findLastVisibleItemPosition();
-//                } else if (mLayoutManager instanceof LinearLayoutManager) {
-//                    lastVisibleItemPosition = ((LinearLayoutManager) mLayoutManager).findLastVisibleItemPosition();
-//                }
-//
-//                // If the total item count is zero and the previous isn't, assume the
-//                // list is invalidated and should be reset back to initial state
-//                if (totalItemCount < previousTotalItemCount) {
-//                    currentPage = startingPageIndex;
-//                    previousTotalItemCount = totalItemCount;
-//                    if (totalItemCount == 0) {
-//                        loading = true;
-//                    }
-//                }
-//                // If it’s still loading, we check to see if the dataset count has
-//                // changed, if so we conclude it has finished loading and update the current page
-//                // number and total item count.
-//                if (loading && (totalItemCount > previousTotalItemCount)) {
-//                    loading = false;
-//                    previousTotalItemCount = totalItemCount;
-//                }
-//
-//                // If it isn’t currently loading, we check to see if we have breached
-//                // the visibleThreshold and need to reload more data.
-//                // If we do need to reload some more data, we execute onLoadMore to fetch the data.
-//                // threshold should reflect how many total columns there are too
-//                if (!loading && (lastVisibleItemPosition + visibleThreshold) > totalItemCount) {
-//                    currentPage++;
-//                    onLoadMore(currentPage, totalItemCount, view);
-//                    loading = true;
-//                }
-//            }
-//            if (linearLayoutManager.findFirstVisibleItemPosition() != 0) {
-//                tvLoadMore.setVisibility(View.GONE);
-//            }
-//            else {
-//                tvLoadMore.setVisibility(View.VISIBLE);
-//            }
 
             @Override
             public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
-
-//                int firstVisiblePosition = linearLayoutManager.findFirstVisibleItemPosition();
-//                if (firstVisiblePosition != 0) {
-//                    tvLoadMore.setVisibility(View.GONE);
-//                }
-//                else {
-//                    tvLoadMore.setVisibility(View.VISIBLE);
-//                }
-
-                // Triggered only when new data needs to be appended to the list
-                // Add whatever code is needed to append new items to the bottom of the list
 
                 Log.i(TAG, "scroll registered, page: " + page);
                 loadNextDataFromApi(page);
@@ -289,20 +190,6 @@ public class ScrollActivity extends AppCompatActivity {
 
         query.whereMatches("user", currentUser.getObjectId());
 
-//        Bundle extras = getIntent().getExtras();
-//        int year = Integer.parseInt(extras.getString("year"));
-//        int month = Integer.parseInt(extras.getString("month")) - 1;
-//        int dayOfMonth = Integer.parseInt(extras.getString("dayOfMonth"));
-//        int index = extras.getInt("index");
-
-        // SCROLL DOWN FOR MORE RECENT
-//        Date d1 = new Date(year-1900, month, dayOfMonth);
-//        query.whereGreaterThanOrEqualTo("createdAt", d1);
-//        query.addAscendingOrder("createdAt"); //CAN CHANGE TO query.addDescendingOrder("createdAt");
-
-        // SCROLL DOWN FOR EARLIER
-//        Date d1 = new Date(year-1900, month, dayOfMonth);
-//        Date d2 = new Date(d1.getTime() + (1 * 24 * 60 * 60 * 1000));
         query.whereLessThanOrEqualTo("createdAt", d); //was d2
         query.addDescendingOrder("createdAt"); //CAN CHANGE TO query.addDescendingOrder("createdAt");
 
