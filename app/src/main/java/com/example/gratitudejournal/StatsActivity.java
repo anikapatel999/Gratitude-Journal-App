@@ -8,6 +8,10 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.TextView;
 
 import com.anychart.AnyChart;
 import com.anychart.AnyChartView;
@@ -39,6 +43,8 @@ public class StatsActivity extends AppCompatActivity {
 
     // AnyChartView cvStats1;
     GraphView gvStats1;
+    TextView tvNoMoods;
+    Animation fade_in_anim;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,20 +56,15 @@ public class StatsActivity extends AppCompatActivity {
 
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.new_color)));
 
-        //cvStats1 = findViewById(R.id.cvStats1);
         gvStats1 = findViewById(R.id.gvStats1);
+        tvNoMoods = findViewById(R.id.tvNoMoods);
+        fade_in_anim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in);
+
 
         ParseUser currentUser = ParseUser.getCurrentUser();
         User currentUser2 = (User) currentUser;
         JSONArray allMoods = currentUser2.getMoods();
 
-//        LineGraphSeries<DataPoint> series = new LineGraphSeries<DataPoint>(new DataPoint[] {
-//                new DataPoint(0, 0),
-//                new DataPoint(1, 1),
-//                new DataPoint(2, 2),
-//                new DataPoint(3, 4),
-//                new DataPoint(4, 3)
-//        });
 
         LineGraphSeries<DataPoint> series;
         series = new LineGraphSeries<DataPoint>(getData(allMoods));
@@ -78,11 +79,7 @@ public class StatsActivity extends AppCompatActivity {
         gridLabel.setVerticalAxisTitle("Happiness");
         gridLabel.setVerticalAxisTitleColor(getResources().getColor(R.color.new_color));
 
-//        mGraph.getGridLabelRenderer().setVerticalAxisTitleTextSize(64);
-//        mGraph.getGridLabelRenderer().setVerticalAxisTitle("Y Axis Title");
-//        mGraph.getGridLabelRenderer().setHorizontalAxisTitleTextSize(64);
-//        mGraph.getGridLabelRenderer().setHorizontalAxisTitle("X Axis Title");
-
+        gvStats1.startAnimation(fade_in_anim);
         gvStats1.addSeries(series);
 
         //series.setColor(R.color.new_color);
@@ -97,17 +94,15 @@ public class StatsActivity extends AppCompatActivity {
         {
             @Override
             public String formatLabel(double value, boolean isValueX) {
-                //String[] moods =  {"Amazing", "Good", "Okay", "Bad", "Terrible"};
-                // String[] moods =  {"Terrible", "Bad", "Okay", "Good", "Amazing"};
                 String[] moods = {Globals.terrible, Globals.bad, Globals.okay, Globals.good, Globals.amazing,};
 
                 if(isValueX) {
-                    return super.formatLabel(value, isValueX);
+                    return "\n" + super.formatLabel(value, isValueX) + "\n ";
                     //return "";
                 }
                 else {
                     int val = (int) value;
-                    return moods[val];
+                    return moods[val] + "  ";
                 }
             }
         });
@@ -124,6 +119,11 @@ public class StatsActivity extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+        }
+
+        if (allMoodsArray.size() == 0) {
+            gvStats1.setVisibility(View.GONE);
+            tvNoMoods.setVisibility(View.VISIBLE);
         }
 
         int n = allMoodsArray.size();     //to find out the no. of data-points
