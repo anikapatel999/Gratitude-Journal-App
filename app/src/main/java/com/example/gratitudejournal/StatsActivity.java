@@ -6,6 +6,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -46,6 +47,8 @@ public class StatsActivity extends AppCompatActivity {
     TextView tvNoMoods;
     TextView tvTitle;
     Animation fade_in_anim;
+    int max_x;
+    public static final String TAG = "StatsActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,17 +71,16 @@ public class StatsActivity extends AppCompatActivity {
         LineGraphSeries<DataPoint> series;
         series = new LineGraphSeries<DataPoint>(getData(allMoods));
 
-//        series.setTitle("Happiness Over Time");
-//        gvStats1.getLegendRenderer().setVisible(true);
-
         GridLabelRenderer gridLabel = gvStats1.getGridLabelRenderer();
         gridLabel = setGridLabel(gridLabel);
 
         gvStats1.startAnimation(fade_in_anim);
         gvStats1.addSeries(series);
 
-        //series.setColor(R.color.new_color);
         series = setSeries(series);
+
+//        gvStats1.getViewport().setXAxisBoundsManual(true);
+//        gvStats1.getViewport().setMaxX(max_x + 2);
 
         // set axes of graph
         gvStats1.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter()
@@ -102,21 +104,23 @@ public class StatsActivity extends AppCompatActivity {
 
     private LineGraphSeries<DataPoint> setSeries(LineGraphSeries<DataPoint> series) {
         series.setColor(getResources().getColor(R.color.new_color));
-        series.setThickness(15);
+        //series.setThickness(10);
         series.setDrawBackground(true);
         series.setBackgroundColor(getResources().getColor(R.color.amazing_transparent));
         series.setDrawDataPoints(true);
-        series.setDataPointsRadius(12);
+        series.setDataPointsRadius(5);
         return series;
     }
 
     private GridLabelRenderer setGridLabel(GridLabelRenderer gridLabel) {
         gridLabel.setHorizontalAxisTitleTextSize(50);
-        gridLabel.setHorizontalAxisTitle("\n \n \n \n \n \n \n Each day you logged a mood");
+        gridLabel.setHorizontalAxisTitle("Each day you logged a mood");
         gridLabel.setHorizontalAxisTitleColor(getResources().getColor(R.color.new_color));
-        gridLabel.setVerticalAxisTitleTextSize(50);
-        gridLabel.setVerticalAxisTitle("Happiness");
+        //gridLabel.setVerticalAxisTitleTextSize(50);
+        //gridLabel.setVerticalAxisTitle("Happiness");
         gridLabel.setVerticalAxisTitleColor(getResources().getColor(R.color.new_color));
+        //gridLabel.setPadding(100);
+        gridLabel.setHumanRounding(false);
         return gridLabel;
     }
 
@@ -144,50 +148,45 @@ public class StatsActivity extends AppCompatActivity {
             tvTitle.setVisibility(View.GONE);
         }
 
-        int n = allMoodsArray.size();     //to find out the no. of data-points
+        int n = allMoodsArray.size();
         DataPoint[] values = new DataPoint[n];
 
         int j = 0;
-        //LineGraphSeries<DataPoint> data = new LineGraphSeries<DataPoint>();
-
         for(int i = 0; i < allMoodsArray.size(); i++) {
             switch (allMoodsArray.get(i)) {
-                case "Terrible": // it didn't like me using the globals for these
-                    //new DataPoint(j, 0);
+                case Globals.terrible:
                     DataPoint a = new DataPoint(j, 0);
                     values[j] = a;
                     j += 1;
                     break;
 
-                case "Bad": // it didn't like me using the globals for these
-                    // new DataPoint(j, 1);
+                case Globals.bad:
                     DataPoint b = new DataPoint(j, 1);
                     values[j] = b;
                     j += 1;
                     break;
 
-                case "Okay": // it didn't like me using the globals for these
-                    // new DataPoint(j, 2);
+                case Globals.okay:
                     DataPoint c = new DataPoint(j, 2);
                     values[j] = c;
                     j += 1;
                     break;
 
-                case "Good": // it didn't like me using the globals for these
-                    // new DataPoint(j, 3);
+                case Globals.good:
                     DataPoint d = new DataPoint(j, 3);
                     values[j] = d;
                     j += 1;
                     break;
 
-                case "Amazing": // it didn't like me using the globals for these
-                    // new DataPoint(j, 4);
+                case Globals.amazing:
                     DataPoint e = new DataPoint(j, 4);
                     values[j] = e;
                     j += 1;
                     break;
             }
         }
+        max_x = values.length;
+        Log.i(TAG, "# POINTS: " + max_x);
         return values;
     }
 

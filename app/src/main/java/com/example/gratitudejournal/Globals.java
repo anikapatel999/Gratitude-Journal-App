@@ -4,12 +4,12 @@ import android.app.Application;
 
 public class Globals extends Application {
 
-    public static String amazing = "Amazing";
-    public static String good = "Good";
-    public static String okay = "Okay";
-    public static String bad = "Bad";
-    public static String terrible = "Terrible";
-    public static String skip = "skip";
-    public static String no_entry = "No entry";
+    public static final String amazing = "Amazing";
+    public static final String good = "Good";
+    public static final String okay = "Okay";
+    public static final String bad = "Bad";
+    public static final String terrible = "Terrible";
+    public static final String skip = "skip";
+    public static final String no_entry = "No entry";
 
 }
