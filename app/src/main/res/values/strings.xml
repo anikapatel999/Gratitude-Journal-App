@@ -55,4 +55,5 @@
     <string name="view_friend_mentions">View friend mentions</string>
     <string name="view_close_friend_mentions">View close friend mentions</string>
     <string name="you_have_seen_all_close_friend_mentions">You have seen all close friend mentions!</string>
+    <string name="view_stats">View stats</string>
 </resources>

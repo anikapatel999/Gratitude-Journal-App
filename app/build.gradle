@@ -51,6 +51,10 @@ dependencies {
     //implementation 'com.github.memeze:minimal-calendar:1.1.7'
     implementation 'com.github.mahimrocky:EventCalender:v1.0.0'
 
+    implementation 'com.github.AnyChart:AnyChart-Android:1.1.2'
+
+    implementation 'com.jjoe64:graphview:4.2.2'
+
 
 //    implementation 'com.github.mahimrocky:EventCalender:v1.0.0'
 }

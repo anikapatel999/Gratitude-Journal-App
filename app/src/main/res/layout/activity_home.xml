@@ -86,7 +86,7 @@
 
 
         <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/avPlaceholder2"
+            android:id="@+id/avStats"
             android:layout_marginTop="-10dp"
             android:layout_width="300dp"
             android:layout_height="300dp"
@@ -103,11 +103,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="-60dp"
-            app:layout_constraintTop_toBottomOf="@id/avPlaceholder2"
+            app:layout_constraintTop_toBottomOf="@id/avStats"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             android:gravity="center"
-            android:text="Stats placeholder" />
+            android:text="@string/view_stats" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

@@ -19,6 +19,9 @@
         android:theme="@style/Theme.GratitudeJournal"
         tools:targetApi="31">
         <activity
+            android:name=".StatsActivity"
+            android:exported="false" />
+        <activity
             android:name=".ViewCloseFriendEntriesActivity"
             android:exported="false" />
         <activity
@@ -75,17 +78,13 @@
             android:enabled="true"
             android:exported="true"
             android:process=":remote" />
-
         <receiver
             android:name=".StartAppOnBootReceiver"
             android:exported="true">
             <intent-filter>
-                <action
-                    android:name="android.intent.action.BOOT_COMPLETED" >
-                </action>
+                <action android:name="android.intent.action.BOOT_COMPLETED"></action>
             </intent-filter>
         </receiver>
-
     </application>
 
 </manifest>
