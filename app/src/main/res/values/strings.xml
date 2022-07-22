@@ -59,4 +59,5 @@
     <string name="you_haven_t_logged_any_moods_yet">You haven\'t logged any moods yet!</string>
     <string name="happiness_over_time">Happiness Over Time</string>
     <string name="mood_distribution">Mood Distribution</string>
+    <string name="most_used_words">Most Used Words</string>
 </resources>

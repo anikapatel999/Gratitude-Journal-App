@@ -20,11 +20,11 @@ import com.anychart.chart.common.dataentry.DataEntry;
 import com.anychart.chart.common.dataentry.ValueDataEntry;
 import com.anychart.charts.Cartesian;
 import com.anychart.charts.Pie;
+import com.anychart.charts.TagCloud;
 import com.anychart.core.cartesian.series.Line;
 import com.anychart.core.ui.Legend;
 import com.anychart.core.ui.Paginator;
 import com.anychart.data.Mapping;
-import com.anychart.data.Set;
 import com.anychart.enums.MarkerType;
 import com.anychart.enums.TooltipPositionMode;
 import com.anychart.graphics.vector.Anchor;
@@ -34,26 +34,36 @@ import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.GridLabelRenderer;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.example.myapplication.User;
+import com.example.myapplication.Entry;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class StatsActivity extends AppCompatActivity {
 
     public static final String TAG = "StatsActivity";
     GraphView gvStats1;
+    AnyChartView acvStats2;
+    AnyChartView acvStats3;
     TextView tvNoMoods;
     TextView tvTitle1;
     TextView tvTitle2;
+    TextView tvTitle3;
     Animation fade_in_anim;
-    AnyChartView acvStats2;
+    String entryText = "";
+    String[] et;
     //int max_x;
     ArrayList<String> allMoodsArray = new ArrayList<>();
 
@@ -72,8 +82,86 @@ public class StatsActivity extends AppCompatActivity {
         tvTitle1 = findViewById(R.id.tvTitle1);
         tvTitle2 = findViewById(R.id.tvTitle2);
         acvStats2 = findViewById(R.id.acvStats2);
+        tvTitle3 = findViewById(R.id.tvTitle3);
+        acvStats3 = findViewById(R.id.acvStats3);
         fade_in_anim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in);
 
+        //makeTagCloud();
+        queryEntries();
+
+        makeLineGraph();
+
+        makePieChart();
+    }
+
+    private void queryEntries() {
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        ParseQuery<Entry> query = ParseQuery.getQuery(Entry.class);
+        query.whereMatches("user", currentUser.getObjectId());
+        query.addDescendingOrder("createdAt");
+        query.setLimit(30);
+        query.findInBackground(new FindCallback<Entry>() {
+            @Override
+            public void done(List<Entry> objects, ParseException e) {
+                if (e != null) {
+                    Log.e(TAG, "Issue with getting posts", e);
+                    return;
+                }
+                for (Entry entry : objects) {
+                    entryText = entryText + " " + entry.getText();
+                }
+                et = split();
+                makeTagCloud(et);
+            }
+        });
+    }
+
+    private String[] split() {
+        // entryText = "I would love to have a dog, dogs are very fun, yes :)";
+        String[] text = entryText.split("\\s+");
+        for (int i = 0; i < text.length; i++) {
+            text[i] = text[i].replaceAll("[^\\w]", "");
+            Log.i(TAG, "THIS IS A WORD IN THE SPLIT " + text[i]);
+        }
+        Log.i(TAG, "THIS IS THE SPLIT STRING" + text);
+        return text;
+    }
+
+    private void makeTagCloud(String[] et) {
+
+        //TODO: REMOVE THE "NO" AND "ENTRY"
+
+        List<DataEntry> data = new ArrayList<>();
+
+//        data.add(new ValueDataEntry("hello", 3));
+//        data.add(new ValueDataEntry("aaa", 1));
+//        data.add(new ValueDataEntry("dlkmvldfkvm", 30));
+//        data.add(new ValueDataEntry("wheee", 3));
+
+        List<String> entries = new ArrayList<>();
+        entries = Arrays.asList(et);
+        Set<String> distinct = new HashSet<>(entries);
+        for (String w : distinct) {
+            if (w.length() > 2 && !w.equals("the") && !w.equals("and") && !w.equals("entry") && !w.equals("that"))
+            data.add(new ValueDataEntry(w, Collections.frequency(entries, w)));
+        }
+
+        TagCloud tagCloud = AnyChart.tagCloud();
+
+        tagCloud.data(data);
+
+        acvStats3.setBackgroundColor(Globals.warmColor);
+        tagCloud.background().enabled(true);
+        tagCloud.background().fill(Globals.warmColor);
+
+        String[] colors = {Globals.amazingColor, Globals.goodColor, Globals.okayColor, Globals.badColor, Globals.terribleColor};
+        tagCloud.palette(colors);
+
+        acvStats3.startAnimation(fade_in_anim);
+        acvStats3.setChart(tagCloud);
+    }
+
+    private void makeLineGraph() {
         // get the array of moods
         JSONArray allMoods = getArray();
 
@@ -92,9 +180,6 @@ public class StatsActivity extends AppCompatActivity {
 
 //        gvStats1.getViewport().setXAxisBoundsManual(true);
 //        gvStats1.getViewport().setMaxX(max_x + 2);
-
-        // make the pie chart
-        makePieChart();
     }
 
     private void makePieChart() {
