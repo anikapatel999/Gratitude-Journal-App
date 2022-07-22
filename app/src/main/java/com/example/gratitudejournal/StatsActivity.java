@@ -21,6 +21,8 @@ import com.anychart.chart.common.dataentry.ValueDataEntry;
 import com.anychart.charts.Cartesian;
 import com.anychart.charts.Pie;
 import com.anychart.core.cartesian.series.Line;
+import com.anychart.core.ui.Legend;
+import com.anychart.core.ui.Paginator;
 import com.anychart.data.Mapping;
 import com.anychart.data.Set;
 import com.anychart.enums.MarkerType;
@@ -49,6 +51,7 @@ public class StatsActivity extends AppCompatActivity {
     GraphView gvStats1;
     TextView tvNoMoods;
     TextView tvTitle1;
+    TextView tvTitle2;
     Animation fade_in_anim;
     AnyChartView acvStats2;
     //int max_x;
@@ -67,64 +70,56 @@ public class StatsActivity extends AppCompatActivity {
         gvStats1 = findViewById(R.id.gvStats1);
         tvNoMoods = findViewById(R.id.tvNoMoods);
         tvTitle1 = findViewById(R.id.tvTitle1);
-
+        tvTitle2 = findViewById(R.id.tvTitle2);
         acvStats2 = findViewById(R.id.acvStats2);
-
         fade_in_anim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in);
 
         // get the array of moods
         JSONArray allMoods = getArray();
 
+        // put the data in the correct format for the line graph
         LineGraphSeries<DataPoint> series;
         series = new LineGraphSeries<DataPoint>(getData(allMoods));
 
+        // set the format of the line graph
         GridLabelRenderer gridLabel = gvStats1.getGridLabelRenderer();
         gridLabel = setGridLabel(gridLabel);
 
+        // set the line graph
         gvStats1.startAnimation(fade_in_anim);
-        gvStats1.addSeries(series);
-
         series = setSeries(series);
+        gvStats1.addSeries(series);
 
 //        gvStats1.getViewport().setXAxisBoundsManual(true);
 //        gvStats1.getViewport().setMaxX(max_x + 2);
 
-        // set axes of line graph
-        gvStats1.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter()
-        {
-            @Override
-            public String formatLabel(double value, boolean isValueX) {
-                String[] moods = {Globals.terrible, Globals.bad, Globals.okay, Globals.good, Globals.amazing,};
-
-                if(isValueX) {
-                    return "\n" + super.formatLabel(value, isValueX) + "\n ";
-                    //return "";
-                }
-                else {
-                    int val = (int) value;
-                    return moods[val] + "  ";
-                }
-            }
-        });
-
+        // make the pie chart
         makePieChart();
     }
 
     private void makePieChart() {
 
-        HashSet<String> allMoodsSet = new HashSet<>(allMoodsArray);
+        // HashSet<String> allMoodsSet = new HashSet<>(allMoodsArray);
         Log.i(TAG, "freq amazing: " + Collections.frequency(allMoodsArray, Globals.amazing));
         Log.i(TAG, "freq good: " + Collections.frequency(allMoodsArray, Globals.good));
         Pie pie = AnyChart.pie();
         List<DataEntry> data = new ArrayList<>();
+
         data.add(new ValueDataEntry(Globals.amazing, Collections.frequency(allMoodsArray, Globals.amazing)));
         data.add(new ValueDataEntry(Globals.good, Collections.frequency(allMoodsArray, Globals.good)));
         data.add(new ValueDataEntry(Globals.okay, Collections.frequency(allMoodsArray, Globals.okay)));
         data.add(new ValueDataEntry(Globals.bad, Collections.frequency(allMoodsArray, Globals.bad)));
         data.add(new ValueDataEntry(Globals.terrible, Collections.frequency(allMoodsArray, Globals.terrible)));
         pie.data(data);
+
         String[] colors = {Globals.amazingColor, Globals.goodColor, Globals.okayColor, Globals.badColor, Globals.terribleColor};
         pie.palette(colors);
+        //pie.labels().position("outside");
+        acvStats2.setBackgroundColor(Globals.warmColor);
+        pie.background().enabled(true);
+        pie.background().fill(Globals.warmColor);
+
+        acvStats2.startAnimation(fade_in_anim);
         acvStats2.setChart(pie);
     }
 
@@ -146,6 +141,24 @@ public class StatsActivity extends AppCompatActivity {
         //gridLabel.setVerticalAxisTitle("Happiness");
         gridLabel.setVerticalAxisTitleColor(getResources().getColor(R.color.new_color));
         gridLabel.setHumanRounding(false);
+
+        gvStats1.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter()
+        {
+            @Override
+            public String formatLabel(double value, boolean isValueX) {
+                String[] moods = {Globals.terrible, Globals.bad, Globals.okay, Globals.good, Globals.amazing,};
+
+                if(isValueX) {
+                    return "\n" + super.formatLabel(value, isValueX) + "\n ";
+                    //return "";
+                }
+                else {
+                    int val = (int) value;
+                    return moods[val] + "  ";
+                }
+            }
+        });
+
         return gridLabel;
     }
 
@@ -168,9 +181,7 @@ public class StatsActivity extends AppCompatActivity {
         }
 
         if (allMoodsArray.size() == 0) {
-            gvStats1.setVisibility(View.GONE);
-            tvNoMoods.setVisibility(View.VISIBLE);
-            tvTitle1.setVisibility(View.GONE);
+            setVisibility();
         }
 
         int n = allMoodsArray.size();
@@ -213,6 +224,16 @@ public class StatsActivity extends AppCompatActivity {
 //        max_x = values.length;
         Log.i(TAG, "# POINTS: " + values.length);
         return values;
+    }
+
+    private void setVisibility() {
+        gvStats1.setVisibility(View.GONE);
+        tvNoMoods.setVisibility(View.VISIBLE);
+        gvStats1.setVisibility(View.GONE);
+        acvStats2.setVisibility(View.GONE);
+        tvTitle2.setVisibility(View.GONE);
+        tvTitle1.setVisibility(View.GONE);
+        // wow this is quite ugly @_@ TODO: fix it
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {

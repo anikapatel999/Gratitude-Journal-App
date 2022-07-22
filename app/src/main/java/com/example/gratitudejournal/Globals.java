@@ -17,5 +17,6 @@ public class Globals extends Application {
     public static final String okayColor = "#808080";
     public static final String badColor = "#374C56";
     public static final String terribleColor = "#04202F";
+    public static final String warmColor = "#FCF8EF";
 
 }
