@@ -185,7 +185,7 @@ public class StatsActivity extends AppCompatActivity {
         gridLabel = setGridLabel(gridLabel);
 
         // set the line graph
-        gvStats1.startAnimation(fade_in_anim);
+        gvStats1.startAnimation(slide_in);
         series = setSeries(series);
         gvStats1.addSeries(series);
 
@@ -267,12 +267,12 @@ public class StatsActivity extends AppCompatActivity {
         d.setValueTextSize(12f);
         d.setValueTextColor(Color.WHITE);
 
-        pcStats2.startAnimation(fade_in_anim);
+//        pcStats2.startAnimation(fade_in_anim);
 
         pcStats2.setData(d);
         pcStats2.invalidate();
 
-       // pcStats2.animateY(2000, Easing.EaseInOutQuad);
+        pcStats2.animateY(2000, Easing.EaseInOutQuad);
     }
 
     private ArrayList calcFreqs() {
