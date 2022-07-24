@@ -81,13 +81,13 @@ public class ComposeActivity extends AppCompatActivity {
 
         switch (mood) {
             case Globals.terrible:
-                btnMood.setBackgroundColor(btnMood.getContext().getResources().getColor(R.color.skip));
-                btnSave.setBackgroundColor(btnSave.getContext().getResources().getColor(R.color.skip));
+                btnMood.setBackgroundColor(btnMood.getContext().getResources().getColor(R.color.terrible));
+                btnSave.setBackgroundColor(btnSave.getContext().getResources().getColor(R.color.terrible));
                 break;
 
             case Globals.bad:
-                btnMood.setBackgroundColor(btnMood.getContext().getResources().getColor(R.color.terrible));
-                btnSave.setBackgroundColor(btnSave.getContext().getResources().getColor(R.color.terrible));
+                btnMood.setBackgroundColor(btnMood.getContext().getResources().getColor(R.color.bad));
+                btnSave.setBackgroundColor(btnSave.getContext().getResources().getColor(R.color.bad));
                 break;
 
             case Globals.okay:
@@ -103,6 +103,11 @@ public class ComposeActivity extends AppCompatActivity {
             case Globals.amazing:
                 btnMood.setBackgroundColor(btnMood.getContext().getResources().getColor(R.color.amazing));
                 btnSave.setBackgroundColor(btnSave.getContext().getResources().getColor(R.color.amazing));
+                break;
+
+            default:
+                btnMood.setBackgroundColor(btnMood.getContext().getResources().getColor(R.color.skip));
+                btnSave.setBackgroundColor(btnSave.getContext().getResources().getColor(R.color.skip));
                 break;
         }
 
