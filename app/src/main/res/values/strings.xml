@@ -60,4 +60,5 @@
     <string name="happiness_over_time">Happiness Over Time</string>
     <string name="mood_distribution">Mood Distribution</string>
     <string name="most_used_words">Most Used Words</string>
+    <string name="no_stats_to_display">No stats to display</string>
 </resources>

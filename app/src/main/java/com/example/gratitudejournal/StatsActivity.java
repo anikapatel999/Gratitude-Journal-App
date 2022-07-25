@@ -65,7 +65,7 @@ public class StatsActivity extends AppCompatActivity {
     //AnyChartView acvStats2;
     PieChart pcStats2;
     AnyChartView acvStats3;
-    TextView tvNoMoods;
+    TextView tvNo;
     TextView tvTitle1;
     TextView tvTitle2;
     TextView tvTitle3;
@@ -75,6 +75,8 @@ public class StatsActivity extends AppCompatActivity {
     String[] et;
     //int max_x;
     ArrayList<String> allMoodsArray = new ArrayList<>();
+    boolean hasMoods = true;
+    boolean hasEntries = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,7 +89,7 @@ public class StatsActivity extends AppCompatActivity {
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.new_color)));
 
         gvStats1 = findViewById(R.id.gvStats1);
-        tvNoMoods = findViewById(R.id.tvNoMoods);
+        tvNo = findViewById(R.id.tvNo);
         tvTitle1 = findViewById(R.id.tvTitle1);
         tvTitle2 = findViewById(R.id.tvTitle2);
         pcStats2 = findViewById(R.id.pcStats2);
@@ -118,11 +120,15 @@ public class StatsActivity extends AppCompatActivity {
                     Log.e(TAG, "Issue with getting posts", e);
                     return;
                 }
+                if (objects.size() == 0){
+                    hasEntries = false;
+                }
                 for (Entry entry : objects) {
                     entryText = entryText + " " + entry.getText();
                 }
                 et = split();
                 makeTagCloud(et);
+                setVisibility();
             }
         });
     }
@@ -189,6 +195,10 @@ public class StatsActivity extends AppCompatActivity {
         series = setSeries(series);
         gvStats1.addSeries(series);
 
+        gvStats1.getViewport().setYAxisBoundsManual(true);
+        gvStats1.getViewport().setMaxY(4);
+        gvStats1.getViewport().setMinY(0);
+
 //        gvStats1.getViewport().setXAxisBoundsManual(true);
 //        gvStats1.getViewport().setMaxX(max_x + 2);
     }
@@ -198,7 +208,7 @@ public class StatsActivity extends AppCompatActivity {
         setupPieChart();
         loadPieChartData();
 
-        // HashSet<String> allMoodsSet = new HashSet<>(allMoodsArray);
+        // This code is for all myChartView
 //        Log.i(TAG, "freq amazing: " + Collections.frequency(allMoodsArray, Globals.amazing));
 //        Log.i(TAG, "freq good: " + Collections.frequency(allMoodsArray, Globals.good));
 //        Pie pie = AnyChart.pie();
@@ -352,7 +362,8 @@ public class StatsActivity extends AppCompatActivity {
         }
 
         if (allMoodsArray.size() == 0) {
-            setVisibility();
+            hasMoods = false;
+            // setVisibility();
         }
 
         int n = allMoodsArray.size();
@@ -398,14 +409,22 @@ public class StatsActivity extends AppCompatActivity {
     }
 
     private void setVisibility() {
-        gvStats1.setVisibility(View.GONE);
-        tvNoMoods.setVisibility(View.VISIBLE);
-        gvStats1.setVisibility(View.GONE);
-//        acvStats2.setVisibility(View.GONE);
-        pcStats2.setVisibility(View.GONE);
-        tvTitle2.setVisibility(View.GONE);
-        tvTitle1.setVisibility(View.GONE);
-        // wow this is quite ugly @_@ TODO: fix it
+        if (!hasMoods && !hasEntries) {
+            tvNo.setText(R.string.no_stats_to_display);
+            tvNo.setVisibility(View.VISIBLE);
+        }
+        if (hasEntries) {
+            tvTitle3.setVisibility(View.VISIBLE);
+            acvStats3.setVisibility(View.VISIBLE);
+        }
+
+        if (hasMoods) {
+            gvStats1.setVisibility(View.VISIBLE);
+            gvStats1.setVisibility(View.VISIBLE);
+            pcStats2.setVisibility(View.VISIBLE);
+            tvTitle2.setVisibility(View.VISIBLE);
+            tvTitle1.setVisibility(View.VISIBLE);
+        }
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
