@@ -145,9 +145,6 @@ public class StatsActivity extends AppCompatActivity {
     }
 
     private void makeTagCloud(String[] et) {
-
-        //TODO: REMOVE THE "NO" AND "ENTRY"
-
         List<DataEntry> data = new ArrayList<>();
 
 //        data.add(new ValueDataEntry("hello", 3));
@@ -159,7 +156,7 @@ public class StatsActivity extends AppCompatActivity {
         entries = Arrays.asList(et);
         Set<String> distinct = new HashSet<>(entries);
         for (String w : distinct) {
-            if (w.length() > 2 && !w.equals("the") && !w.equals("and") && !w.equals("entry") && !w.equals("that"))
+            if (w.length() > 2 && !w.equals("the") && !w.equals("and") && !w.equals("entry") && !w.equals("that") && !w.equals("was"))
             data.add(new ValueDataEntry(w, Collections.frequency(entries, w)));
         }
 

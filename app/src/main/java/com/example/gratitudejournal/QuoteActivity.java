@@ -385,15 +385,18 @@ public class QuoteActivity extends AppCompatActivity {
                 if (quotes.get(i).contains(roots.get(j))) {
                     // SHOULD I ADD A LIST OF WORDS THE QUOTE SHOULDNT CONTAIN?
                     // ex: death, die, dying, loss, lose, lie, gone, youth, young, old, age, worst, god, pig (for that one obama quote lol)
-                    tvQuote.startAnimation(fade_in_anim);
-                    tvQuote.setText(quotes.get(i));
-                    tvAuthor.startAnimation(fade_in_anim);
-                    tvAuthor.setText("- " + authors.get(i));
-                    tvCredit.startAnimation(fade_in_anim);
-                    tvCredit.setVisibility(View.VISIBLE);
-                    set = true;
-                    Log.i(TAG, "SET THE QUOTE FROM WORD SEARCH " + roots.get(j) + " " + quotes.get(i));
-                    break;
+                    boolean passesFilter = filter(quotes.get(i));
+                    if (passesFilter) {
+                        tvQuote.startAnimation(fade_in_anim);
+                        tvQuote.setText(quotes.get(i));
+                        tvAuthor.startAnimation(fade_in_anim);
+                        tvAuthor.setText("- " + authors.get(i));
+                        tvCredit.startAnimation(fade_in_anim);
+                        tvCredit.setVisibility(View.VISIBLE);
+                        set = true;
+                        Log.i(TAG, "SET THE QUOTE FROM WORD SEARCH " + roots.get(j) + " " + quotes.get(i));
+                        break;
+                    }
                 }
             }
         }
@@ -406,6 +409,18 @@ public class QuoteActivity extends AppCompatActivity {
             tvAuthor.setText("- " + authors.get(ind));
             Log.i(TAG, "SET THE QUOTE FROM RANDOM");
         }
+    }
+
+    private boolean filter(String s) {
+        boolean safe = true;
+        String[] filterWords = {"death", "die", "dying", "loss", "lose", "lie", "gone", "youth", "young", "old", "age", "worse", "worst", "god", "pig"};
+        for (int i = 0; i < filterWords.length; i++){
+            if (s.contains(filterWords[i])) {
+                safe = false;
+                break;
+            }
+        }
+        return safe;
     }
 
     private String[] slicer(String[] words) {
