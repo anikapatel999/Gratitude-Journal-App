@@ -1,5 +1,6 @@
 package com.example.gratitudejournal;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
@@ -22,6 +23,7 @@ import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.example.myapplication.User;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -32,7 +34,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import okhttp3.Call;
+import okhttp3.Callback;
 import okhttp3.Headers;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class QuoteActivity extends AppCompatActivity {
 
@@ -80,14 +87,6 @@ public class QuoteActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
-//
-//        ArrayList<String> keywordArray = new ArrayList<String>();
-//        keywordArray.add("Inspiration");
-
-        // List of keywords that will be used
-
-        // TODO: select a sub array of keywordArray based on the score calculated from the user's
-        //  past mood selections
 
         // Query the last 7 entries by the user
         ParseQuery<Entry> query = ParseQuery.getQuery(Entry.class);
@@ -107,45 +106,9 @@ public class QuoteActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        //CALCULATE THE MOOD SCORE
-//        Boolean sevenMoodsSelected = true;
-//        double moodScore = 0;
-
         // check that the user does have 7 entries
         Log.i(TAG, "all entries: " + allEntries);
         modifySelectedKeywords();
-//        if (allEntries.size() == 7) {
-//            // check if the user skipped any of the last 7 moods
-//            for (int i = 0; i < allEntries.size(); i++){
-//                if(allEntries.get(i).getMood().equals("skip") || allEntries.get(i).getMood().equals("No mood selected")) {
-//                    Log.i(TAG, "calc" + allEntries.get(i).getMood() + " " + allEntries.get(i).getCreatedAt());
-//                    sevenMoodsSelected = false;
-//                }
-//            }
-//            // if the user selected all of the 7 past moods
-//            if (sevenMoodsSelected) {
-//                moodScore = calcCurrentMoodScore();
-//                moodScore = calcTotalMoodScore(moodScore);
-//                selectedKeywords = keywordsFromTotalScore(moodScore);
-//                Log.i(TAG, "kw1 " + Arrays.toString(selectedKeywords));
-//            }
-//            // if the user did not select all of the 7 past moods but did select the current mood
-//            else if (!(allEntries.get(0).getMood().equals("skip")) && !(allEntries.get(0).getMood().equals("No mood selected"))) {
-//                moodScore = calcCurrentMoodScore();
-//                selectedKeywords = keywordsFromCurrentScore(moodScore);
-//                Log.i(TAG, "kw2 " + Arrays.toString(selectedKeywords));
-//            }
-//            // if the user did neither
-//            else {
-//                selectedKeywords = Arrays.copyOfRange(keywordArray, 4, 10);
-//                Log.i(TAG, "kw3 " + Arrays.toString(selectedKeywords));
-//            }
-//        }
-//        // if the user does not have 7 past entries
-//        else {
-//            selectedKeywords = Arrays.copyOfRange(keywordArray, 4, 10);
-//            Log.i(TAG, "kw4 " + Arrays.toString(selectedKeywords));
-//        }
 
         String entryText = allEntries.get(0).getText();
         //entryText = "I would love to have a dog, dogs are very fun, yes :)";
@@ -163,7 +126,6 @@ public class QuoteActivity extends AppCompatActivity {
         Log.i(TAG, "dlkfmvlfkdmbv" + roots);
         // rootFinder(synonyms);
 
-        //TODO: CHANGE THIS LATER
         tvQuote.setText("Thank you for writing this entry");
 //        tvAuthor.setText("-Author's Name");
 
@@ -330,7 +292,8 @@ public class QuoteActivity extends AppCompatActivity {
         Log.i (TAG, "THESE ARE THE SYNONYMS" + synonyms);
         roots.addAll(synonyms);
         Log.i(TAG, "dlkfmvlfkdmbvaaa" + roots);
-        getQuotes();
+        //TODO: CHANGE BACK TO GETQUOTES
+        getQuotes2();
     }
 
     private void getQuotes() {
@@ -355,6 +318,7 @@ public class QuoteActivity extends AppCompatActivity {
                                 searchQuotes();
                             }
                         }
+
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -369,6 +333,55 @@ public class QuoteActivity extends AppCompatActivity {
 
     }
 
+    private void getQuotes2() {
+        for (int count = 0; count < 5; count++){
+            int finalCount = count;
+            OkHttpClient client = new OkHttpClient();
+            Request request = new Request.Builder().url(quotesAPI).build();
+
+            client.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                    Log.i(TAG, "onFailure Quotes");
+                }
+
+                @Override
+                public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                    Log.i(TAG, "onSuccess Quotes");
+                    JSONArray jsonArray = null;
+                    try {
+                        jsonArray = new JSONArray(response.body().string());
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    try {
+                        for (int i = 0; i < jsonArray.length(); i++){
+                            JSONObject j = (JSONObject) jsonArray.get(i);
+                            String quote = j.getString("q");
+                            String author = j.getString("a");
+                            quotes.add(quote);
+                            authors.add(author);
+                            Log.i(TAG, "FOR DEBUGGING " + quotes.size() + " " + authors.size());
+                            if (finalCount == 4 && (i == jsonArray.length() - 1)) {
+                                Log.i(TAG, "Yippee" + quotes.size());
+
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        searchQuotes();
+                                    }
+                                });
+                            }
+                        }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        }
+    }
     private void searchQuotes() {
         boolean set = false;
         for (int i = 0; i < quotes.size(); i++) {
@@ -378,13 +391,11 @@ public class QuoteActivity extends AppCompatActivity {
             for (int j = 0; j < roots.size(); j++) {
                 if (quotes.get(i).equals("Too many requests. Obtain an auth key for unlimited access.")) {
                     tvQuote.startAnimation(fade_in_anim);
-                    tvQuote.setText("Thank you for writing this entry");
+                    tvQuote.setText(R.string.thank_you);
                     set = true;
                     break;
                 }
                 if (quotes.get(i).contains(roots.get(j))) {
-                    // SHOULD I ADD A LIST OF WORDS THE QUOTE SHOULDNT CONTAIN?
-                    // ex: death, die, dying, loss, lose, lie, gone, youth, young, old, age, worst, god, pig (for that one obama quote lol)
                     boolean passesFilter = filter(quotes.get(i));
                     if (passesFilter) {
                         tvQuote.startAnimation(fade_in_anim);
