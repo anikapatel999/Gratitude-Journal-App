@@ -198,7 +198,7 @@ public class ViewMentionsActivity extends AppCompatActivity {
                                 //btnCloseFriends.setVisibility(View.VISIBLE);
                                 closeFriendsVis = true;
                                 Log.i(TAG, "close friends visible = true");
-                                tvNoNew.setVisibility(TextView.GONE);
+                                //tvNoNew.setVisibility(TextView.GONE);
                                 finalCloseFriendUsernames.add(usercf);
                                 finalCloseFriendEntries.add(cfid);
                             }
@@ -211,7 +211,7 @@ public class ViewMentionsActivity extends AppCompatActivity {
                                     // btnFriends.setVisibility(View.VISIBLE);
                                     friendsVis = true;
                                     Log.i(TAG, "friends visible1 = true");
-                                    tvNoNew.setVisibility(TextView.GONE);
+                                    //tvNoNew.setVisibility(TextView.GONE);
                                     finalFriendUsernames.add(userf);
                                     finalFriendEntries.add(fid);
                                 }
@@ -227,7 +227,7 @@ public class ViewMentionsActivity extends AppCompatActivity {
                                 //btnFriends.setVisibility(View.VISIBLE);
                                 friendsVis = true;
                                 Log.i(TAG, "friends visible2 = true");
-                                tvNoNew.setVisibility(TextView.GONE);
+                                //tvNoNew.setVisibility(TextView.GONE);
                                 finalFriendUsernames.add(usercf);
                                 finalFriendEntries.add(cfid);
                             }
@@ -239,7 +239,7 @@ public class ViewMentionsActivity extends AppCompatActivity {
                                     //btnFriends.setVisibility(View.VISIBLE);
                                     friendsVis = true;
                                     Log.i(TAG, "friends visible3 = true");
-                                    tvNoNew.setVisibility(TextView.GONE);
+                                    //tvNoNew.setVisibility(TextView.GONE);
                                     finalFriendUsernames.add(userf);
                                     finalFriendEntries.add(fid);
                                 }
@@ -262,6 +262,9 @@ public class ViewMentionsActivity extends AppCompatActivity {
                     String text = "You have mention notifications disabled!";
                     tvNoNew.setVisibility(View.VISIBLE);
                     tvNoNew.setText(text);
+                }
+                if (!friendsVis && !closeFriendsVis){
+                    tvNoNew.setVisibility(View.VISIBLE);
                 }
             }
         });

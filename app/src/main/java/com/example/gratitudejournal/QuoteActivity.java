@@ -28,12 +28,16 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
 import com.example.myapplication.Entry;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import okhttp3.Cache;
+import okhttp3.CacheControl;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Headers;
@@ -292,7 +296,7 @@ public class QuoteActivity extends AppCompatActivity {
         Log.i (TAG, "THESE ARE THE SYNONYMS" + synonyms);
         roots.addAll(synonyms);
         Log.i(TAG, "dlkfmvlfkdmbvaaa" + roots);
-        //TODO: CHANGE BACK TO GETQUOTES
+        //TODO: CHANGE BACK TO GETQUOTES?
         getQuotes2();
     }
 
@@ -334,11 +338,13 @@ public class QuoteActivity extends AppCompatActivity {
     }
 
     private void getQuotes2() {
+//        for (int count = 0; count < 5; count++){
+//            int finalCount = count;
+        OkHttpClient client = new OkHttpClient();
+            //Request request = new Request.Builder().url(quotesAPI).build();
+        Request request = new Request.Builder().cacheControl(new CacheControl.Builder().maxAge(7, TimeUnit.DAYS).build()).url(quotesAPI).build();
         for (int count = 0; count < 5; count++){
             int finalCount = count;
-            OkHttpClient client = new OkHttpClient();
-            Request request = new Request.Builder().url(quotesAPI).build();
-
             client.newCall(request).enqueue(new Callback() {
                 @Override
                 public void onFailure(@NonNull Call call, @NonNull IOException e) {
@@ -350,7 +356,7 @@ public class QuoteActivity extends AppCompatActivity {
                     Log.i(TAG, "onSuccess Quotes");
                     JSONArray jsonArray = null;
                     try {
-                        jsonArray = new JSONArray(response.body().string());
+                        jsonArray = new JSONArray(response.body().string()); // this line should make it get added to the cache
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -362,10 +368,9 @@ public class QuoteActivity extends AppCompatActivity {
                             String author = j.getString("a");
                             quotes.add(quote);
                             authors.add(author);
-                            Log.i(TAG, "FOR DEBUGGING " + quotes.size() + " " + authors.size());
+                            Log.i(TAG, "FOR DEBUGGING " + quotes.size() + " " + authors.size() + " " + quotes.get(quotes.size()-1));
                             if (finalCount == 4 && (i == jsonArray.length() - 1)) {
-                                Log.i(TAG, "Yippee" + quotes.size());
-
+                                Log.i(TAG, "Yippee" + quotes.size() + " " + quotes.get(quotes.size()-1));
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
@@ -382,6 +387,7 @@ public class QuoteActivity extends AppCompatActivity {
             });
         }
     }
+
     private void searchQuotes() {
         boolean set = false;
         for (int i = 0; i < quotes.size(); i++) {
