@@ -1,4 +1,4 @@
-package com.example.gratitudejournal;
+package com.example.gratitudejournal.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -13,7 +13,8 @@ import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.parse.FindCallback;
+import com.example.gratitudejournal.R;
+import com.example.gratitudejournal.parse.Mentions;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
@@ -77,7 +78,7 @@ public class ViewFriendMentionsActivity extends AppCompatActivity {
                 for (int j = 0; j < mentions.size(); j++) {
                     Mentions m = mentions.get(j);
                     // TODO: UNCOMMENT THE DELETE LINE BELOW!!
-//                    m.delete();
+                    m.delete();
                     Log.i(TAG, "deleted " + entryIds.get(i));
                 }
             } catch (ParseException e) {

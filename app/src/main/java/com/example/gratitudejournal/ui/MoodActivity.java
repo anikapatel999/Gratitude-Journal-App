@@ -1,4 +1,4 @@
-package com.example.gratitudejournal;
+package com.example.gratitudejournal.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -12,14 +12,14 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.parse.Parse;
+import com.example.gratitudejournal.Globals;
+import com.example.gratitudejournal.R;
 import com.parse.ParseException;
 import com.parse.ParseUser;
-import com.example.myapplication.Entry;
-import com.example.myapplication.User;
+import com.example.gratitudejournal.parse.Entry;
+import com.example.gratitudejournal.parse.User;
 import com.parse.SaveCallback;
 
 public class MoodActivity extends AppCompatActivity {

@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/warm"
     android:backgroundTint="@color/warm"
-    tools:context=".StatsActivity">
+    tools:context=".ui.StatsActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl"

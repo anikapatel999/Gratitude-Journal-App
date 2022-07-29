@@ -1,4 +1,4 @@
-package com.example.gratitudejournal;
+package com.example.gratitudejournal.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -13,6 +13,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.gratitudejournal.R;
+import com.example.gratitudejournal.parse.Mentions;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
@@ -24,7 +26,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
-import com.example.myapplication.User;
+import com.example.gratitudejournal.parse.User;
 
 public class ViewMentionsActivity extends AppCompatActivity {
     public static final String TAG = "ViewMentionsActivity";
@@ -123,9 +125,9 @@ public class ViewMentionsActivity extends AppCompatActivity {
             try {
                 // if the close friend at that index is of the User class, get their username
                 // and add it to closeFriendUsernames
-                if (closeFriends.get(i).getClass().equals(com.example.myapplication.User.class)) {
+                if (closeFriends.get(i).getClass().equals(User.class)) {
                     Log.i(TAG, "B: " + closeFriendUsernames);
-                    com.example.myapplication.User a = (com.example.myapplication.User) closeFriends.get(i);
+                    User a = (User) closeFriends.get(i);
                     String currentUsername = a.getUsername();
                     closeFriendUsernames.add(currentUsername);
                     // if we have gone through all the elements in closeFriends,
@@ -141,15 +143,15 @@ public class ViewMentionsActivity extends AppCompatActivity {
                     JSONObject a = (JSONObject) closeFriends.get(i);
                     String temp = a.getString("objectId");
                     Log.i(TAG, "C: " + temp);
-                    ParseQuery<com.example.myapplication.User> query2 = new ParseQuery(com.example.myapplication.User.class);
+                    ParseQuery<User> query2 = new ParseQuery(User.class);
                     query2.whereEqualTo("objectId", temp);
                     int finalI = i;
-                    query2.findInBackground(new FindCallback<com.example.myapplication.User>() {
+                    query2.findInBackground(new FindCallback<User>() {
                         @Override
-                        public void done(List<com.example.myapplication.User> objects, ParseException e) {
+                        public void done(List<User> objects, ParseException e) {
                             Log.i(TAG, "D: " + objects);
                             if (objects.size() == 1) {
-                                com.example.myapplication.User closeFriend = objects.get(0);
+                                User closeFriend = objects.get(0);
                                 String currentUsername2 = closeFriend.getUsername();
                                 closeFriendUsernames.add(currentUsername2);
                                 Log.i(TAG, "AA" + closeFriendUsernames + " " + finalI + " " + (closeFriends.length() - 1));
@@ -284,9 +286,9 @@ public class ViewMentionsActivity extends AppCompatActivity {
             try {
                 // if the friend at that index is of the User class, get their username and add it
                 // to friendUsernames
-                if (friends.get(i).getClass().equals(com.example.myapplication.User.class)) {
+                if (friends.get(i).getClass().equals(User.class)) {
                     Log.i(TAG, "Bee: " + friendUsernames);
-                    com.example.myapplication.User a = (com.example.myapplication.User) friends.get(i);
+                    User a = (User) friends.get(i);
                     String currentUsername = a.getUsername();
                     friendUsernames.add(currentUsername);
                     // if we have gone through all the elements in friends,
@@ -302,15 +304,15 @@ public class ViewMentionsActivity extends AppCompatActivity {
                     JSONObject a = (JSONObject) friends.get(i);
                     String temp = a.getString("objectId");
                     Log.i(TAG, "Cee: " + temp);
-                    ParseQuery<com.example.myapplication.User> query = new ParseQuery(com.example.myapplication.User.class);
+                    ParseQuery<User> query = new ParseQuery(User.class);
                     query.whereEqualTo("objectId", temp);
                     int finalI = i;
-                    query.findInBackground(new FindCallback<com.example.myapplication.User>() {
+                    query.findInBackground(new FindCallback<User>() {
                         @Override
-                        public void done(List<com.example.myapplication.User> objects, ParseException e) {
+                        public void done(List<User> objects, ParseException e) {
                             Log.i(TAG, "Dee: " + objects);
                             if (objects.size() == 1) {
-                                com.example.myapplication.User friend = objects.get(0);
+                                User friend = objects.get(0);
                                 String currentUsername2 = friend.getUsername();
                                 friendUsernames.add(currentUsername2);
                                 Log.i(TAG, "AA" + friendUsernames + " " + finalI + " " + (friends.length() - 1));

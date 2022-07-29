@@ -1,4 +1,4 @@
-package com.example.gratitudejournal;
+package com.example.gratitudejournal.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -16,6 +16,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.gratitudejournal.R;
 import com.parse.ParseUser;
 
 import java.util.ArrayList;

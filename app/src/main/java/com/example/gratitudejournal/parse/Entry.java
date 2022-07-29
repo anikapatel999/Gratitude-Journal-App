@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.gratitudejournal.parse;
 
 import com.parse.ParseClassName;
 import com.parse.ParseFile;

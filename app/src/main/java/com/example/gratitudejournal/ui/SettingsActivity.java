@@ -1,4 +1,4 @@
-package com.example.gratitudejournal;
+package com.example.gratitudejournal.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -14,17 +14,15 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.example.gratitudejournal.R;
 import com.parse.ParseException;
 import com.parse.ParseUser;
-import com.example.myapplication.User;
+import com.example.gratitudejournal.parse.User;
 import com.parse.SaveCallback;
-
-import java.util.TimeZone;
 
 public class SettingsActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
 

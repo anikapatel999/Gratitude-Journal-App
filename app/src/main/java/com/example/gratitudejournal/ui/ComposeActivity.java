@@ -1,4 +1,4 @@
-package com.example.gratitudejournal;
+package com.example.gratitudejournal.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -13,17 +13,15 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.jjoe64.graphview.series.DataPoint;
+import com.example.gratitudejournal.Globals;
+import com.example.gratitudejournal.R;
 import com.parse.ParseException;
 import com.parse.ParseUser;
-import com.example.myapplication.User;
-import com.example.myapplication.Entry;
+import com.example.gratitudejournal.parse.User;
+import com.example.gratitudejournal.parse.Entry;
 import com.parse.SaveCallback;
-
-import java.io.File;
 
 public class ComposeActivity extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package com.example.gratitudejournal;
+package com.example.gratitudejournal.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -21,17 +21,14 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ToggleButton;
 
+import com.example.gratitudejournal.R;
 import com.google.android.material.snackbar.Snackbar;
 import com.parse.FindCallback;
-import com.parse.Parse;
 import com.parse.ParseException;
-import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
-import com.example.myapplication.User;
-import com.parse.SaveCallback;
+import com.example.gratitudejournal.parse.User;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -39,7 +36,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
-import com.example.myapplication.Entry;
+import com.example.gratitudejournal.parse.Entry;
 
 public class FriendsActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
 

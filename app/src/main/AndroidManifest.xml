@@ -8,7 +8,7 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
-        android:name=".ParseApplication"
+        android:name=".parse.ParseApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -19,49 +19,49 @@
         android:theme="@style/Theme.GratitudeJournal"
         tools:targetApi="31">
         <activity
-            android:name=".StatsActivity"
+            android:name=".ui.StatsActivity"
             android:exported="false" />
         <activity
-            android:name=".ViewCloseFriendEntriesActivity"
+            android:name=".ui.ViewCloseFriendEntriesActivity"
             android:exported="false" />
         <activity
-            android:name=".ViewCloseFriendMentionsActivity"
+            android:name=".ui.ViewCloseFriendMentionsActivity"
             android:exported="false" />
         <activity
-            android:name=".ViewFriendMentionsActivity"
+            android:name=".ui.ViewFriendMentionsActivity"
             android:exported="false" />
         <activity
-            android:name=".ViewMentionsActivity"
+            android:name=".ui.ViewMentionsActivity"
             android:exported="false" />
         <activity
-            android:name=".MentionFriendsActivity"
+            android:name=".ui.MentionFriendsActivity"
             android:exported="false" />
         <activity
-            android:name=".FriendsActivity"
+            android:name=".ui.FriendsActivity"
             android:exported="false" />
         <activity
-            android:name=".QuoteActivity"
+            android:name=".ui.QuoteActivity"
             android:exported="false" />
         <activity
-            android:name=".SettingsActivity"
+            android:name=".ui.SettingsActivity"
             android:exported="false" />
         <activity
-            android:name=".ScrollActivity"
+            android:name=".ui.ScrollActivity"
             android:exported="false" />
         <activity
-            android:name=".MoodActivity"
+            android:name=".ui.MoodActivity"
             android:exported="false" />
         <activity
-            android:name=".CalendarActivity"
+            android:name=".ui.CalendarActivity"
             android:exported="false" />
         <activity
-            android:name=".ComposeActivity"
+            android:name=".ui.ComposeActivity"
             android:exported="false" />
         <activity
-            android:name=".SignupActivity"
+            android:name=".ui.SignupActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".ui.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -70,7 +70,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".HomeActivity"
+            android:name=".ui.HomeActivity"
             android:exported="false" />
 
         <receiver

@@ -3,16 +3,14 @@ package com.example.gratitudejournal;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.media.MediaPlayer;
-import android.provider.Settings;
 import android.util.Log;
-import android.widget.Toast;
 
+import com.example.gratitudejournal.parse.Mentions;
 import com.parse.ParseException;
 import com.parse.ParseUser;
-import com.example.myapplication.User;
+import com.example.gratitudejournal.parse.User;
 import com.parse.SaveCallback;
-import com.example.myapplication.Entry;
+import com.example.gratitudejournal.parse.Entry;
 
 import org.json.JSONArray;
 import org.json.JSONException;

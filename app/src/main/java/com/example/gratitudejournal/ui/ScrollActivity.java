@@ -1,16 +1,12 @@
-package com.example.gratitudejournal;
+package com.example.gratitudejournal.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,19 +15,19 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.example.gratitudejournal.EndlessRecyclerViewScrollListener;
+import com.example.gratitudejournal.EntriesAdapter;
+import com.example.gratitudejournal.R;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
-import java.net.SocketOption;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.example.myapplication.Entry;
-import com.example.myapplication.User;
+import com.example.gratitudejournal.parse.Entry;
 
 public class ScrollActivity extends AppCompatActivity {
 

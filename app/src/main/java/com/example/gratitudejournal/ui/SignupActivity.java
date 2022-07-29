@@ -1,4 +1,4 @@
-package com.example.gratitudejournal;
+package com.example.gratitudejournal.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -13,12 +13,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.parse.Parse;
+import com.example.gratitudejournal.R;
 import com.parse.ParseException;
-import com.parse.ParseObject;
-import com.parse.ParseUser;
 import com.parse.SignUpCallback;
-import com.example.myapplication.User;
+import com.example.gratitudejournal.parse.User;
 
 public class SignupActivity extends AppCompatActivity {
 
@@ -50,18 +48,13 @@ public class SignupActivity extends AppCompatActivity {
         });
     }
     private void signupUser (String username, String password) {
-        // Create the ParseUser
-        // ParseUser user = new ParseUser();
-        // ParseUser.create(user);
+
         User user = new User();
-        //ParseUser user = new ParseUser();
+
         // Set core properties
         user.setUsername(username);
         user.setPassword(password);
-        // user.setEmail("email@example.com");
-        // Set custom properties
-        // user.put("phone", "650-253-0000");
-        // Invoke signUpInBackground
+
         Log.i(TAG, "called signupUser");
         user.signUpInBackground(new SignUpCallback() {
             public void done(ParseException e) {

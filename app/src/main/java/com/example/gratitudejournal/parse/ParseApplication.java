@@ -1,4 +1,4 @@
-package com.example.gratitudejournal;
+package com.example.gratitudejournal.parse;
 
 import android.app.Application;
 
@@ -19,9 +19,9 @@ public class ParseApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
-        ParseObject.registerSubclass(com.example.myapplication.Entry.class);
-        ParseObject.registerSubclass(com.example.gratitudejournal.Mentions.class);
-        ParseUser.registerSubclass(com.example.myapplication.User.class);
+        ParseObject.registerSubclass(Entry.class);
+        ParseObject.registerSubclass(Mentions.class);
+        ParseUser.registerSubclass(User.class);
 
         Parse.initialize(new Parse.Configuration.Builder(this)
                 .applicationId("A49wxJrO5FIsjqnJRbwtLFKXD3VIcuHy0jinNiPo")

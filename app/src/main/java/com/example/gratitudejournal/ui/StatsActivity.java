@@ -1,4 +1,4 @@
-package com.example.gratitudejournal;
+package com.example.gratitudejournal.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -19,16 +19,9 @@ import com.anychart.AnyChart;
 import com.anychart.AnyChartView;
 import com.anychart.chart.common.dataentry.DataEntry;
 import com.anychart.chart.common.dataentry.ValueDataEntry;
-import com.anychart.charts.Cartesian;
-import com.anychart.charts.Pie;
 import com.anychart.charts.TagCloud;
-import com.anychart.core.cartesian.series.Line;
-import com.anychart.core.ui.Paginator;
-import com.anychart.data.Mapping;
-import com.anychart.enums.MarkerType;
-import com.anychart.enums.TooltipPositionMode;
-import com.anychart.graphics.vector.Anchor;
-import com.anychart.graphics.vector.Stroke;
+import com.example.gratitudejournal.Globals;
+import com.example.gratitudejournal.R;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
@@ -45,8 +38,8 @@ import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
-import com.example.myapplication.User;
-import com.example.myapplication.Entry;
+import com.example.gratitudejournal.parse.User;
+import com.example.gratitudejournal.parse.Entry;
 
 import org.json.JSONArray;
 import org.json.JSONException;

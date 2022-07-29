@@ -1,6 +1,5 @@
-package com.example.gratitudejournal;
+package com.example.gratitudejournal.ui;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
@@ -11,21 +10,19 @@ import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.CalendarView;
 import android.widget.Toast;
 
+import com.example.gratitudejournal.R;
 import com.parse.FindCallback;
-import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
-import com.example.myapplication.Entry;
+import com.example.gratitudejournal.parse.Entry;
 
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
-import java.util.TimeZone;
-import com.example.myapplication.User;
+
+import com.example.gratitudejournal.parse.User;
 import com.skyhope.eventcalenderlibrary.listener.CalenderDayClickListener;
 import com.skyhope.eventcalenderlibrary.model.DayContainerModel;
 

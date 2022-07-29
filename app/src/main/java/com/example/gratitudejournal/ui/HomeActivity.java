@@ -1,4 +1,4 @@
-package com.example.gratitudejournal;
+package com.example.gratitudejournal.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -13,28 +13,19 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 
+import com.example.gratitudejournal.Alarm;
+import com.example.gratitudejournal.R;
+import com.example.gratitudejournal.parse.Mentions;
 import com.parse.FindCallback;
 import com.parse.ParseException;
-import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
-import com.example.myapplication.User;
-import com.example.myapplication.Entry;
-import com.example.gratitudejournal.Mentions;
-import com.parse.SaveCallback;
-
-import org.json.JSONArray;
-import org.json.JSONException;
+import com.example.gratitudejournal.parse.User;
 
 public class HomeActivity extends AppCompatActivity {
 

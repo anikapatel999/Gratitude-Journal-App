@@ -1,14 +1,9 @@
-package com.example.myapplication;
+package com.example.gratitudejournal.parse;
 
 import com.parse.ParseClassName;
-import com.parse.ParseFile;
-import com.parse.ParseObject;
 import com.parse.ParseUser;
 
 import org.json.JSONArray;
-
-import java.util.List;
-import com.example.myapplication.Entry;
 
 @ParseClassName("_User") //SHOULD PROBABLY HAVE STAYED AS USER INSTEAD OF _USER
 public class User extends ParseUser { //or is it ParseObject? does it matter?

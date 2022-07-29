@@ -1,4 +1,4 @@
-package com.example.gratitudejournal;
+package com.example.gratitudejournal.ui;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,11 +18,14 @@ import android.widget.TextView;
 
 import com.codepath.asynchttpclient.AsyncHttpClient;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
+import com.example.gratitudejournal.Globals;
+import com.example.gratitudejournal.R;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
-import com.example.myapplication.User;
+import com.example.gratitudejournal.parse.User;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -30,7 +33,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import com.example.myapplication.Entry;
+import com.example.gratitudejournal.parse.Entry;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -51,7 +54,7 @@ public class QuoteActivity extends AppCompatActivity {
     public static final String quotesAPI = "https://zenquotes.io/api/quotes";
     public static final String dictAPI = "https://api.dictionaryapi.dev/api/v2/entries/en/";
     float x1, x2, y1, y2;
-    protected List<com.example.myapplication.Entry> allEntries;
+    protected List<Entry> allEntries;
     String[] selectedKeywords = {};
     String[] keywordArray = {"inspiration", "excellence", "happiness", "dreams", "courage",
             "confidence", "kindness", "success", "change", "future", "life", "living",
@@ -141,8 +144,8 @@ public class QuoteActivity extends AppCompatActivity {
 
         if (allEntries.size() == 7) {
             // check if the user skipped any of the last 7 moods
-            for (int i = 0; i < allEntries.size(); i++){
-                if(allEntries.get(i).getMood().equals(Globals.skip) || allEntries.get(i).getMood().equals("No mood selected")) {
+            for (int i = 0; i < allEntries.size(); i++) {
+                if (allEntries.get(i).getMood().equals(Globals.skip) || allEntries.get(i).getMood().equals("No mood selected")) {
                     Log.i(TAG, "calc" + allEntries.get(i).getMood() + " " + allEntries.get(i).getCreatedAt());
                     sevenMoodsSelected = false;
                 }
@@ -177,7 +180,7 @@ public class QuoteActivity extends AppCompatActivity {
 //        synonyms = new ArrayList<>();
 //        final ArrayList[] syns = {new ArrayList()};
         String tempDictAPI = "";
-        for (int i = 0; i< sw.length; i++) {
+        for (int i = 0; i < sw.length; i++) {
             synonyms.add(sw[i]);
             tempDictAPI = dictAPI + sw[i];
             AsyncHttpClient client = new AsyncHttpClient();
@@ -194,12 +197,12 @@ public class QuoteActivity extends AppCompatActivity {
                         JSONObject j = (JSONObject) jsonArray.get(0);
                         //Log.i(TAG, "THIS IS THE WORD: " + j.getString("word"));
                         JSONArray j2 = j.getJSONArray("meanings");
-                        for(int ind = 0; ind < j2.length(); ind++) {
+                        for (int ind = 0; ind < j2.length(); ind++) {
                             //Log.i(TAG, "THIS IS THE PART OF SPEECH " + j2.get(0));
                             JSONObject j3 = (JSONObject) j2.get(ind);
                             Object j4 = j3.get("synonyms");
                             JSONArray j5 = (JSONArray) j4;
-                            for (int index = 0; index < j5.length(); index++){
+                            for (int index = 0; index < j5.length(); index++) {
                                 Log.i(TAG, ":) " + j5.get(index));
                                 synonyms.add(j5.get(index).toString());
                                 // Log.i(TAG, ":)( " + syns);
@@ -257,7 +260,7 @@ public class QuoteActivity extends AppCompatActivity {
             Log.i(TAG, "FIRST: " + str.length());
 
             if (str.length() > 4) {
-                if (str.substring(str.length() - 4).equals("ship") || str.substring(str.length() - 4).equals("ness")){
+                if (str.substring(str.length() - 4).equals("ship") || str.substring(str.length() - 4).equals("ness")) {
                     str = str.substring(0, str.length() - 4);
                     synonyms.set(i, str);
                 }
@@ -267,7 +270,7 @@ public class QuoteActivity extends AppCompatActivity {
                 //Log.i(TAG, "THESE ARE 1: ");
                 if (str.substring(str.length() - 2).equals("es") || str.substring(str.length() - 2).equals("ed")) {
                     //Log.i(TAG, "THESE ARE 2: ");
-                    str = str.substring(0,str.length()-2);
+                    str = str.substring(0, str.length() - 2);
                     synonyms.set(i, str);
                     Log.i(TAG, "executed: " + str + " " + synonyms.get(i));
                 }
@@ -280,7 +283,7 @@ public class QuoteActivity extends AppCompatActivity {
                 }
             }
             if (str.length() > 3) {
-                if( str.substring(str.length() - 3).equals("ing") || str.substring(str.length() - 3).equals("ful") || str.substring(str.length() - 3).equals("est")) {
+                if (str.substring(str.length() - 3).equals("ing") || str.substring(str.length() - 3).equals("ful") || str.substring(str.length() - 3).equals("est")) {
                     str = str.substring(0, str.length() - 3);
                     synonyms.set(i, str);
                 }
@@ -293,15 +296,15 @@ public class QuoteActivity extends AppCompatActivity {
                 }
             }
         }
-        Log.i (TAG, "THESE ARE THE SYNONYMS" + synonyms);
+        Log.i(TAG, "THESE ARE THE SYNONYMS" + synonyms);
         roots.addAll(synonyms);
         Log.i(TAG, "dlkfmvlfkdmbvaaa" + roots);
         //TODO: CHANGE BACK TO GETQUOTES?
-        getQuotes2();
+        getQuotes();
     }
 
     private void getQuotes() {
-        for (int count = 0; count < 5; count++){
+        for (int count = 0; count < 5; count++) {
             AsyncHttpClient client = new AsyncHttpClient();
             int finalCount = count;
             client.get(quotesAPI, new JsonHttpResponseHandler() {
@@ -310,7 +313,7 @@ public class QuoteActivity extends AppCompatActivity {
                     Log.i(TAG, "onSuccess Quotes");
                     JSONArray jsonArray = json.jsonArray;
                     try {
-                        for (int i = 0; i < jsonArray.length(); i++){
+                        for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject j = (JSONObject) jsonArray.get(i);
                             String quote = j.getString("q");
                             String author = j.getString("a");
@@ -340,10 +343,21 @@ public class QuoteActivity extends AppCompatActivity {
     private void getQuotes2() {
 //        for (int count = 0; count < 5; count++){
 //            int finalCount = count;
-        OkHttpClient client = new OkHttpClient();
-            //Request request = new Request.Builder().url(quotesAPI).build();
-        Request request = new Request.Builder().cacheControl(new CacheControl.Builder().maxAge(7, TimeUnit.DAYS).build()).url(quotesAPI).build();
-        for (int count = 0; count < 5; count++){
+        int cacheSize = 10 * 1024 * 1024;
+
+        Cache cache = new Cache(new File(getApplication().getCacheDir(), "cacheFileName"), cacheSize);
+
+        OkHttpClient client = new OkHttpClient.Builder().cache(cache).build();
+
+        // OkHttpClient client = new OkHttpClient();
+        //Request request = new Request.Builder().url(quotesAPI).build();
+        Request request = new Request.Builder()
+                .cacheControl(new CacheControl.Builder()
+                        .maxAge(7, TimeUnit.DAYS)
+                        .build())
+                .url(quotesAPI)
+                .build();
+        for (int count = 0; count < 5; count++) {
             int finalCount = count;
             client.newCall(request).enqueue(new Callback() {
                 @Override
@@ -356,21 +370,23 @@ public class QuoteActivity extends AppCompatActivity {
                     Log.i(TAG, "onSuccess Quotes");
                     JSONArray jsonArray = null;
                     try {
+                        Log.i(TAG, "ldkmvdlkfmv: " + response.cacheResponse());
                         jsonArray = new JSONArray(response.body().string()); // this line should make it get added to the cache
+                        Log.i(TAG, "for debugging");
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
 
                     try {
-                        for (int i = 0; i < jsonArray.length(); i++){
+                        for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject j = (JSONObject) jsonArray.get(i);
                             String quote = j.getString("q");
                             String author = j.getString("a");
                             quotes.add(quote);
                             authors.add(author);
-                            Log.i(TAG, "FOR DEBUGGING " + quotes.size() + " " + authors.size() + " " + quotes.get(quotes.size()-1));
+                            Log.i(TAG, "FOR DEBUGGING " + quotes.size() + " " + authors.size() + " " + quotes.get(quotes.size() - 1));
                             if (finalCount == 4 && (i == jsonArray.length() - 1)) {
-                                Log.i(TAG, "Yippee" + quotes.size() + " " + quotes.get(quotes.size()-1));
+                                Log.i(TAG, "Yippee" + quotes.size() + " " + quotes.get(quotes.size() - 1));
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
@@ -383,6 +399,7 @@ public class QuoteActivity extends AppCompatActivity {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+
                 }
             });
         }
@@ -391,7 +408,7 @@ public class QuoteActivity extends AppCompatActivity {
     private void searchQuotes() {
         boolean set = false;
         for (int i = 0; i < quotes.size(); i++) {
-            if(set) {
+            if (set) {
                 break;
             }
             for (int j = 0; j < roots.size(); j++) {
@@ -419,7 +436,7 @@ public class QuoteActivity extends AppCompatActivity {
         }
         if (!set) {
             // honestly the quotes are randomized anyway, i could just pick the first one
-            int ind = (int) Math.floor(Math.random()*(249-0+1)-.000001);
+            int ind = (int) Math.floor(Math.random() * (249 - 0 + 1) - .000001);
             tvQuote.startAnimation(fade_in_anim);
             tvQuote.setText(quotes.get(ind));
             tvAuthor.startAnimation(fade_in_anim);
@@ -431,7 +448,7 @@ public class QuoteActivity extends AppCompatActivity {
     private boolean filter(String s) {
         boolean safe = true;
         String[] filterWords = {"death", "die", "dying", "loss", "lose", "lie", "gone", "youth", "young", "old", "age", "worse", "worst", "god", "pig"};
-        for (int i = 0; i < filterWords.length; i++){
+        for (int i = 0; i < filterWords.length; i++) {
             if (s.contains(filterWords[i])) {
                 safe = false;
                 break;
@@ -447,15 +464,14 @@ public class QuoteActivity extends AppCompatActivity {
         return words;
     }
 
-    private void forTesting (String[] arr, String tag) {
-        for (int i = 0; i< arr.length; i++) {
+    private void forTesting(String[] arr, String tag) {
+        for (int i = 0; i < arr.length; i++) {
             System.out.println(tag + ": " + arr[i]);
         }
     }
 
     private String[] reverse(String[] rev) {
-        for(int i = 0; i < rev.length / 2; i++)
-        {
+        for (int i = 0; i < rev.length / 2; i++) {
             String temp = rev[i];
             rev[i] = rev[rev.length - i - 1];
             rev[rev.length - i - 1] = temp;
@@ -480,11 +496,9 @@ public class QuoteActivity extends AppCompatActivity {
 
         if (moodScore > 15) {
             skw = Arrays.copyOfRange(keywordArray, 0, 5);
-        }
-        else if (moodScore <= 15 && moodScore >= -15 ){
+        } else if (moodScore <= 15 && moodScore >= -15) {
             skw = Arrays.copyOfRange(keywordArray, 4, 10);
-        }
-        else if (moodScore < -15){
+        } else if (moodScore < -15) {
             skw = Arrays.copyOfRange(keywordArray, 9, 15);
         }
 
@@ -498,11 +512,9 @@ public class QuoteActivity extends AppCompatActivity {
 
         if (moodScore > 30) {
             skw = Arrays.copyOfRange(keywordArray, 0, 5);
-        }
-        else if (moodScore <= 30 && moodScore >= -30 ){
+        } else if (moodScore <= 30 && moodScore >= -30) {
             skw = Arrays.copyOfRange(keywordArray, 4, 10);
-        }
-        else if (moodScore < -30){
+        } else if (moodScore < -30) {
             skw = Arrays.copyOfRange(keywordArray, 9, 15);
         }
 
@@ -513,19 +525,15 @@ public class QuoteActivity extends AppCompatActivity {
     private double calcTotalMoodScore(double moodScore) {
         //ADD AND SUBTRACT BASED ON THE MOODS OF THE PREVIOUS 6 DAYS
         for (int i = 1; i < allEntries.size(); i++) {
-            if (allEntries.get(i).getMood().equals (Globals.terrible)) {
+            if (allEntries.get(i).getMood().equals(Globals.terrible)) {
                 moodScore = moodScore - 3;
-            }
-            else if (allEntries.get(i).getMood().equals (Globals.bad)) {
+            } else if (allEntries.get(i).getMood().equals(Globals.bad)) {
                 moodScore = moodScore - 1.5;
-            }
-            else if (allEntries.get(i).getMood().equals (Globals.okay)) {
+            } else if (allEntries.get(i).getMood().equals(Globals.okay)) {
                 moodScore = moodScore + 0;
-            }
-            else if (allEntries.get(i).getMood().equals (Globals.good)) {
+            } else if (allEntries.get(i).getMood().equals(Globals.good)) {
                 moodScore = moodScore + 1.5;
-            }
-            else if (allEntries.get(i).getMood().equals (Globals.amazing)) {
+            } else if (allEntries.get(i).getMood().equals(Globals.amazing)) {
                 moodScore = moodScore + 3;
             }
         }
@@ -540,27 +548,23 @@ public class QuoteActivity extends AppCompatActivity {
         double moodScore = 0;
         String currentMood = allEntries.get(0).getMood();
 
-        if (currentMood.equals (Globals.terrible)) {
+        if (currentMood.equals(Globals.terrible)) {
             moodScore = -30;
-        }
-        else if (currentMood.equals (Globals.bad)) {
+        } else if (currentMood.equals(Globals.bad)) {
             moodScore = -15;
-        }
-        else if (currentMood.equals (Globals.okay)) {
+        } else if (currentMood.equals(Globals.okay)) {
             moodScore = 0;
-        }
-        else if (currentMood.equals (Globals.good)) {
+        } else if (currentMood.equals(Globals.good)) {
             moodScore = 15;
-        }
-        else if (currentMood.equals (Globals.amazing)) {
+        } else if (currentMood.equals(Globals.amazing)) {
             moodScore = 30;
         }
         Log.i(TAG, "calcCurrentMoodScore: " + moodScore);
         return moodScore;
     }
 
-    public boolean onTouchEvent(MotionEvent touchEvent){
-        switch(touchEvent.getAction()){
+    public boolean onTouchEvent(MotionEvent touchEvent) {
+        switch (touchEvent.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 x1 = touchEvent.getX();
                 y1 = touchEvent.getY();
@@ -569,7 +573,7 @@ public class QuoteActivity extends AppCompatActivity {
                 x2 = touchEvent.getX();
                 y2 = touchEvent.getY();
 
-                if(x1 > x2) {
+                if (x1 > x2) {
                     Intent i = new Intent(QuoteActivity.this, HomeActivity.class);
 //                    Intent i = new Intent(MoodActivity.this, QuoteActivity.class);
                     startActivity(i);

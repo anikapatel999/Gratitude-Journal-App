@@ -1,4 +1,4 @@
-package com.example.gratitudejournal;
+package com.example.gratitudejournal.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -13,6 +13,11 @@ import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 
+import com.example.gratitudejournal.EndlessRecyclerViewScrollListener;
+import com.example.gratitudejournal.EntriesAdapter;
+import com.example.gratitudejournal.R;
+import com.example.gratitudejournal.parse.Mentions;
+import com.example.gratitudejournal.parse.User;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
@@ -20,7 +25,7 @@ import com.parse.ParseUser;
 
 import java.util.ArrayList;
 import java.util.List;
-import com.example.myapplication.Entry;
+import com.example.gratitudejournal.parse.Entry;
 
 public class ViewCloseFriendEntriesActivity extends AppCompatActivity {
 
@@ -82,7 +87,7 @@ public class ViewCloseFriendEntriesActivity extends AppCompatActivity {
 
     private void getMentions() {
         ParseUser currentUser = ParseUser.getCurrentUser();
-        com.example.myapplication.User currentUser2 = (com.example.myapplication.User) currentUser;
+        User currentUser2 = (User) currentUser;
 
 //        for (int i = 0; i < entryIds.size(); i++) {
             ParseQuery<Mentions> query = new ParseQuery(Mentions.class);
@@ -140,11 +145,11 @@ public class ViewCloseFriendEntriesActivity extends AppCompatActivity {
             Mentions mention = mentionsToDelete.get(i);
             Log.i(TAG, "deleted");
             //TODO: UNCOMMENT THE DELETE HERE - just commented out for debugging / testing
-//            try {
-//                mention.delete();
-//            } catch (ParseException e) {
-//                e.printStackTrace();
-//            }
+            try {
+                mention.delete();
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
         }
     }
 
