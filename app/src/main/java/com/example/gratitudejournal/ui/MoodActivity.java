@@ -24,13 +24,6 @@ import com.parse.SaveCallback;
 
 public class MoodActivity extends AppCompatActivity {
 
-    // if mood != null: send an intent straight to compose (because they've already picked an emoji
-    // otherwise do all the mood selection stuff
-
-    // if navigating here from the onclick for the edit mood button
-    // (which will be a button at the top of the compose activity),
-    // set the mood to null before firing the intent
-
     float x1, x2, y1, y2;
     private Button btnAmazing;
     private Button btnGood;
@@ -59,8 +52,6 @@ public class MoodActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Log.i(TAG, "Amazing button");
                 ParseUser currentUser = ParseUser.getCurrentUser();
-                // User currentUser = (User) ParseUser.getCurrentUser();
-                //String mood = "Amazing";
                 String mood = Globals.amazing;
                 saveEntry(mood, currentUser);
             }
@@ -71,8 +62,6 @@ public class MoodActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Log.i(TAG, "Good button");
                 ParseUser currentUser = ParseUser.getCurrentUser();
-                // User currentUser = (User) ParseUser.getCurrentUser();
-                //String mood = "Good";
                 String mood = Globals.good;
                 saveEntry(mood, currentUser);
             }
@@ -83,7 +72,6 @@ public class MoodActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Log.i(TAG, "Okay button");
                 ParseUser currentUser = ParseUser.getCurrentUser();
-                // User currentUser = (User) ParseUser.getCurrentUser();
                 String mood = Globals.okay;
                 saveEntry(mood, currentUser);
             }
@@ -94,7 +82,6 @@ public class MoodActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Log.i(TAG, "Bad button");
                 ParseUser currentUser = ParseUser.getCurrentUser();
-                // User currentUser = (User) ParseUser.getCurrentUser();
                 String mood = Globals.bad;
                 saveEntry(mood, currentUser);
             }
@@ -105,14 +92,13 @@ public class MoodActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Log.i(TAG, "Terrible button");
                 ParseUser currentUser = ParseUser.getCurrentUser();
-                // User currentUser = (User) ParseUser.getCurrentUser();
                 String mood = Globals.terrible;
                 saveEntry(mood, currentUser);
             }
         });
     }
 
-    private void saveEntry(String mood, ParseUser currentUser) { // User currentUser || ParseUser currentUser
+    private void saveEntry(String mood, ParseUser currentUser) {
         Log.i(TAG, "got to saveEntry");
         User currentUser2 = (User) currentUser;
         if (currentUser2.getCurrentEntry() == null) {
@@ -135,7 +121,6 @@ public class MoodActivity extends AppCompatActivity {
             Log.i(TAG, "hello" + entry.getMood().toString());
 
         } else {
-            // currentUser2.getCurrentEntry().getMood();
             currentUser2.getCurrentEntry().setMood(mood);
         }
         try {
@@ -172,15 +157,12 @@ public class MoodActivity extends AppCompatActivity {
                     ParseUser currentUser = ParseUser.getCurrentUser();
                     User currentUser2 = (User) currentUser;
                     if(currentUser2.getCurrentEntry() == null) {
-                        // Log.i(TAG, "IF STATEMENT EXECUTED" + currentUser.toString());
                         saveEntry(Globals.skip, currentUser);
                     }
                     Intent i = new Intent(MoodActivity.this, ComposeActivity.class);
-//                    Intent i = new Intent(MoodActivity.this, QuoteActivity.class);
                     startActivity(i);
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                     Log.i("swiped left", "it worked");
-                    // finish();
                 }
             break;
         }
@@ -209,14 +191,11 @@ public class MoodActivity extends AppCompatActivity {
     public void onHome(MenuItem item) {
         Intent intent = new Intent(MoodActivity.this, HomeActivity.class);
         startActivity(intent);
-        // finish();
     }
 
     public void onSettings(MenuItem item) {
         Intent intent = new Intent(MoodActivity.this, SettingsActivity.class);
         startActivity(intent);
-        // setVisible(false);
-        //finish();
     }
 
 }

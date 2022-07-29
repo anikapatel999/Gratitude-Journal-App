@@ -33,7 +33,6 @@ public class EntriesAdapter extends RecyclerView.Adapter<EntriesAdapter.ViewHold
         notifyDataSetChanged();
     }
 
-    // Add a list of items -- change to type used
     public void addAll(List<Entry> list) {
         entries.addAll(list);
         notifyDataSetChanged();
@@ -66,7 +65,6 @@ public class EntriesAdapter extends RecyclerView.Adapter<EntriesAdapter.ViewHold
         private TextView tvLoadMore;
         private View vBar;
         private Date lastDate;
-//        private Boolean messageDisplayed = false;
 
 
         public ViewHolder(@NonNull View itemView) {
@@ -80,21 +78,13 @@ public class EntriesAdapter extends RecyclerView.Adapter<EntriesAdapter.ViewHold
         }
 
         public void bind(Entry entry) {
-            // Bind the entry data to the view elements
-//            if(entry.equals(entries.get(0)) && !messageDisplayed) {
-//                Log.i("EntriesAdapter", "This is the first entry" + entry.getCreatedAt() + entry.getText());
-//                tvLoadMore.setText("Load more entries!");
-//                lastDate = entry.getCreatedAt();
-//                messageDisplayed = true;
-//            }
+
             Date date = entry.getCreatedAt();
-            String dayOfTheWeek = (String) DateFormat.format("EEEE", date); // Thursday
-            String day          = (String) DateFormat.format("dd",   date); // 20
-            String monthString  = (String) DateFormat.format("MMM",  date); // Jun
-            String monthNumber  = (String) DateFormat.format("MM",   date); // 06
-            String year         = (String) DateFormat.format("yyyy", date); // 2013
-            //String time = String.valueOf(date.getDay()) + " " + String.valueOf(date.getMonth()) + " " + String.valueOf(date.getDate()) + " " + String.valueOf(date.getYear());
-            // String time = entry.getCreatedAt().toString();
+            String dayOfTheWeek = (String) DateFormat.format("EEEE", date);
+            String day          = (String) DateFormat.format("dd",   date);
+            String monthString  = (String) DateFormat.format("MMM",  date);
+            String monthNumber  = (String) DateFormat.format("MM",   date);
+            String year         = (String) DateFormat.format("yyyy", date);
             String time = (monthString + " " + day + ", " + year);
             tvDate.setText(time);
             btnMood.setText(entry.getMood());
@@ -153,7 +143,7 @@ public class EntriesAdapter extends RecyclerView.Adapter<EntriesAdapter.ViewHold
 
         @Override
         public void onClick(View v) {
-            // do nothing, is that an option?
+            // do nothing
         }
     }
 

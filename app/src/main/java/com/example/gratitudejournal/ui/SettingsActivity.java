@@ -50,10 +50,6 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
         ConstraintLayout cl = findViewById(R.id.cl);
         cl.setBackgroundResource(R.color.warm);
 
-//        String[] tz = TimeZone.getAvailableIDs();
-//        Log.i(TAG, "TIMEZONES " + tz.length);
-//        Log.i(TAG, "TIMEZONES " + TimeZone.getTimeZone("CTT"));
-
 
         btnDone.setOnClickListener(new View.OnClickListener() {
             @Override

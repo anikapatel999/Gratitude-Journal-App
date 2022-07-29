@@ -18,11 +18,6 @@ public class Mentions extends ParseObject {
     public static final String KEY_CLOSEFRIEND = "closeFriend";
 
 
-
-//    public Mentions () {
-//        super();
-//    }
-
     public String getFromUser() {
         return getString(KEY_FROMUSER);
     }

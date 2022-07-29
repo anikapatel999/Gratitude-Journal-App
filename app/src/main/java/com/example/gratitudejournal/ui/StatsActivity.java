@@ -55,7 +55,6 @@ public class StatsActivity extends AppCompatActivity {
 
     public static final String TAG = "StatsActivity";
     GraphView gvStats1;
-    //AnyChartView acvStats2;
     PieChart pcStats2;
     AnyChartView acvStats3;
     TextView tvNo;
@@ -66,7 +65,6 @@ public class StatsActivity extends AppCompatActivity {
     Animation slide_in;
     String entryText = "";
     String[] et;
-    //int max_x;
     ArrayList<String> allMoodsArray = new ArrayList<>();
     boolean hasMoods = true;
     boolean hasEntries = true;
@@ -92,7 +90,6 @@ public class StatsActivity extends AppCompatActivity {
         slide_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_in_left);
         slide_in.setDuration(1400);
 
-        //makeTagCloud();
         queryEntries();
 
         makeLineGraph();
@@ -127,7 +124,6 @@ public class StatsActivity extends AppCompatActivity {
     }
 
     private String[] split() {
-        // entryText = "I would love to have a dog, dogs are very fun, yes :)";
         String[] text = entryText.split("\\s+");
         for (int i = 0; i < text.length; i++) {
             text[i] = text[i].replaceAll("[^\\w]", "");
@@ -139,11 +135,6 @@ public class StatsActivity extends AppCompatActivity {
 
     private void makeTagCloud(String[] et) {
         List<DataEntry> data = new ArrayList<>();
-
-//        data.add(new ValueDataEntry("hello", 3));
-//        data.add(new ValueDataEntry("aaa", 1));
-//        data.add(new ValueDataEntry("dlkmvldfkvm", 30));
-//        data.add(new ValueDataEntry("wheee", 3));
 
         List<String> entries = new ArrayList<>();
         entries = Arrays.asList(et);
@@ -189,37 +180,12 @@ public class StatsActivity extends AppCompatActivity {
         gvStats1.getViewport().setMaxY(4);
         gvStats1.getViewport().setMinY(0);
 
-//        gvStats1.getViewport().setXAxisBoundsManual(true);
-//        gvStats1.getViewport().setMaxX(max_x + 2);
     }
 
     private void makePieChart() {
 
         setupPieChart();
         loadPieChartData();
-
-        // This code is for all myChartView
-//        Log.i(TAG, "freq amazing: " + Collections.frequency(allMoodsArray, Globals.amazing));
-//        Log.i(TAG, "freq good: " + Collections.frequency(allMoodsArray, Globals.good));
-//        Pie pie = AnyChart.pie();
-//        List<DataEntry> data = new ArrayList<>();
-//
-//        data.add(new ValueDataEntry(Globals.amazing, Collections.frequency(allMoodsArray, Globals.amazing)));
-//        data.add(new ValueDataEntry(Globals.good, Collections.frequency(allMoodsArray, Globals.good)));
-//        data.add(new ValueDataEntry(Globals.okay, Collections.frequency(allMoodsArray, Globals.okay)));
-//        data.add(new ValueDataEntry(Globals.bad, Collections.frequency(allMoodsArray, Globals.bad)));
-//        data.add(new ValueDataEntry(Globals.terrible, Collections.frequency(allMoodsArray, Globals.terrible)));
-//        pie.data(data);
-//
-//        String[] colors = {Globals.amazingColor, Globals.goodColor, Globals.okayColor, Globals.badColor, Globals.terribleColor};
-//        pie.palette(colors);
-//        //pie.labels().position("outside");
-//        acvStats2.setBackgroundColor(Globals.warmColor);
-//        pie.background().enabled(true);
-//        pie.background().fill(Globals.warmColor);
-//
-//        acvStats2.startAnimation(fade_in_anim);
-//        acvStats2.setChart(pie);
     }
 
     private void setupPieChart() {
@@ -230,12 +196,6 @@ public class StatsActivity extends AppCompatActivity {
         pcStats2.setCenterTextSize(24);
         pcStats2.getDescription().setEnabled(false);
 
-//        com.github.mikephil.charting.components.Legend l = pcStats2.getLegend();
-//        l.setVerticalAlignment(com.github.mikephil.charting.components.Legend.LegendVerticalAlignment.TOP);
-////        l.setHorizontalAlignment(com.github.mikephil.charting.components.Legend.LegendHorizontalAlignment.RIGHT);
-//        l.setOrientation(com.github.mikephil.charting.components.Legend.LegendOrientation.VERTICAL);
-//        l.setDrawInside(false);
-//        l.setEnabled(true);
         Legend l = pcStats2.getLegend();
         l.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
         l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
@@ -267,8 +227,6 @@ public class StatsActivity extends AppCompatActivity {
         d.setValueTextSize(12f);
         d.setValueTextColor(Color.WHITE);
 
-//        pcStats2.startAnimation(fade_in_anim);
-
         pcStats2.setData(d);
         pcStats2.invalidate();
 
@@ -296,7 +254,6 @@ public class StatsActivity extends AppCompatActivity {
 
     private LineGraphSeries<DataPoint> setSeries(LineGraphSeries<DataPoint> series) {
         series.setColor(getResources().getColor(R.color.new_color));
-        //series.setThickness(10);
         series.setDrawBackground(true);
         series.setBackgroundColor(getResources().getColor(R.color.amazing_transparent));
         series.setDrawDataPoints(true);
@@ -308,8 +265,7 @@ public class StatsActivity extends AppCompatActivity {
         gridLabel.setHorizontalAxisTitleTextSize(50);
         gridLabel.setHorizontalAxisTitle("Each day you logged a mood");
         gridLabel.setHorizontalAxisTitleColor(getResources().getColor(R.color.new_color));
-        //gridLabel.setVerticalAxisTitleTextSize(50);
-        //gridLabel.setVerticalAxisTitle("Happiness");
+
         gridLabel.setVerticalAxisTitleColor(getResources().getColor(R.color.new_color));
         gridLabel.setHumanRounding(false);
 
@@ -340,7 +296,6 @@ public class StatsActivity extends AppCompatActivity {
     }
 
     public DataPoint[] getData(JSONArray allMoods) {
-//        ArrayList<String> allMoodsArray = new ArrayList<>();
         for(int i = 0; i < allMoods.length(); i++) {
             try {
                 if (!allMoods.get(i).toString().equals(Globals.skip) && !allMoods.get(i).toString().equals("No mood selected")){
@@ -353,7 +308,6 @@ public class StatsActivity extends AppCompatActivity {
 
         if (allMoodsArray.size() == 0) {
             hasMoods = false;
-            // setVisibility();
         }
 
         int n = allMoodsArray.size();
@@ -393,7 +347,6 @@ public class StatsActivity extends AppCompatActivity {
                     break;
             }
         }
-//        max_x = values.length;
         Log.i(TAG, "# POINTS: " + values.length);
         return values;
     }
@@ -439,14 +392,12 @@ public class StatsActivity extends AppCompatActivity {
     public void onHome(MenuItem item) {
         Intent intent = new Intent(StatsActivity.this, HomeActivity.class);
         startActivity(intent);
-        // setVisible(false);
-        //finish();
+
     }
 
     public void onSettings(MenuItem item) {
         Intent intent = new Intent(StatsActivity.this, SettingsActivity.class);
         startActivity(intent);
-        // setVisible(false);
-        //finish();
+
     }
 }

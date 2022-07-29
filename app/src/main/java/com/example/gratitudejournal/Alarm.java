@@ -21,21 +21,11 @@ public class Alarm extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        // MediaPlayer mediaPlayer = MediaPlayer.create(context, Settings.System.DEFAULT_RINGTONE_URI);
-        // mediaPlayer.start();
 
-        /*
-        // MUCH NICER BUT PARSE GETS MAD
-        User currentUser = (User) ParseUser.getCurrentUser();
-        currentUser.setCurrentEntry(null); //IT DOESNT LIKE ME SETTING IT TO NULL ACK
-         */
-        //User currentUser = (User) ParseUser.getCurrentUser();
-        //currentUser.unset("currentEntry"); //IT DOESNT LIKE ME SETTING IT TO NULL ACK
         Log.i(TAG, "got to the alarm");
         ParseUser currentUser = ParseUser.getCurrentUser();
         User currentUser2 = (User) currentUser;
         if (currentUser2.getCurrentEntry() != null) {
-            //Log.i(TAG, currentUser2.getCurrentEntry().getText());
             Entry lastEntry = currentUser2.getCurrentEntry();
             boolean sendFriendNotifs = currentUser2.getMentionFriends();
             boolean sendCloseFriendNotifs = currentUser2.getMentionCloseFriends();
@@ -100,7 +90,7 @@ public class Alarm extends BroadcastReceiver {
                 }
             }
 
-                String mood = null; //getMood();
+                String mood = null;
                 try {
                     mood = currentUser2.getCurrentEntry().fetchIfNeeded().getString("mood");
                 } catch (ParseException e) {
@@ -132,7 +122,7 @@ public class Alarm extends BroadcastReceiver {
                     }
                 });
 
-                String text = null; //getMood();
+                String text = null;
 
                 try {
                     text = lastEntry.fetchIfNeeded().getString("text");

@@ -60,7 +60,6 @@ public class QuoteActivity extends AppCompatActivity {
             "confidence", "kindness", "success", "change", "future", "life", "living",
             "today", "choice", "freedom"};
     String[] searchWords = {};
-    //String[] synonyms = {};
     ArrayList<String> synonyms = new ArrayList<>();
     ArrayList<String> roots = new ArrayList<>();
     ArrayList<String> quotes = new ArrayList<>();
@@ -69,7 +68,6 @@ public class QuoteActivity extends AppCompatActivity {
     private TextView tvAuthor;
     private TextView tvCredit;
     Animation fade_in_anim;
-    // boolean sentToRootFinder = false;
 
 
     @Override
@@ -102,8 +100,7 @@ public class QuoteActivity extends AppCompatActivity {
         query.addDescendingOrder("createdAt");
         Log.i(TAG, "query " + query);
 
-        // query.findInBackground() DOESN'T WORK,
-        // probably because asynchronous so it's null when the rest of the code executes
+
         try {
             Log.i(TAG, "find " + query);
             allEntries = query.find();
@@ -118,24 +115,17 @@ public class QuoteActivity extends AppCompatActivity {
         modifySelectedKeywords();
 
         String entryText = allEntries.get(0).getText();
-        //entryText = "I would love to have a dog, dogs are very fun, yes :)";
         searchWords = split(entryText);
-        // forTesting(searchWords, "sw1");
+
         // sort searchWords by length
         Arrays.sort(searchWords, Comparator.comparingInt(String::length));
-        // forTesting(searchWords, "sw2");
         searchWords = reverse(searchWords);
-        // forTesting(searchWords, "sw3");
         searchWords = slicer(searchWords);
-//        synonyms = getSynonyms(searchWords);
         getSynonyms(searchWords);
         Log.i(TAG, ":))))))) " + synonyms);
         Log.i(TAG, "dlkfmvlfkdmbv" + roots);
-        // rootFinder(synonyms);
 
-        tvQuote.setText("Thank you for writing this entry");
-//        tvAuthor.setText("-Author's Name");
-
+        tvQuote.setText(R.string.thank_you_for_writing_this_entry);
     }
 
     private void modifySelectedKeywords() {
@@ -177,8 +167,7 @@ public class QuoteActivity extends AppCompatActivity {
     }
 
     private void getSynonyms(String[] sw) {
-//        synonyms = new ArrayList<>();
-//        final ArrayList[] syns = {new ArrayList()};
+
         String tempDictAPI = "";
         for (int i = 0; i < sw.length; i++) {
             synonyms.add(sw[i]);
@@ -195,22 +184,17 @@ public class QuoteActivity extends AppCompatActivity {
                     JSONArray jsonArray = json.jsonArray;
                     try {
                         JSONObject j = (JSONObject) jsonArray.get(0);
-                        //Log.i(TAG, "THIS IS THE WORD: " + j.getString("word"));
                         JSONArray j2 = j.getJSONArray("meanings");
                         for (int ind = 0; ind < j2.length(); ind++) {
-                            //Log.i(TAG, "THIS IS THE PART OF SPEECH " + j2.get(0));
                             JSONObject j3 = (JSONObject) j2.get(ind);
                             Object j4 = j3.get("synonyms");
                             JSONArray j5 = (JSONArray) j4;
                             for (int index = 0; index < j5.length(); index++) {
                                 Log.i(TAG, ":) " + j5.get(index));
                                 synonyms.add(j5.get(index).toString());
-                                // Log.i(TAG, ":)( " + syns);
                             }
-//                            Log.i(TAG, ":)( " + syns);
                             Log.i(TAG, "synonyms: " + j.getString("word") + " " + j4);
                         }
-//                        Log.i(TAG, ":)( " + syns);
 
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -221,7 +205,6 @@ public class QuoteActivity extends AppCompatActivity {
                             synonyms.add(0, selectedKeywords[a]);
                         }
                         Log.i(TAG, ":)( " + synonyms);
-                        // sentToRootFinder = true;
                         rootFinder();
                     }
                 }
@@ -234,7 +217,6 @@ public class QuoteActivity extends AppCompatActivity {
                             synonyms.add(0, selectedKeywords[a]);
                         }
                         Log.i(TAG, ":)( " + synonyms);
-                        // sentToRootFinder = true;
                         rootFinder();
                     }
                 }
@@ -246,11 +228,6 @@ public class QuoteActivity extends AppCompatActivity {
     }
 
     private void rootFinder() {
-//        synonyms.clear();
-//        synonyms.add(0, "success");
-//        synonyms.add(1, "running");
-//        synonyms.add(2, "friendship");
-//        synonyms.add(3, "hello");
 
         String str = synonyms.get(0);
         Log.i(TAG, ":( " + synonyms.size());
@@ -267,9 +244,7 @@ public class QuoteActivity extends AppCompatActivity {
             }
 
             if (str.length() > 2) {
-                //Log.i(TAG, "THESE ARE 1: ");
                 if (str.substring(str.length() - 2).equals("es") || str.substring(str.length() - 2).equals("ed")) {
-                    //Log.i(TAG, "THESE ARE 2: ");
                     str = str.substring(0, str.length() - 2);
                     synonyms.set(i, str);
                     Log.i(TAG, "executed: " + str + " " + synonyms.get(i));
@@ -299,6 +274,7 @@ public class QuoteActivity extends AppCompatActivity {
         Log.i(TAG, "THESE ARE THE SYNONYMS" + synonyms);
         roots.addAll(synonyms);
         Log.i(TAG, "dlkfmvlfkdmbvaaa" + roots);
+
         //TODO: CHANGE BACK TO GETQUOTES?
         getQuotes();
     }
@@ -435,7 +411,6 @@ public class QuoteActivity extends AppCompatActivity {
             }
         }
         if (!set) {
-            // honestly the quotes are randomized anyway, i could just pick the first one
             int ind = (int) Math.floor(Math.random() * (249 - 0 + 1) - .000001);
             tvQuote.startAnimation(fade_in_anim);
             tvQuote.setText(quotes.get(ind));
@@ -480,7 +455,6 @@ public class QuoteActivity extends AppCompatActivity {
     }
 
     private String[] split(String entryText) {
-        // entryText = "I would love to have a dog, dogs are very fun, yes :)";
         String[] s = entryText.split("\\s+");
         for (int i = 0; i < s.length; i++) {
             s[i] = s[i].replaceAll("[^\\w]", "");
@@ -575,11 +549,9 @@ public class QuoteActivity extends AppCompatActivity {
 
                 if (x1 > x2) {
                     Intent i = new Intent(QuoteActivity.this, HomeActivity.class);
-//                    Intent i = new Intent(MoodActivity.this, QuoteActivity.class);
                     startActivity(i);
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                     Log.i("swiped left", "it worked");
-                    //finish();
                 }
                 break;
         }
@@ -609,13 +581,11 @@ public class QuoteActivity extends AppCompatActivity {
     public void onHome(MenuItem item) {
         Intent intent = new Intent(QuoteActivity.this, HomeActivity.class);
         startActivity(intent);
-        // setVisible(false);
-        //finish();
+
     }
 
     public void onSettings(MenuItem item) {
         Intent intent = new Intent(QuoteActivity.this, SettingsActivity.class);
         startActivity(intent);
-        //finish();
     }
 }

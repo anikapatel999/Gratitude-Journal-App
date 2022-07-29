@@ -58,7 +58,6 @@ public class ViewCloseFriendMentionsActivity extends AppCompatActivity {
             System.out.println(s + ": " + Collections.frequency(closeFriendUsernames, s));
             if (Collections.frequency(closeFriendUsernames, s) > 1) {
                 userFreq.add("click to view " + Collections.frequency(closeFriendUsernames, s) + " recent mentions from " + s);
-                //Log.i(TAG, String.valueOf(userFreq));
             }
             else {
                 userFreq.add("click to view a recent mention from " + s);
@@ -121,6 +120,5 @@ public class ViewCloseFriendMentionsActivity extends AppCompatActivity {
         Intent intent = new Intent(ViewCloseFriendMentionsActivity.this, SettingsActivity.class);
         startActivity(intent);
         finish();
-        // setVisible(false);
     }
 }

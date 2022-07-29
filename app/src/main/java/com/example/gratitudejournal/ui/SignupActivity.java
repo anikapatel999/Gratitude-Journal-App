@@ -59,8 +59,7 @@ public class SignupActivity extends AppCompatActivity {
         user.signUpInBackground(new SignUpCallback() {
             public void done(ParseException e) {
                 if (e == null) {
-                    // Hooray! Let them use the app now.
-                    //accountCreated = true;
+
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
@@ -71,8 +70,7 @@ public class SignupActivity extends AppCompatActivity {
                     }, 1500);
                     Log.i(TAG, "created acc");
                 } else {
-                    // Sign up didn't succeed. Look at the ParseException
-                    // to figure out what went wrong
+
                     Toast.makeText(SignupActivity.this, "Issue with signup:\nAccount with this username\nmay already exist", Toast.LENGTH_LONG).show();
                 }
             }

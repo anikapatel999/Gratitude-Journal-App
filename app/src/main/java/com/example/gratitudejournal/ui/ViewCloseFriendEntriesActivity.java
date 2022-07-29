@@ -25,6 +25,7 @@ import com.parse.ParseUser;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import com.example.gratitudejournal.parse.Entry;
 
 public class ViewCloseFriendEntriesActivity extends AppCompatActivity {
@@ -37,9 +38,9 @@ public class ViewCloseFriendEntriesActivity extends AppCompatActivity {
     protected EntriesAdapter adapter;
 
 
-    ArrayList<String> closeFriendUsernames = new ArrayList<>(); //getIntent().getStringArrayListExtra("closeFriends");
-    ArrayList<String> entryIds = new ArrayList<>(); //getIntent().getStringArrayListExtra("entryIds");
-    String selectedUser; //getIntent().getStringExtra("username");
+    ArrayList<String> closeFriendUsernames = new ArrayList<>();
+    ArrayList<String> entryIds = new ArrayList<>();
+    String selectedUser;
     ArrayList<String> entriesToDisplay = new ArrayList<>();
 
     ArrayList<String> closeFriendUsernames2 = new ArrayList<>();
@@ -71,13 +72,12 @@ public class ViewCloseFriendEntriesActivity extends AppCompatActivity {
         selectedUser = getIntent().getStringExtra("username");
 
         Log.i(TAG, "size " + String.valueOf(closeFriendUsernames.size()));
-        for (int i = 0; i < closeFriendUsernames.size(); i++){
+        for (int i = 0; i < closeFriendUsernames.size(); i++) {
             Log.i(TAG, "size USERNAME" + closeFriendUsernames.get(i) + " " + i);
-            if (!closeFriendUsernames.get(i).equals(selectedUser)){
+            if (!closeFriendUsernames.get(i).equals(selectedUser)) {
                 closeFriendUsernames2.add(closeFriendUsernames.get(i));
             }
         }
-        //closeFriendUsernames.remove(selectedUser);
         Log.i(TAG, "size" + String.valueOf(closeFriendUsernames.size()));
 
         getMentions();
@@ -89,39 +89,34 @@ public class ViewCloseFriendEntriesActivity extends AppCompatActivity {
         ParseUser currentUser = ParseUser.getCurrentUser();
         User currentUser2 = (User) currentUser;
 
-//        for (int i = 0; i < entryIds.size(); i++) {
-            ParseQuery<Mentions> query = new ParseQuery(Mentions.class);
-            query.whereEqualTo("fromUser", selectedUser);
-            //query.whereMatches("objectId", entryIds.get(i));
-            // Log.i(TAG, "mentions query for: " + selectedUser + " " + entryIds.get(i));
-            query.findInBackground(new FindCallback<Mentions>() {
-                @Override
-                public void done(List<Mentions> objects, ParseException e) {
-                    // Log.i(TAG, "mentions query queried " + objects.size());
-                    if (objects.size() > 0) {
-                        for (int j = 0; j < objects.size(); j++) {
-                            for (int i = 0; i < entryIds.size(); i++) {
-                                if (objects.get(j).getObjectId().equals(entryIds.get(i))) {
-                                    entriesToDisplay.add(objects.get(j).getMentionedEntry());
-                                    mentionsToDelete.add(objects.get(j));
-                                    if (i == entryIds.size() - 1 && j == objects.size() - 1) {
-                                        getEntries();
-                                    }
+        ParseQuery<Mentions> query = new ParseQuery(Mentions.class);
+        query.whereEqualTo("fromUser", selectedUser);
+
+        query.findInBackground(new FindCallback<Mentions>() {
+            @Override
+            public void done(List<Mentions> objects, ParseException e) {
+                if (objects.size() > 0) {
+                    for (int j = 0; j < objects.size(); j++) {
+                        for (int i = 0; i < entryIds.size(); i++) {
+                            if (objects.get(j).getObjectId().equals(entryIds.get(i))) {
+                                entriesToDisplay.add(objects.get(j).getMentionedEntry());
+                                mentionsToDelete.add(objects.get(j));
+                                if (i == entryIds.size() - 1 && j == objects.size() - 1) {
+                                    getEntries();
                                 }
-                                else {
-                                    if (i == entryIds.size() - 1 && j == objects.size() - 1) {
-                                        getEntries();
-                                    }
+                            } else {
+                                if (i == entryIds.size() - 1 && j == objects.size() - 1) {
+                                    getEntries();
                                 }
                             }
                         }
                     }
                 }
-            });
+            }
+        });
     }
 
     private void getEntries() {
-        // ParseUser currentUser = ParseUser.getCurrentUser();
         Log.i(TAG, "in getEntries " + entriesToDisplay.size());
         for (int i = 0; i < entriesToDisplay.size(); i++) {
             ParseQuery<Entry> query2 = ParseQuery.getQuery(Entry.class);
@@ -144,7 +139,6 @@ public class ViewCloseFriendEntriesActivity extends AppCompatActivity {
         for (int i = 0; i < mentionsToDelete.size(); i++) {
             Mentions mention = mentionsToDelete.get(i);
             Log.i(TAG, "deleted");
-            //TODO: UNCOMMENT THE DELETE HERE - just commented out for debugging / testing
             try {
                 mention.delete();
             } catch (ParseException e) {
@@ -192,6 +186,5 @@ public class ViewCloseFriendEntriesActivity extends AppCompatActivity {
         Intent intent = new Intent(ViewCloseFriendEntriesActivity.this, SettingsActivity.class);
         startActivity(intent);
         finish();
-        // setVisible(false);
     }
 }

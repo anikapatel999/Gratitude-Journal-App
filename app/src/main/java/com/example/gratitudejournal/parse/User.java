@@ -5,8 +5,8 @@ import com.parse.ParseUser;
 
 import org.json.JSONArray;
 
-@ParseClassName("_User") //SHOULD PROBABLY HAVE STAYED AS USER INSTEAD OF _USER
-public class User extends ParseUser { //or is it ParseObject? does it matter?
+@ParseClassName("_User")
+public class User extends ParseUser {
     public static final String KEY_MOODS = "moods";
     public static final String KEY_CURRENTENTRY = "currentEntry";
     public static final String KEY_FRIENDS = "friends";
@@ -23,10 +23,6 @@ public class User extends ParseUser { //or is it ParseObject? does it matter?
 
 
     public static final String KEY_USER = "user";
-
-//    public User(ParseUser user) {
-//        super();
-//    }
 
     public JSONArray getMoods() {
         return getJSONArray(KEY_MOODS);

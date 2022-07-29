@@ -53,7 +53,6 @@ public class ViewFriendMentionsActivity extends AppCompatActivity {
             System.out.println(s + ": " + Collections.frequency(friendUsernames, s));
             if (Collections.frequency(friendUsernames, s) > 1) {
                 userFreq.add(s + " recently mentioned you in " + Collections.frequency(friendUsernames, s) + " entries");
-                //Log.i(TAG, String.valueOf(userFreq));
             }
             else {
                 userFreq.add(s + " recently mentioned you in an entry");
@@ -63,15 +62,10 @@ public class ViewFriendMentionsActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(ViewFriendMentionsActivity.this, android.R.layout.simple_list_item_1, userFreq);
         lvFriends.setAdapter(adapter);
 
-//        Set<String> set = new HashSet<>(friendUsernames);
-//        friendUsernames.clear();
-//        friendUsernames.addAll(set);
-
         for (int i = 0; i < entryIds.size(); i++) {
             ParseUser currentUser = ParseUser.getCurrentUser();
             ParseQuery<Mentions> query = new ParseQuery(Mentions.class);
             query.whereEqualTo("objectId", entryIds.get(i));
-            //List<Mentions> mentions;
             List<Mentions> mentions = null;
             try {
                 mentions = query.find();
@@ -124,6 +118,5 @@ public class ViewFriendMentionsActivity extends AppCompatActivity {
         Intent intent = new Intent(ViewFriendMentionsActivity.this, SettingsActivity.class);
         startActivity(intent);
         finish();
-        // setVisible(false);
     }
 }

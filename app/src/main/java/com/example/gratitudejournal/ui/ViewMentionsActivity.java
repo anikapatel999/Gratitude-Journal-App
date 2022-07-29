@@ -67,13 +67,11 @@ public class ViewMentionsActivity extends AppCompatActivity {
         friends = currentUser2.getFriends();
         closeFriends = currentUser2.getCloseFriends();
         getFriendUsernames();
-        //getCloseFriendUsernames();
 
         btnFriends.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ViewMentionsActivity.this, ViewFriendMentionsActivity.class);
-                //finalFriendUsernames.toArray();
                 intent.putExtra("friends", finalFriendUsernames);
                 intent.putExtra("entryIds", finalFriendEntries);
                 startActivity(intent);
@@ -85,7 +83,6 @@ public class ViewMentionsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ViewMentionsActivity.this, ViewCloseFriendMentionsActivity.class);
-                //finalCloseFriendUsernames.toArray();
                 intent.putExtra("closeFriends", finalCloseFriendUsernames);
                 intent.putExtra("entryIds", finalCloseFriendEntries);
                 startActivity(intent);
@@ -200,7 +197,6 @@ public class ViewMentionsActivity extends AppCompatActivity {
                                 //btnCloseFriends.setVisibility(View.VISIBLE);
                                 closeFriendsVis = true;
                                 Log.i(TAG, "close friends visible = true");
-                                //tvNoNew.setVisibility(TextView.GONE);
                                 finalCloseFriendUsernames.add(usercf);
                                 finalCloseFriendEntries.add(cfid);
                             }
@@ -210,10 +206,8 @@ public class ViewMentionsActivity extends AppCompatActivity {
                                 boolean f = inArray(friendUsernames, userf);
                                 // if the current user has the sender as a friend
                                 if (f) {
-                                    // btnFriends.setVisibility(View.VISIBLE);
                                     friendsVis = true;
                                     Log.i(TAG, "friends visible1 = true");
-                                    //tvNoNew.setVisibility(TextView.GONE);
                                     finalFriendUsernames.add(userf);
                                     finalFriendEntries.add(fid);
                                 }
@@ -221,15 +215,12 @@ public class ViewMentionsActivity extends AppCompatActivity {
                             // if the current user does not have the sender as a friend/close friend, do nothing
                         }
                         else {
-                            //Log.i(TAG, "wheee: " + closeFriend);
                             String usercf = objects.get(i).get("fromUser").toString();
                             String cfid = objects.get(i).getObjectId();
                             boolean cf = inArray(closeFriendUsernames, usercf);
                             if (cf) {
-                                //btnFriends.setVisibility(View.VISIBLE);
                                 friendsVis = true;
                                 Log.i(TAG, "friends visible2 = true");
-                                //tvNoNew.setVisibility(TextView.GONE);
                                 finalFriendUsernames.add(usercf);
                                 finalFriendEntries.add(cfid);
                             }
@@ -238,10 +229,8 @@ public class ViewMentionsActivity extends AppCompatActivity {
                                 String fid = objects.get(i).getObjectId();
                                 boolean f = inArray(friendUsernames, userf);
                                 if (f) {
-                                    //btnFriends.setVisibility(View.VISIBLE);
                                     friendsVis = true;
                                     Log.i(TAG, "friends visible3 = true");
-                                    //tvNoNew.setVisibility(TextView.GONE);
                                     finalFriendUsernames.add(userf);
                                     finalFriendEntries.add(fid);
                                 }
@@ -357,19 +346,16 @@ public class ViewMentionsActivity extends AppCompatActivity {
         ParseUser currentUser = ParseUser.getCurrentUser(); // this will now be null
         Intent intent = new Intent(ViewMentionsActivity.this, LoginActivity.class);
         startActivity(intent);
-        //finish();
     }
 
     public void onHome(MenuItem item) {
         Intent intent = new Intent(ViewMentionsActivity.this, HomeActivity.class);
         startActivity(intent);
-        //finish();
     }
 
     public void onSettings(MenuItem item) {
         Intent intent = new Intent(ViewMentionsActivity.this, SettingsActivity.class);
         startActivity(intent);
         finish();
-        // setVisible(false);
     }
 }

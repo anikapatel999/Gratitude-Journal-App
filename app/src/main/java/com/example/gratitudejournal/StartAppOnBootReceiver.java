@@ -30,11 +30,6 @@ public class StartAppOnBootReceiver extends BroadcastReceiver {
             PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent2, PendingIntent.FLAG_IMMUTABLE);
             alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, timeInMillis, AlarmManager.INTERVAL_DAY, pendingIntent);
             Log.i("alarm is set", "alarm is set");
-
-
-//            Intent i = new Intent (context, HomeActivity.class);
-//            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//            context.startActivity(i);
         }
     }
 }

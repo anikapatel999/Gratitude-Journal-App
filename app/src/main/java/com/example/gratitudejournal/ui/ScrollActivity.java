@@ -63,9 +63,7 @@ public class ScrollActivity extends AppCompatActivity {
 
         // set the adapter on the recycler view
         rvEntries.setAdapter(adapter);
-        // set the layout manager on the recycler view
-        // rvPosts.setLayoutManager(new LinearLayoutManager(this));
-        // query posts from Parstagram
+
         Bundle extras = getIntent().getExtras();
         int year = Integer.parseInt(extras.getString("year"));
         int month = Integer.parseInt(extras.getString("month")) - 1;
@@ -96,8 +94,7 @@ public class ScrollActivity extends AppCompatActivity {
                 ParseQuery<Entry> query = ParseQuery.getQuery(Entry.class);
                 query.setLimit(20);
                 query.whereMatches("user", currentUser.getObjectId());
-//                Date fd2 = new Date(firstDate.getTime() + (1 * 24 * 60 * 60 * 1000));
-//                query.whereGreaterThan("createdAt", fd2);
+
                 query.whereGreaterThan("createdAt", firstDate);
                 query.addAscendingOrder("createdAt");
                 query.findInBackground(new FindCallback<Entry>() {
@@ -112,14 +109,14 @@ public class ScrollActivity extends AppCompatActivity {
                             Toast.makeText(ScrollActivity.this, "No more entries", Toast.LENGTH_LONG).show();
                             return;
                         }
-                        // for debugging purposes let's print every post description to logcat
+                        // for debugging purposes let's print every entry description to logcat
                         for (Entry entry : entries) {
                             Log.i(TAG, "qquery " + entry.getCreatedAt());
                         }
 
                         allEntries.clear();
                         adapter.notifyDataSetChanged();
-                        // save received posts to list and notify adapter of new data
+                        // save received entries to list and notify adapter of new data
                         firstDate = entries.get(entries.size()-1).getCreatedAt();
                         queryPosts(firstDate, entries.size());
                     }
@@ -137,20 +134,17 @@ public class ScrollActivity extends AppCompatActivity {
         //  --> Append the new data objects to the existing set of items inside the array of items
         //  --> Notify the adapter of the new items made with `notifyItemRangeInserted()`
 
-        //rvEntries.getLayoutManager().findFirstVisibleItemPosition();
 
         ParseUser currentUser = ParseUser.getCurrentUser();
         ParseQuery<Entry> query = ParseQuery.getQuery(Entry.class);
 
         query.setLimit(20);
         query.whereMatches("user", currentUser.getObjectId());
-//        query.whereGreaterThan("createdAt", lastDate);
-//        query.addAscendingOrder("createdAt");
 
         query.whereLessThan("createdAt", lastDate);
         query.addDescendingOrder("createdAt");
 
-        // start an asynchronous call for posts
+        // start an asynchronous call for entries
         query.findInBackground(new FindCallback<Entry>() {
             @Override
             public void done(List<Entry> entries, ParseException e) {
@@ -162,38 +156,34 @@ public class ScrollActivity extends AppCompatActivity {
                 if (entries.size() == 0) {
                     return;
                 }
-                // for debugging purposes let's print every post description to logcat
+                // for debugging purposes let's print every entry description to logcat
                 for (Entry entry : entries) {
                     Log.i(TAG, "infinite scroll entry");
                 }
 
-                // save received posts to list and notify adapter of new data
+                // save received entry to list and notify adapter of new data
                 allEntries.addAll(entries);
-                //scrollind = scrollind + query.getLimit();
                 adapter.notifyItemRangeInserted(scrollind, entries.size());
                 scrollind = scrollind + entries.size() - 1;
-                // swipeContainer.setRefreshing(false);
-                //firstDate = entries.get(0).getCreatedAt();
                 lastDate = entries.get(entries.size()-1).getCreatedAt();
             }
         });
     }
 
     private void queryPosts(Date d, int pos) {
-        // specify what type of data we want to query - Post.class
         ParseUser currentUser = ParseUser.getCurrentUser();
         ParseQuery<Entry> query = ParseQuery.getQuery(Entry.class);
 
         query.whereMatches("user", currentUser.getObjectId());
 
-        query.whereLessThanOrEqualTo("createdAt", d); //was d2
-        query.addDescendingOrder("createdAt"); //CAN CHANGE TO query.addDescendingOrder("createdAt");
+        query.whereLessThanOrEqualTo("createdAt", d);
+        query.addDescendingOrder("createdAt");
 
-        query.setLimit(20); // 15 or 20
+        query.setLimit(20);
 
         Log.i(TAG, "queryYY: " + query);
 
-        // start an asynchronous call for posts
+        // start an asynchronous call for entries
         query.findInBackground(new FindCallback<Entry>() {
             @Override
             public void done(List<Entry> entries, ParseException e) {
@@ -203,11 +193,10 @@ public class ScrollActivity extends AppCompatActivity {
                     return;
                 }
 
-                // for debugging purposes let's print every post description to logcat
                 for (Entry entry : entries) {
                     Log.i(TAG, "Entry: " + "original query entry" + entry.getCreatedAt());
                 }
-                // save received posts to list and notify adapter of new data
+                // save received entries to list and notify adapter of new data
                 lastDate = entries.get(entries.size()-1).getCreatedAt();
                 firstDate = entries.get(0).getCreatedAt();
                 scrollind = entries.size()-1;
@@ -232,7 +221,7 @@ public class ScrollActivity extends AppCompatActivity {
 
     public void onLogout(MenuItem item) {
         ParseUser.logOut();
-        ParseUser currentUser = ParseUser.getCurrentUser(); // this will now be null
+        ParseUser currentUser = ParseUser.getCurrentUser();
         Intent intent = new Intent(ScrollActivity.this, LoginActivity.class);
         startActivity(intent);
         finish();
@@ -241,13 +230,11 @@ public class ScrollActivity extends AppCompatActivity {
     public void onHome(MenuItem item) {
         Intent intent = new Intent(ScrollActivity.this, HomeActivity.class);
         startActivity(intent);
-        // finish();
     }
 
     public void onSettings(MenuItem item) {
         Intent intent = new Intent(ScrollActivity.this, SettingsActivity.class);
         startActivity(intent);
-        //finish();
     }
 
 }

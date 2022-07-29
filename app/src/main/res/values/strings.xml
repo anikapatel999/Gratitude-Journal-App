@@ -62,4 +62,5 @@
     <string name="most_used_words">Most Used Words</string>
     <string name="no_stats_to_display">No stats to display</string>
     <string name="thank_you">Thank you for writing this entry</string>
+    <string name="thank_you_for_writing_this_entry">Thank you for writing this entry</string>
 </resources>

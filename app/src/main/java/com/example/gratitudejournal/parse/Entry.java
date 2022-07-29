@@ -19,11 +19,6 @@ public class Entry extends ParseObject {
     public static final String KEY_CLOSEFRIENDMENTIONS = "closeFriendMentions";
 
 
-
-//    public Entry () {
-//        super();
-//    }
-
     public String getMood() {
         return getString(KEY_MOOD);
     }

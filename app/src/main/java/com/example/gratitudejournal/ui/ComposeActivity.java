@@ -76,7 +76,6 @@ public class ComposeActivity extends AppCompatActivity {
 
         // change the colors of the mood and save buttons depending on the mood the user
         // has selected
-
         switch (mood) {
             case Globals.terrible:
                 btnMood.setBackgroundColor(btnMood.getContext().getResources().getColor(R.color.terrible));
@@ -114,11 +113,9 @@ public class ComposeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.i(TAG, "Mood button");
-//                Intent intent = new Intent(ComposeActivity.this, MoodActivity.class);
-//                startActivity(intent);
+
                 onBackPressed();
                 overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
-//                finish();
             }
         });
 
@@ -129,7 +126,6 @@ public class ComposeActivity extends AppCompatActivity {
                 Log.i(TAG, "Save button");
                 String currentText = etText.getText().toString();
                 if (currentText.equals("")) {
-                    // Log.i(TAG, "this shouldn't be true");
                     currentText = Globals.no_entry;
                 }
                 entry.setText(currentText);
@@ -163,12 +159,10 @@ public class ComposeActivity extends AppCompatActivity {
                 y2 = touchEvent.getY();
 
                 if(x1 > x2) {
-                    //Intent i = new Intent(ComposeActivity.this, QuoteActivity.class);
                     Intent i = new Intent(ComposeActivity.this, MentionFriendsActivity.class);
                     startActivity(i);
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                     Log.i("swiped left", "it worked");
-                    //finish();
                 }
                 break;
         }
@@ -204,15 +198,11 @@ public class ComposeActivity extends AppCompatActivity {
     public void onHome(MenuItem item) {
         Intent intent = new Intent(ComposeActivity.this, HomeActivity.class);
         startActivity(intent);
-        // setVisible(false);
-        //finish();
     }
 
     public void onSettings(MenuItem item) {
         Intent intent = new Intent(ComposeActivity.this, SettingsActivity.class);
-        startActivity(intent);
-        // setVisible(false);
-        //finish();
+
     }
 
 }

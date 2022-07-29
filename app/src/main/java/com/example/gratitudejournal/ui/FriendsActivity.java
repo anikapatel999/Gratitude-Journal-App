@@ -67,8 +67,6 @@ public class FriendsActivity extends AppCompatActivity implements AdapterView.On
     ArrayList<String> friendUsernames = new ArrayList<>();
     ArrayList<String> closeFriendUsernames = new ArrayList<>();
 
-//    JSONArray mentionedFriends = new JSONArray();
-//    JSONArray mentionedCloseFriends = new JSONArray();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,13 +107,12 @@ public class FriendsActivity extends AppCompatActivity implements AdapterView.On
         sRemoveFriend.setOnItemSelectedListener(this);
         sRemoveCloseFriend.setOnItemSelectedListener(this);
 
-            // Make list of friend usernames
+        // Make list of friend usernames
         getFriendUsernames();
 
         // Make list of close friend usernames
         getCloseFriendUsernames();
 
-        //FOR ADDING FRIENDS
         btnAddFriend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -198,7 +195,6 @@ public class FriendsActivity extends AppCompatActivity implements AdapterView.On
                                     Toast.makeText(FriendsActivity.this, "Close friend added!", Toast.LENGTH_SHORT).show();
                                     etAddCloseFriend.setText("");
                                     recreate();
-                                    //getCloseFriendUsernames();
                                 }
                                 else if (found == false && found2 == true) {
                                     int ind = 0;
@@ -247,14 +243,12 @@ public class FriendsActivity extends AppCompatActivity implements AdapterView.On
                     String uID = a.getObjectId();
                     if (nfID.equals(uID)) {
                         found = true;
-//                        Toast.makeText(FriendsActivity.this, "This user is already in your friends list!", Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     JSONObject a = (JSONObject) friends.get(i);
                     String id = a.getString("objectId");
                     Log.i(TAG, "this HeLLO " + friends);
                     if (nfID.equals(id)) {
-//                        Toast.makeText(FriendsActivity.this, "This user is already in your friends list!", Toast.LENGTH_SHORT).show();
                         found = true;
                         break;
                     }
@@ -277,7 +271,6 @@ public class FriendsActivity extends AppCompatActivity implements AdapterView.On
                     String uID = a.getObjectId();
                     if (nfID.equals(uID)) {
                         found = true;
-//                        Toast.makeText(FriendsActivity.this, "This user is already in your close friends list!", Toast.LENGTH_SHORT).show();
                         break;
                     }
                 } else {
@@ -285,7 +278,6 @@ public class FriendsActivity extends AppCompatActivity implements AdapterView.On
                     String id = a.getString("objectId");
                     Log.i(TAG, "this HeLLO " + closeFriends);
                     if (nfID.equals(id)) {
-//                        Toast.makeText(FriendsActivity.this, "This user is already in your close friends list!", Toast.LENGTH_SHORT).show();
                         found = true;
                         break;
                     }
@@ -587,7 +579,6 @@ public class FriendsActivity extends AppCompatActivity implements AdapterView.On
                                     User currentUser2 = (User) currentUser;
                                     currentUser2.setCloseFriends(closeFriends);
                                     currentUser2.saveInBackground();
-                                    //getFriendUsernames();
                                     recreate();
                                     break;
                                 }
@@ -612,7 +603,6 @@ public class FriendsActivity extends AppCompatActivity implements AdapterView.On
                                     User currentUser2 = (User) currentUser;
                                     currentUser2.setCloseFriends(closeFriends);
                                     currentUser2.saveInBackground();
-                                    //getCloseFriendUsernames();
                                     recreate();
                                     break;
                                 }
@@ -718,6 +708,6 @@ public class FriendsActivity extends AppCompatActivity implements AdapterView.On
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
-        //TODO: IMPLEMENT or don't
+        // nothing needs to be done
     }
 }

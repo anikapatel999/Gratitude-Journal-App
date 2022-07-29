@@ -97,18 +97,6 @@ public class MentionFriendsActivity extends AppCompatActivity {
         setEtFriends(entry.getFriendMentions());
         setEtCloseFriends(entry.getCloseFriendMentions());
 
-        // TODO: when the user saves the friends / close friends to mention, for each category:
-        //  -1. check if either section is empty. If it's not empty, call methods that do the following:
-        //      -1. split the usernames entered and put them into a list.
-        //      -2. check if list.length() < 3
-        //      -3. check if the usernames are actually in the list of friend/close friend usernames
-        //          (if not, send a toast that "username" is not a friend/close friend)
-        //      -4. if they are, update the mentions columns of the entry's object in parse
-        //          (add another column so you can differentiate between friends and close friends)
-        //          and honestly just add the usernames to the array, don't mess with pointers
-        //          thats unnecessarily messy and takes too many queries - you can just
-        //          query for whereEqualsTo the username
-        //      - 5. Load the mentions into the editTexts upon opening the activity
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,7 +113,6 @@ public class MentionFriendsActivity extends AppCompatActivity {
                     }
                     else {
                         boolean allMatches = true;
-                        // HashSet<String> friendMentionsSet = new HashSet<>(friendMentions);
                         HashSet<String> friendUsernamesSet = new HashSet<>(friendUsernames);
                         for (int i = 0; i < friendMentions.size(); i++) {
                             if (!friendUsernamesSet.contains(friendMentions.get(i))) {
@@ -144,36 +131,7 @@ public class MentionFriendsActivity extends AppCompatActivity {
                                 e.printStackTrace();
                             }
                         }
-//                        int[] friendMatches = new int[friendMentions.size()];
-//                        for (int a = 0; a < friendMatches.length; a++) {
-//                            friendMatches[a] = 0;
-//                        }
-//                        // check that each element in friendMentions is in friendUsernames
-//                        for (int i = 0; i < friendMentions.size(); i++) {
-//                            for (int j = 0; j < friendUsernames.size(); j++) {
-//                                if (friendMentions.get(i).equals(friendUsernames.get(j))){
-//                                    friendMatches[i] = 1;
-//                                }
-//                            }
-//                        }
-//                        boolean allMatches = true;
-//                        for (int k = 0; k < friendMatches.length; k++) {
-//                            if (friendMatches[k] == 0) {
-//                                Toast.makeText(MentionFriendsActivity.this, friendMentions.get(k) + " is not in your friends list", Toast.LENGTH_SHORT).show();
-//                                allMatches = false;
-//                                break;
-//                            }
-//                        }
-//                        if(allMatches == true) {
-//                            Log.i(TAG, "allMatches for friends was true");
-//                            entry.setFriendMentions(friendMentions);
-//                            try {
-//                                Toast.makeText(MentionFriendsActivity.this, "Friends saved!", Toast.LENGTH_SHORT).show();
-//                                entry.save();
-//                            } catch (ParseException e) {
-//                                e.printStackTrace();
-//                            }
-//                        }
+
                     }
 
                 }
@@ -190,14 +148,12 @@ public class MentionFriendsActivity extends AppCompatActivity {
                 }
 
                 if (!inputCloseFriends.equals("")) {
-                    // call method that puts usernames into a list (splits it at the ", "
                     closeFriendMentions = getCloseFriendsArray(inputCloseFriends);
                     if (closeFriendMentions.size() > 3) {
                         Toast.makeText(MentionFriendsActivity.this, "You can only mention up to 3 close friends", Toast.LENGTH_SHORT).show();
                     }
                     else {
                         boolean allMatches = true;
-                        // HashSet<String> friendMentionsSet = new HashSet<>(friendMentions);
                         HashSet<String> closeFriendUsernamesSet = new HashSet<>(closeFriendUsernames);
                         for (int i = 0; i < closeFriendMentions.size(); i++) {
                             if (!closeFriendUsernamesSet.contains(closeFriendMentions.get(i))) {
@@ -216,35 +172,6 @@ public class MentionFriendsActivity extends AppCompatActivity {
                                 e.printStackTrace();
                             }
                         }
-//                        int[] closeFriendMatches = new int[closeFriendMentions.size()];
-//                        for (int a = 0; a < closeFriendMatches.length; a++) {
-//                            closeFriendMatches[a] = 0;
-//                        }
-//                        for (int i = 0; i < closeFriendMentions.size(); i++) {
-//                            for (int j = 0; j < closeFriendUsernames.size(); j++) {
-//                                if (closeFriendMentions.get(i).equals(closeFriendUsernames.get(j))){
-//                                    closeFriendMatches[i] = 1;
-//                                }
-//                            }
-//                        }
-//                        boolean allMatches = true;
-//                        for (int k = 0; k < closeFriendMatches.length; k++) {
-//                            if (closeFriendMatches[k] == 0) {
-//                                Toast.makeText(MentionFriendsActivity.this, closeFriendMentions.get(k) + " is not in your close friends list", Toast.LENGTH_SHORT).show();
-//                                allMatches = false;
-//                                break;
-//                            }
-//                        }
-//                        if(allMatches == true) {
-//                            Log.i(TAG, "allMatches for close friends was true");
-//                            entry.setCloseFriendMentions(closeFriendMentions);
-//                            try {
-//                                entry.save();
-//                                Toast.makeText(MentionFriendsActivity.this, "Close friends saved!", Toast.LENGTH_SHORT).show();
-//                            } catch (ParseException e) {
-//                                e.printStackTrace();
-//                            }
-//                        }
 
                     }
 
@@ -313,7 +240,6 @@ public class MentionFriendsActivity extends AppCompatActivity {
             if(elements[i].contains(" ")) {
                 elements[i] = elements[i].substring(1);
             }
-            //Log.i(TAG, elements[i]);
             array.add(elements[i]);
         }
         return array;
@@ -326,7 +252,6 @@ public class MentionFriendsActivity extends AppCompatActivity {
             if(elements[i].contains(" ")) {
                 elements[i] = elements[i].substring(1);
             }
-            //Log.i(TAG, elements[i]);
             array.add(elements[i]);
         }
         return array;
@@ -356,7 +281,6 @@ public class MentionFriendsActivity extends AppCompatActivity {
                         @Override
                         public void done(List<User> objects, ParseException e) {
                             Log.i(TAG, "D: " + objects);
-                            // objects size is always 0
                             if (objects.size() == 1) {
                                 User closeFriend = objects.get(0);
                                 String currentUsername2 = closeFriend.getUsername();
@@ -439,7 +363,6 @@ public class MentionFriendsActivity extends AppCompatActivity {
         Log.i(TAG, "text" + text);
         tvCloseFriendsList.setText(text);
         //TODO: ADJUST HEIGHT SO ALL TEXT FITS or make it scrollable
-        //tvCloseFriendsList.setVisibility(View.VISIBLE);
     }
 
     private void setFriendsCardView() {
@@ -472,12 +395,10 @@ public class MentionFriendsActivity extends AppCompatActivity {
                 y2 = touchEvent.getY();
 
                 if(x1 > x2) {
-                    //Intent i = new Intent(ComposeActivity.this, QuoteActivity.class);
                     Intent i = new Intent(MentionFriendsActivity.this, QuoteActivity.class);
                     startActivity(i);
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                     Log.i("swiped left", "it worked");
-                    //finish();
                 }
                 break;
         }
@@ -521,13 +442,11 @@ public class MentionFriendsActivity extends AppCompatActivity {
     public void onHome(MenuItem item) {
         Intent intent = new Intent(MentionFriendsActivity.this, HomeActivity.class);
         startActivity(intent);
-        // finish();
     }
 
     public void onSettings(MenuItem item) {
         Intent intent = new Intent(MentionFriendsActivity.this, SettingsActivity.class);
         startActivity(intent);
-        // setVisible(false);
-        //finish();
+
     }
 }

@@ -55,7 +55,6 @@ public class HomeActivity extends AppCompatActivity {
                 Log.i(TAG, "onClick compose animation");
                 Intent i = new Intent (HomeActivity.this, MoodActivity.class);
                 startActivity(i);
-                //finish();
             }
         });
 
@@ -65,7 +64,6 @@ public class HomeActivity extends AppCompatActivity {
                 Log.i(TAG, "onClick calendar animation");
                 Intent i = new Intent (HomeActivity.this, CalendarActivity.class);
                 startActivity(i);
-                //finish();
             }
         });
 
@@ -75,7 +73,6 @@ public class HomeActivity extends AppCompatActivity {
                 Log.i(TAG, "onClick friends animation");
                 Intent i = new Intent (HomeActivity.this, FriendsActivity.class);
                 startActivity(i);
-                //finish();
             }
         });
 
@@ -85,7 +82,6 @@ public class HomeActivity extends AppCompatActivity {
                 Log.i(TAG, "onClick stats animation");
                 Intent i = new Intent (HomeActivity.this, StatsActivity.class);
                 startActivity(i);
-                //finish();
             }
         });
 
@@ -113,7 +109,6 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         ParseUser currentUser = ParseUser.getCurrentUser();
-        //ParseUser currentUser2 = (User) currentUser;
         boolean friendNotifs = ((User) currentUser).getFriendMentions();
         boolean closeFriendNotifs = ((User) currentUser).getCloseFriendMentions();
         if (friendNotifs || closeFriendNotifs) {
@@ -131,7 +126,6 @@ public class HomeActivity extends AppCompatActivity {
 
 
         getMenuInflater().inflate(R.menu.actionbarmenu, menu);
-        // menu.findItem(R.id.home).setVisible(Visibility.GONE);
         return true;
     }
 
@@ -153,14 +147,12 @@ public class HomeActivity extends AppCompatActivity {
     public void onHome(MenuItem item) {
         Intent intent = new Intent(HomeActivity.this, HomeActivity.class);
         startActivity(intent);
-        // setVisible(false);
-        //finish();
+
     }
 
     public void onSettings(MenuItem item) {
         Intent intent = new Intent(HomeActivity.this, SettingsActivity.class);
         startActivity(intent);
-        //finish();
     }
 
     public void onMentions(MenuItem item) {
