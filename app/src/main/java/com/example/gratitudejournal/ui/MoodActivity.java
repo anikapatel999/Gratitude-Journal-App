@@ -99,41 +99,41 @@ public class MoodActivity extends AppCompatActivity {
     }
 
     private void saveEntry(String mood, ParseUser currentUser) {
-        Log.i(TAG, "got to saveEntry");
+        Log.i(TAG, "called saveEntry");
         User currentUser2 = (User) currentUser;
         if (currentUser2.getCurrentEntry() == null) {
-            Log.i(TAG, "ENTRY got to if statement");
+            Log.d(TAG, "current entry is null");
             Entry entry = new Entry();
             entry.setUser(currentUser2);
             entry.setMood(mood);
             entry.saveInBackground(new SaveCallback() {
                 @Override
                 public void done(ParseException e) {
-                    Log.i(TAG, "ENTRY got to save in background");
+                    Log.d(TAG, "got to save in background");
                     if (e != null) {
-                        Log.e(TAG, "ENTRY Issue with saving", e);
+                        Log.e(TAG, "Issue with saving", e);
                         Toast.makeText(MoodActivity.this, "Error while saving!", Toast.LENGTH_SHORT).show();
                     }
-                    Log.i(TAG, "ENTRY Post save was successful", e);
+                    Log.i(TAG, "Post save was successful", e);
                 }
             });
             currentUser2.setCurrentEntry(entry);
-            Log.i(TAG, "hello" + entry.getMood().toString());
+            Log.d(TAG, "mood: " + entry.getMood().toString());
 
         } else {
             currentUser2.getCurrentEntry().setMood(mood);
         }
         try {
             currentUser2.save();
-            Log.e(TAG, "USER currentEntry saved");
+            Log.i(TAG, "currentEntry saved");
         } catch (ParseException e) {
             e.printStackTrace();
-            Log.e(TAG, "USER Issue with saving", e);
+            Log.e(TAG, "Issue with saving", e);
         }
         currentUser2.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
-                Log.i(TAG, "got to save in background");
+                Log.d(TAG, "got to save in background");
                 if (e != null) {
                     Log.e(TAG, "Issue with saving", e);
                     Toast.makeText(MoodActivity.this, "Error while saving!", Toast.LENGTH_SHORT).show();
@@ -162,7 +162,7 @@ public class MoodActivity extends AppCompatActivity {
                     Intent i = new Intent(MoodActivity.this, ComposeActivity.class);
                     startActivity(i);
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                    Log.i("swiped left", "it worked");
+                    Log.i(TAG, "swiping left worked");
                 }
             break;
         }

@@ -68,7 +68,7 @@ public class SignupActivity extends AppCompatActivity {
                             finish();
                         }
                     }, 1500);
-                    Log.i(TAG, "created acc");
+                    Log.d(TAG, "created account");
                 } else {
 
                     Toast.makeText(SignupActivity.this, "Issue with signup:\nAccount with this username\nmay already exist", Toast.LENGTH_LONG).show();

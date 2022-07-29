@@ -13,7 +13,7 @@ public class StartAppOnBootReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         if (Intent.ACTION_BOOT_COMPLETED.equals((intent.getAction()))) {
-            Log.i("BOOTED", "BOOTED");
+            Log.i("StartAppOnBootReceiver", "BOOTED");
             Calendar calendar = Calendar.getInstance();
             calendar.set(
                     calendar.get(Calendar.YEAR),
@@ -29,7 +29,7 @@ public class StartAppOnBootReceiver extends BroadcastReceiver {
             Intent intent2 = new Intent(context, Alarm.class);
             PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent2, PendingIntent.FLAG_IMMUTABLE);
             alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, timeInMillis, AlarmManager.INTERVAL_DAY, pendingIntent);
-            Log.i("alarm is set", "alarm is set");
+            Log.i("StartAppOnBootReceiver", "alarm is set");
         }
     }
 }

@@ -73,7 +73,7 @@ public class ViewFriendMentionsActivity extends AppCompatActivity {
                     Mentions m = mentions.get(j);
                     // TODO: UNCOMMENT THE DELETE LINE BELOW!!
                     m.delete();
-                    Log.i(TAG, "deleted " + entryIds.get(i));
+                    Log.i(TAG, "deleted: " + entryIds.get(i));
                 }
             } catch (ParseException e) {
                 e.printStackTrace();

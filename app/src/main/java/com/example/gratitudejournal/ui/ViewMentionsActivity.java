@@ -95,15 +95,15 @@ public class ViewMentionsActivity extends AppCompatActivity {
         boolean contained = false;
 
         for (int i = 0; i < arr.size(); i++) {
-            Log.i(TAG, "ele " + i + ": " + arr.get(i).toString());
+            Log.d(TAG, "element " + i + ": " + arr.get(i).toString());
         }
 
 
         for (int i = 0; i < arr.size(); i++) {
-            Log.i(TAG, "friends...: " + arr.get(i) + " " + fromUser);
+            Log.d(TAG, "friends: " + arr.get(i) + " " + fromUser);
             if (arr.get(i).toString().equals(fromUser)){
                 contained = true;
-                Log.i(TAG, "friend returned: " + arr.get(i) + " " + fromUser);
+                Log.d(TAG, "friend returned: " + arr.get(i) + " " + fromUser);
                 break;
             }
         }
@@ -118,19 +118,18 @@ public class ViewMentionsActivity extends AppCompatActivity {
         }
         // for each index in the list of close friend pointers
         for (int i = 0; i < closeFriends.length(); i++) {
-            Log.i(TAG, "A: " + closeFriendUsernames);
+            Log.d(TAG, "close friend usernames " + closeFriendUsernames);
             try {
                 // if the close friend at that index is of the User class, get their username
                 // and add it to closeFriendUsernames
                 if (closeFriends.get(i).getClass().equals(User.class)) {
-                    Log.i(TAG, "B: " + closeFriendUsernames);
                     User a = (User) closeFriends.get(i);
                     String currentUsername = a.getUsername();
                     closeFriendUsernames.add(currentUsername);
                     // if we have gone through all the elements in closeFriends,
                     // call getMentions()
                     if (closeFriendUsernames.size() == closeFriends.length()) {
-                        Log.i(TAG, "CLOSE FRIEND USERNAMES LIST" + closeFriendUsernames);
+                        Log.d(TAG, "updated close friend usernames" + closeFriendUsernames);
                         getMentions();
                     }
                     // if the close friend is not a User, get their username by querying for the
@@ -139,23 +138,23 @@ public class ViewMentionsActivity extends AppCompatActivity {
                 } else {
                     JSONObject a = (JSONObject) closeFriends.get(i);
                     String temp = a.getString("objectId");
-                    Log.i(TAG, "C: " + temp);
+                    Log.d(TAG, "object id: " + temp);
                     ParseQuery<User> query2 = new ParseQuery(User.class);
                     query2.whereEqualTo("objectId", temp);
                     int finalI = i;
                     query2.findInBackground(new FindCallback<User>() {
                         @Override
                         public void done(List<User> objects, ParseException e) {
-                            Log.i(TAG, "D: " + objects);
+                            Log.d(TAG, "queried list: " + objects);
                             if (objects.size() == 1) {
                                 User closeFriend = objects.get(0);
                                 String currentUsername2 = closeFriend.getUsername();
                                 closeFriendUsernames.add(currentUsername2);
-                                Log.i(TAG, "AA" + closeFriendUsernames + " " + finalI + " " + (closeFriends.length() - 1));
+                                Log.d(TAG, "current values: " + closeFriendUsernames + " " + finalI + " " + (closeFriends.length() - 1));
                                 // if we have gone through all the elements in close friends,
                                 // call getMentions()
                                 if (closeFriendUsernames.size() == closeFriends.length()) {
-                                    Log.i(TAG, "CLOSE FRIEND USERNAMES LIST" + closeFriendUsernames);
+                                    Log.d(TAG, "close friend usernames final: " + closeFriendUsernames);
                                     getMentions();
                                 }
                             }
@@ -179,13 +178,13 @@ public class ViewMentionsActivity extends AppCompatActivity {
         query.findInBackground(new FindCallback<Mentions>() {
             @Override
             public void done(List<Mentions> objects, ParseException e) {
-                Log.i(TAG, "did the query");
+                Log.d(TAG, "mentions queried");
                 boolean friendsVis = false;
                 boolean closeFriendsVis = false;
                 if (objects.size() > 0) {
                     for(int i = 0; i < objects.size(); i++) {
                         boolean closeFriend = (boolean) objects.get(i).get("closeFriend");
-                        Log.i(TAG, "lkdfvmdlkvm: " + closeFriend);
+                        Log.d(TAG, "close friend: " + closeFriend);
 
                         // if the user that sent the mention has the current user listed as a close friend:
                         if (closeFriend){
@@ -196,7 +195,7 @@ public class ViewMentionsActivity extends AppCompatActivity {
                             if (cf) {
                                 //btnCloseFriends.setVisibility(View.VISIBLE);
                                 closeFriendsVis = true;
-                                Log.i(TAG, "close friends visible = true");
+                                Log.d(TAG, "close friends visible is true");
                                 finalCloseFriendUsernames.add(usercf);
                                 finalCloseFriendEntries.add(cfid);
                             }
@@ -207,7 +206,7 @@ public class ViewMentionsActivity extends AppCompatActivity {
                                 // if the current user has the sender as a friend
                                 if (f) {
                                     friendsVis = true;
-                                    Log.i(TAG, "friends visible1 = true");
+                                    Log.d(TAG, "friends visible is true");
                                     finalFriendUsernames.add(userf);
                                     finalFriendEntries.add(fid);
                                 }
@@ -220,7 +219,7 @@ public class ViewMentionsActivity extends AppCompatActivity {
                             boolean cf = inArray(closeFriendUsernames, usercf);
                             if (cf) {
                                 friendsVis = true;
-                                Log.i(TAG, "friends visible2 = true");
+                                Log.d(TAG, "friends visible is true");
                                 finalFriendUsernames.add(usercf);
                                 finalFriendEntries.add(cfid);
                             }
@@ -230,7 +229,7 @@ public class ViewMentionsActivity extends AppCompatActivity {
                                 boolean f = inArray(friendUsernames, userf);
                                 if (f) {
                                     friendsVis = true;
-                                    Log.i(TAG, "friends visible3 = true");
+                                    Log.d(TAG, "friends visible is true");
                                     finalFriendUsernames.add(userf);
                                     finalFriendEntries.add(fid);
                                 }
@@ -242,14 +241,14 @@ public class ViewMentionsActivity extends AppCompatActivity {
                 boolean closeFriendNotifs = currentUser2.getCloseFriendMentions();
                 if (friendsVis && friendNotifs) {
                     btnFriends.setVisibility(View.VISIBLE);
-                    Log.i(TAG, "set visible friends");
+                    Log.d(TAG, "set visible friends");
                 }
                 if (closeFriendsVis && closeFriendNotifs) {
                     btnCloseFriends.setVisibility(View.VISIBLE);
-                    Log.i(TAG, "set visible close friends");
+                    Log.d(TAG, "set visible close friends");
                 }
                 if (!friendNotifs && !closeFriendNotifs){
-                    Log.i(TAG, "here");
+                    Log.d(TAG, "notifications disabled");
                     String text = "You have mention notifications disabled!";
                     tvNoNew.setVisibility(View.VISIBLE);
                     tvNoNew.setText(text);
@@ -262,7 +261,7 @@ public class ViewMentionsActivity extends AppCompatActivity {
     }
 
     private void getFriendUsernames() {
-        Log.i(TAG, "called");
+        Log.d(TAG, "called getFriendUsernames");
 
         //if there are no friends, get the close friends usernames
         // (makes sure this function is still called if the code below does not execute)
@@ -271,19 +270,18 @@ public class ViewMentionsActivity extends AppCompatActivity {
         }
         // for each index in the list of friend pointers
         for (int i = 0; i < friends.length(); i++) {
-            Log.i(TAG, "Aaay: " + friendUsernames);
+            Log.d(TAG, "getFriendUsernames called");
             try {
                 // if the friend at that index is of the User class, get their username and add it
                 // to friendUsernames
                 if (friends.get(i).getClass().equals(User.class)) {
-                    Log.i(TAG, "Bee: " + friendUsernames);
                     User a = (User) friends.get(i);
                     String currentUsername = a.getUsername();
                     friendUsernames.add(currentUsername);
                     // if we have gone through all the elements in friends,
                     // call getCloseFriendUsernames()
                     if (friendUsernames.size() == friends.length()) {
-                        Log.i(TAG, "USER FRIEND USERNAMES LIST" + friendUsernames);
+                        Log.d(TAG, "friend usernames list updated: " + friendUsernames);
                         getCloseFriendUsernames();
                     }
                     // if the friend is not a User, get their username by querying for the
@@ -292,23 +290,23 @@ public class ViewMentionsActivity extends AppCompatActivity {
                 } else {
                     JSONObject a = (JSONObject) friends.get(i);
                     String temp = a.getString("objectId");
-                    Log.i(TAG, "Cee: " + temp);
+                    Log.d(TAG, "object id: " + temp);
                     ParseQuery<User> query = new ParseQuery(User.class);
                     query.whereEqualTo("objectId", temp);
                     int finalI = i;
                     query.findInBackground(new FindCallback<User>() {
                         @Override
                         public void done(List<User> objects, ParseException e) {
-                            Log.i(TAG, "Dee: " + objects);
+                            Log.d(TAG, "list from query: " + objects);
                             if (objects.size() == 1) {
                                 User friend = objects.get(0);
                                 String currentUsername2 = friend.getUsername();
                                 friendUsernames.add(currentUsername2);
-                                Log.i(TAG, "AA" + friendUsernames + " " + finalI + " " + (friends.length() - 1));
+                                Log.d(TAG, "current variable values: " + friendUsernames + " " + finalI + " " + (friends.length() - 1));
                                 // if we have gone through all the elements in friends,
                                 // call getCloseFriendUsernames()
                                 if (friendUsernames.size() == friends.length()) {
-                                    Log.i(TAG, "FRIEND USERNAMES LIST" + friendUsernames);
+                                    Log.d(TAG, "final friend usernames list" + friendUsernames);
                                     getCloseFriendUsernames();
                                 }
                             }

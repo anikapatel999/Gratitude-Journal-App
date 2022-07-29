@@ -121,8 +121,8 @@ public class MentionFriendsActivity extends AppCompatActivity {
                             }
                         }
 
-                        if(allMatches == true) {
-                            Log.i(TAG, "allMatches for friends was true");
+                        if(allMatches) {
+                            Log.d(TAG, "all friends mentioned are in the user's friends list");
                             entry.setFriendMentions(friendMentions);
                             try {
                                 Toast.makeText(MentionFriendsActivity.this, "Friends saved!", Toast.LENGTH_SHORT).show();
@@ -162,8 +162,8 @@ public class MentionFriendsActivity extends AppCompatActivity {
                             }
                         }
 
-                        if(allMatches == true) {
-                            Log.i(TAG, "allMatches for close friends was true");
+                        if(allMatches) {
+                            Log.d(TAG, "all friends mentioned are in the user's close friends list");
                             entry.setCloseFriendMentions(closeFriendMentions);
                             try {
                                 Toast.makeText(MentionFriendsActivity.this, "Close friends saved!", Toast.LENGTH_SHORT).show();
@@ -201,7 +201,6 @@ public class MentionFriendsActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
-        Log.i(TAG, "greetings!");
         String text = fm.toString();
         if (text.contains("[")) {
             text = text.substring(1, text.length());
@@ -209,7 +208,7 @@ public class MentionFriendsActivity extends AppCompatActivity {
         if (text.contains("]")) {
             text = text.substring(0, text.length()-1);
         }
-        Log.i(TAG, "text wheee: " + text);
+        Log.d(TAG, "close friends text: " + text);
         etCloseFriends.setText(text);    }
 
     private void setEtFriends(JSONArray friendMentions) {
@@ -221,7 +220,6 @@ public class MentionFriendsActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
-        Log.i(TAG, "greetings2!");
         String text = fm.toString();
         if (text.contains("[")) {
             text = text.substring(1, text.length());
@@ -229,7 +227,7 @@ public class MentionFriendsActivity extends AppCompatActivity {
         if (text.contains("]")) {
             text = text.substring(0, text.length()-1);
         }
-        Log.i(TAG, "text wheee: " + text);
+        Log.d(TAG, "friends text: " + text);
         etFriends.setText(text);
     }
 
@@ -259,35 +257,34 @@ public class MentionFriendsActivity extends AppCompatActivity {
 
     private void getCloseFriendUsernames() {
         for (int i = 0; i < closeFriends.length(); i++) {
-            Log.i(TAG, "A: " + closeFriendUsernames);
+            Log.d(TAG, "close friend usernames: " + closeFriendUsernames);
             try {
                 if (closeFriends.get(i).getClass().equals(User.class)) {
-                    Log.i(TAG, "B: " + closeFriendUsernames);
                     User a = (User) closeFriends.get(i);
                     String currentUsername = a.getUsername();
                     closeFriendUsernames.add(currentUsername);
                     if (closeFriendUsernames.size() == closeFriends.length()) {
-                        Log.i(TAG, "CLOSE FRIEND USERNAMES LIST" + closeFriendUsernames);
+                        Log.d(TAG, "close friend usernames updated: " + closeFriendUsernames);
                         setCloseFriendsCardView();
                     }
                 } else {
                     JSONObject a = (JSONObject) closeFriends.get(i);
                     String temp = a.getString("objectId");
-                    Log.i(TAG, "C: " + temp);
+                    Log.d(TAG, "object id: " + temp);
                     ParseQuery<User> query2 = new ParseQuery(User.class);
                     query2.whereEqualTo("objectId", temp);
                     int finalI = i;
                     query2.findInBackground(new FindCallback<User>() {
                         @Override
                         public void done(List<User> objects, ParseException e) {
-                            Log.i(TAG, "D: " + objects);
+                            Log.d(TAG, "list from the query: " + objects);
                             if (objects.size() == 1) {
                                 User closeFriend = objects.get(0);
                                 String currentUsername2 = closeFriend.getUsername();
                                 closeFriendUsernames.add(currentUsername2);
-                                Log.i(TAG, "AA" + closeFriendUsernames + " " + finalI + " " + (closeFriends.length() - 1));
+                                Log.d(TAG, "current variable values: " + closeFriendUsernames + " " + finalI + " " + (closeFriends.length() - 1));
                                 if (closeFriendUsernames.size() == closeFriends.length()) {
-                                    Log.i(TAG, "CLOSE FRIEND USERNAMES LIST" + closeFriendUsernames);
+                                    Log.d(TAG, "close friend usernames list final: " + closeFriendUsernames);
                                     setCloseFriendsCardView();
                                 }
                             }
@@ -302,38 +299,37 @@ public class MentionFriendsActivity extends AppCompatActivity {
     }
 
     private void getFriendUsernames() {
-        Log.i(TAG, "called");
+        Log.i(TAG, "getFriendUsernames called");
         for (int i = 0; i < friends.length(); i++) {
-            Log.i(TAG, "Aaay: " + friendUsernames);
+            Log.d(TAG, "friend usernames: " + friendUsernames);
             try {
                 if (friends.get(i).getClass().equals(User.class)) {
-                    Log.i(TAG, "Bee: " + friendUsernames);
                     User a = (User) friends.get(i);
                     String currentUsername = a.getUsername();
                     friendUsernames.add(currentUsername);
                     if (friendUsernames.size() == friends.length()) {
-                        Log.i(TAG, "USER FRIEND USERNAMES LIST" + friendUsernames);
+                        Log.d(TAG, "friend usernames list updated: " + friendUsernames);
                         setFriendsCardView();
                     }
                 } else {
                     JSONObject a = (JSONObject) friends.get(i);
                     String temp = a.getString("objectId");
-                    Log.i(TAG, "Cee: " + temp);
+                    Log.d(TAG, "object id: " + temp);
                     ParseQuery<User> query = new ParseQuery(User.class);
                     query.whereEqualTo("objectId", temp);
                     int finalI = i;
                     query.findInBackground(new FindCallback<User>() {
                         @Override
                         public void done(List<User> objects, ParseException e) {
-                            Log.i(TAG, "Dee: " + objects);
+                            Log.d(TAG, "list from the query: " + objects);
                             // objects size is always 0
                             if (objects.size() == 1) {
                                 User friend = objects.get(0);
                                 String currentUsername2 = friend.getUsername();
                                 friendUsernames.add(currentUsername2);
-                                Log.i(TAG, "AA" + friendUsernames + " " + finalI + " " + (friends.length() - 1));
+                                Log.d(TAG, "current variable values: " + friendUsernames + " " + finalI + " " + (friends.length() - 1));
                                 if (friendUsernames.size() == friends.length()) {
-                                    Log.i(TAG, "FRIEND USERNAMES LIST" + friendUsernames);
+                                    Log.d(TAG, "friend usernames list final: " + friendUsernames);
                                     setFriendsCardView();
                                 }
                             }
@@ -349,7 +345,6 @@ public class MentionFriendsActivity extends AppCompatActivity {
 
     private void setCloseFriendsCardView() {
         tvCloseFriendsList.setVisibility(View.GONE);
-        Log.i(TAG, "aaaaa");
         String text = closeFriendUsernames.toString();
         if (text.contains("[")) {
             text = text.substring(1, text.length());
@@ -360,14 +355,12 @@ public class MentionFriendsActivity extends AppCompatActivity {
         if (text.equals("")){
             text = "No friends added";
         }
-        Log.i(TAG, "text" + text);
+        Log.d(TAG, "close friends card view text: " + text);
         tvCloseFriendsList.setText(text);
-        //TODO: ADJUST HEIGHT SO ALL TEXT FITS or make it scrollable
     }
 
     private void setFriendsCardView() {
         tvFriendsList.setVisibility(View.GONE);
-        Log.i(TAG, "friends aaaaa");
         String text = friendUsernames.toString();
         if (text.contains("[")) {
             text = text.substring(1, text.length());
@@ -378,10 +371,8 @@ public class MentionFriendsActivity extends AppCompatActivity {
         if (text.equals("")){
             text = "No friends added";
         }
-        Log.i(TAG, "text" + text);
+        Log.d(TAG, "friends card view text: " + text);
         tvFriendsList.setText(text);
-        //TODO: ADJUST HEIGHT SO ALL TEXT FITS or make it scrollable?
-        // tvFriendsList.setVisibility(View.VISIBLE);
     }
 
     public boolean onTouchEvent(MotionEvent touchEvent){
@@ -398,7 +389,7 @@ public class MentionFriendsActivity extends AppCompatActivity {
                     Intent i = new Intent(MentionFriendsActivity.this, QuoteActivity.class);
                     startActivity(i);
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                    Log.i("swiped left", "it worked");
+                    Log.d(TAG, "swiping left worked");
                 }
                 break;
         }

@@ -135,7 +135,7 @@ public class ComposeActivity extends AppCompatActivity {
                 entry.saveInBackground(new SaveCallback() {
                     @Override
                     public void done(ParseException e) {
-                        Log.i(TAG, "got to save in background");
+                        Log.d(TAG, "got to save in background");
                         if (e != null) {
                             Log.e(TAG, "Issue with saving", e);
                             Toast.makeText(ComposeActivity.this, "Error while saving!", Toast.LENGTH_SHORT).show();
@@ -162,7 +162,7 @@ public class ComposeActivity extends AppCompatActivity {
                     Intent i = new Intent(ComposeActivity.this, MentionFriendsActivity.class);
                     startActivity(i);
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                    Log.i("swiped left", "it worked");
+                    Log.d(TAG, "swiping left worked");
                 }
                 break;
         }
@@ -202,6 +202,7 @@ public class ComposeActivity extends AppCompatActivity {
 
     public void onSettings(MenuItem item) {
         Intent intent = new Intent(ComposeActivity.this, SettingsActivity.class);
+        startActivity(intent);
 
     }
 

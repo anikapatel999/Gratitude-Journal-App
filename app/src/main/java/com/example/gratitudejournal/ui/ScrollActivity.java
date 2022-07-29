@@ -89,7 +89,7 @@ public class ScrollActivity extends AppCompatActivity {
         tvLoadMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i(TAG, "CLICKED!!");
+                Log.d(TAG, "clicked");
                 ParseUser currentUser = ParseUser.getCurrentUser();
                 ParseQuery<Entry> query = ParseQuery.getQuery(Entry.class);
                 query.setLimit(20);
@@ -111,7 +111,7 @@ public class ScrollActivity extends AppCompatActivity {
                         }
                         // for debugging purposes let's print every entry description to logcat
                         for (Entry entry : entries) {
-                            Log.i(TAG, "qquery " + entry.getCreatedAt());
+                            Log.d(TAG, "date created of entry: " + entry.getCreatedAt());
                         }
 
                         allEntries.clear();
@@ -128,12 +128,6 @@ public class ScrollActivity extends AppCompatActivity {
 
 
     private void loadNextDataFromApi(int page) {
-        // Send an API request to retrieve appropriate paginated data
-        //  --> Send the request including an offset value (i.e `page`) as a query parameter.
-        //  --> Deserialize and construct new model objects from the API response
-        //  --> Append the new data objects to the existing set of items inside the array of items
-        //  --> Notify the adapter of the new items made with `notifyItemRangeInserted()`
-
 
         ParseUser currentUser = ParseUser.getCurrentUser();
         ParseQuery<Entry> query = ParseQuery.getQuery(Entry.class);
@@ -158,7 +152,7 @@ public class ScrollActivity extends AppCompatActivity {
                 }
                 // for debugging purposes let's print every entry description to logcat
                 for (Entry entry : entries) {
-                    Log.i(TAG, "infinite scroll entry");
+                    Log.d(TAG, "infinite scroll entry");
                 }
 
                 // save received entry to list and notify adapter of new data
@@ -181,7 +175,7 @@ public class ScrollActivity extends AppCompatActivity {
 
         query.setLimit(20);
 
-        Log.i(TAG, "queryYY: " + query);
+        Log.d(TAG, "query: " + query);
 
         // start an asynchronous call for entries
         query.findInBackground(new FindCallback<Entry>() {
@@ -194,7 +188,7 @@ public class ScrollActivity extends AppCompatActivity {
                 }
 
                 for (Entry entry : entries) {
-                    Log.i(TAG, "Entry: " + "original query entry" + entry.getCreatedAt());
+                    Log.i(TAG, "original query entry: " + entry.getCreatedAt());
                 }
                 // save received entries to list and notify adapter of new data
                 lastDate = entries.get(entries.size()-1).getCreatedAt();

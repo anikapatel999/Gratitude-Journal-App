@@ -71,15 +71,13 @@ public class ViewCloseFriendEntriesActivity extends AppCompatActivity {
         entryIds = getIntent().getStringArrayListExtra("entryIds");
         selectedUser = getIntent().getStringExtra("username");
 
-        Log.i(TAG, "size " + String.valueOf(closeFriendUsernames.size()));
+        Log.d(TAG, "close friend usernames size: " + String.valueOf(closeFriendUsernames.size()));
         for (int i = 0; i < closeFriendUsernames.size(); i++) {
-            Log.i(TAG, "size USERNAME" + closeFriendUsernames.get(i) + " " + i);
+            Log.d(TAG, "current close friend: " + closeFriendUsernames.get(i) + " " + i);
             if (!closeFriendUsernames.get(i).equals(selectedUser)) {
                 closeFriendUsernames2.add(closeFriendUsernames.get(i));
             }
         }
-        Log.i(TAG, "size" + String.valueOf(closeFriendUsernames.size()));
-
         getMentions();
 
 
@@ -117,7 +115,7 @@ public class ViewCloseFriendEntriesActivity extends AppCompatActivity {
     }
 
     private void getEntries() {
-        Log.i(TAG, "in getEntries " + entriesToDisplay.size());
+        Log.d(TAG, "size of entries to display: " + entriesToDisplay.size());
         for (int i = 0; i < entriesToDisplay.size(); i++) {
             ParseQuery<Entry> query2 = ParseQuery.getQuery(Entry.class);
             query2.whereMatches("objectId", entriesToDisplay.get(i));
@@ -126,7 +124,7 @@ public class ViewCloseFriendEntriesActivity extends AppCompatActivity {
                 allEntries.addAll(query2.find());
                 if (finalI == entriesToDisplay.size() - 1) {
                     adapter.notifyDataSetChanged();
-                    Log.i(TAG, "allEntries size " + allEntries.size());
+                    Log.d(TAG, "allEntries size: " + allEntries.size());
                 }
             } catch (ParseException e) {
                 e.printStackTrace();
@@ -138,7 +136,7 @@ public class ViewCloseFriendEntriesActivity extends AppCompatActivity {
     private void deleteMentions() {
         for (int i = 0; i < mentionsToDelete.size(); i++) {
             Mentions mention = mentionsToDelete.get(i);
-            Log.i(TAG, "deleted");
+            Log.d(TAG, "deleted mention");
             try {
                 mention.delete();
             } catch (ParseException e) {

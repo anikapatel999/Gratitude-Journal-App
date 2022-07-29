@@ -127,9 +127,9 @@ public class StatsActivity extends AppCompatActivity {
         String[] text = entryText.split("\\s+");
         for (int i = 0; i < text.length; i++) {
             text[i] = text[i].replaceAll("[^\\w]", "");
-            Log.i(TAG, "THIS IS A WORD IN THE SPLIT " + text[i]);
+            Log.d(TAG, "word in the split: " + text[i]);
         }
-        Log.i(TAG, "THIS IS THE SPLIT STRING" + text);
+        Log.d(TAG, "split string: " + text);
         return text;
     }
 
@@ -347,7 +347,7 @@ public class StatsActivity extends AppCompatActivity {
                     break;
             }
         }
-        Log.i(TAG, "# POINTS: " + values.length);
+        Log.d(TAG, "number of points: " + values.length);
         return values;
     }
 

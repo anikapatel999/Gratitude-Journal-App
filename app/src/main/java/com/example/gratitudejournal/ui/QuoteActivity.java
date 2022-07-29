@@ -84,7 +84,6 @@ public class QuoteActivity extends AppCompatActivity {
         ConstraintLayout cl = findViewById(R.id.cl);
         cl.setBackgroundResource(R.color.warm);
 
-        Log.i(TAG, "oncreateeeeeee");
         ParseUser currentUser = ParseUser.getCurrentUser();
         User currentUser2 = (User) currentUser;
         if (currentUser2.getCurrentEntry().getText().equals(Globals.no_entry)) {
@@ -98,20 +97,18 @@ public class QuoteActivity extends AppCompatActivity {
         query.setLimit(7);
         query.whereMatches("user", currentUser.getObjectId());
         query.addDescendingOrder("createdAt");
-        Log.i(TAG, "query " + query);
+        Log.d(TAG, "query: " + query);
 
 
         try {
-            Log.i(TAG, "find " + query);
             allEntries = query.find();
-            Log.i(TAG, "allEntries " + allEntries);
-            Log.i(TAG, "to make sure individual elements can be accessed: " + allEntries.get(0).getText());
+            Log.d(TAG, "to make sure individual elements can be accessed: " + allEntries.get(0).getText());
         } catch (ParseException e) {
             e.printStackTrace();
         }
 
         // check that the user does have 7 entries
-        Log.i(TAG, "all entries: " + allEntries);
+        Log.d(TAG, "all entries: " + allEntries);
         modifySelectedKeywords();
 
         String entryText = allEntries.get(0).getText();
@@ -122,8 +119,8 @@ public class QuoteActivity extends AppCompatActivity {
         searchWords = reverse(searchWords);
         searchWords = slicer(searchWords);
         getSynonyms(searchWords);
-        Log.i(TAG, ":))))))) " + synonyms);
-        Log.i(TAG, "dlkfmvlfkdmbv" + roots);
+        Log.d(TAG, "synonyms: " + synonyms);
+        Log.d(TAG, "roots: " + roots);
 
         tvQuote.setText(R.string.thank_you_for_writing_this_entry);
     }
@@ -136,7 +133,7 @@ public class QuoteActivity extends AppCompatActivity {
             // check if the user skipped any of the last 7 moods
             for (int i = 0; i < allEntries.size(); i++) {
                 if (allEntries.get(i).getMood().equals(Globals.skip) || allEntries.get(i).getMood().equals("No mood selected")) {
-                    Log.i(TAG, "calc" + allEntries.get(i).getMood() + " " + allEntries.get(i).getCreatedAt());
+                    Log.d(TAG, "mood and date created: " + allEntries.get(i).getMood() + " " + allEntries.get(i).getCreatedAt());
                     sevenMoodsSelected = false;
                 }
             }
@@ -145,24 +142,24 @@ public class QuoteActivity extends AppCompatActivity {
                 moodScore = calcCurrentMoodScore();
                 moodScore = calcTotalMoodScore(moodScore);
                 selectedKeywords = keywordsFromTotalScore(moodScore);
-                Log.i(TAG, "kw1 " + Arrays.toString(selectedKeywords));
+                Log.d(TAG, "keywords option 1: " + Arrays.toString(selectedKeywords));
             }
             // if the user did not select all of the 7 past moods but did select the current mood
             else if (!(allEntries.get(0).getMood().equals(Globals.skip)) && !(allEntries.get(0).getMood().equals("No mood selected"))) {
                 moodScore = calcCurrentMoodScore();
                 selectedKeywords = keywordsFromCurrentScore(moodScore);
-                Log.i(TAG, "kw2 " + Arrays.toString(selectedKeywords));
+                Log.i(TAG, "keywords option 2 " + Arrays.toString(selectedKeywords));
             }
             // if the user did neither
             else {
                 selectedKeywords = Arrays.copyOfRange(keywordArray, 4, 10);
-                Log.i(TAG, "kw3 " + Arrays.toString(selectedKeywords));
+                Log.i(TAG, "keywords option 3 " + Arrays.toString(selectedKeywords));
             }
         }
         // if the user does not have 7 past entries
         else {
             selectedKeywords = Arrays.copyOfRange(keywordArray, 4, 10);
-            Log.i(TAG, "kw4 " + Arrays.toString(selectedKeywords));
+            Log.i(TAG, "keywords option 4 " + Arrays.toString(selectedKeywords));
         }
     }
 
@@ -178,8 +175,8 @@ public class QuoteActivity extends AppCompatActivity {
             client.get(tempDictAPI, new JsonHttpResponseHandler() {
                 @Override
                 public void onSuccess(int statusCode, Headers headers, JSON json) {
-                    Log.i(TAG, sw[finalI] + " onSuccess");
-                    Log.i(TAG, json.toString());
+                    Log.d(TAG, "onSuccess: " + sw[finalI]);
+                    Log.d(TAG, json.toString());
 
                     JSONArray jsonArray = json.jsonArray;
                     try {
@@ -190,21 +187,20 @@ public class QuoteActivity extends AppCompatActivity {
                             Object j4 = j3.get("synonyms");
                             JSONArray j5 = (JSONArray) j4;
                             for (int index = 0; index < j5.length(); index++) {
-                                Log.i(TAG, ":) " + j5.get(index));
                                 synonyms.add(j5.get(index).toString());
                             }
-                            Log.i(TAG, "synonyms: " + j.getString("word") + " " + j4);
+                            Log.d(TAG, "word synonyms: " + j.getString("word") + " " + j4);
                         }
 
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    Log.i(TAG, "FINAL TO COMPARE: " + String.valueOf(finalI1) + " " + String.valueOf(sw.length - 1));
+                    Log.d(TAG, "final words to compare " + String.valueOf(finalI1) + " " + String.valueOf(sw.length - 1));
                     if (finalI1 == sw.length - 1) {
                         for (int a = 0; a < 5; a++) {
                             synonyms.add(0, selectedKeywords[a]);
                         }
-                        Log.i(TAG, ":)( " + synonyms);
+                        Log.i(TAG, "final synonyms list: " + synonyms);
                         rootFinder();
                     }
                 }
@@ -216,25 +212,21 @@ public class QuoteActivity extends AppCompatActivity {
                         for (int a = 0; a < 5; a++) {
                             synonyms.add(0, selectedKeywords[a]);
                         }
-                        Log.i(TAG, ":)( " + synonyms);
+                        Log.d(TAG, "synonyms: " + synonyms);
                         rootFinder();
                     }
                 }
             });
-            Log.i(TAG, "LIST OF SYNONYMS1 :) " + synonyms);
         }
-        Log.i(TAG, "LIST OF SYNONYMS2 :) " + synonyms);
-        //return syns;
     }
 
     private void rootFinder() {
-
         String str = synonyms.get(0);
-        Log.i(TAG, ":( " + synonyms.size());
+        Log.d(TAG, "size of synonyms list: " + synonyms.size());
         for (int i = 0; i < synonyms.size(); i++) {
             str = synonyms.get(i);
 
-            Log.i(TAG, "FIRST: " + str.length());
+            Log.d(TAG, "length of current string: " + str.length());
 
             if (str.length() > 4) {
                 if (str.substring(str.length() - 4).equals("ship") || str.substring(str.length() - 4).equals("ness")) {
@@ -247,12 +239,10 @@ public class QuoteActivity extends AppCompatActivity {
                 if (str.substring(str.length() - 2).equals("es") || str.substring(str.length() - 2).equals("ed")) {
                     str = str.substring(0, str.length() - 2);
                     synonyms.set(i, str);
-                    Log.i(TAG, "executed: " + str + " " + synonyms.get(i));
                 }
             }
             if (str.length() > 1) {
                 if (str.substring(str.length() - 1).equals("s")) {
-                    Log.i(TAG, "dlkfmvlfkdmbv");
                     str = str.substring(0, str.length() - 1);
                     synonyms.set(i, str);
                 }
@@ -271,9 +261,9 @@ public class QuoteActivity extends AppCompatActivity {
                 }
             }
         }
-        Log.i(TAG, "THESE ARE THE SYNONYMS" + synonyms);
+        Log.i(TAG, "synonyms with removed roots: " + synonyms);
         roots.addAll(synonyms);
-        Log.i(TAG, "dlkfmvlfkdmbvaaa" + roots);
+        Log.i(TAG, "roots:" + roots);
 
         //TODO: CHANGE BACK TO GETQUOTES?
         getQuotes();
@@ -295,9 +285,9 @@ public class QuoteActivity extends AppCompatActivity {
                             String author = j.getString("a");
                             quotes.add(quote);
                             authors.add(author);
-                            Log.i(TAG, "FOR DEBUGGING " + quotes.size() + " " + authors.size());
+                            Log.d(TAG, "size of quotes and authors lists: " + quotes.size() + " " + authors.size());
                             if (finalCount == 4 && (i == jsonArray.length() - 1)) {
-                                Log.i(TAG, "Yippee" + quotes.size());
+                                Log.d(TAG, "size of quotes list final: " + quotes.size());
                                 searchQuotes();
                             }
                         }
@@ -458,9 +448,9 @@ public class QuoteActivity extends AppCompatActivity {
         String[] s = entryText.split("\\s+");
         for (int i = 0; i < s.length; i++) {
             s[i] = s[i].replaceAll("[^\\w]", "");
-            Log.i(TAG, "THIS IS A WORD IN THE SPLIT " + s[i]);
+            Log.d(TAG, "word in the split: " + s[i]);
         }
-        Log.i(TAG, "THIS IS THE SPLIT STRING" + s);
+        Log.d(TAG, "split string: " + s);
         return s;
     }
 
@@ -476,7 +466,7 @@ public class QuoteActivity extends AppCompatActivity {
             skw = Arrays.copyOfRange(keywordArray, 9, 15);
         }
 
-        Log.i(TAG, "keywordsFromCurrentScore: " + skw);
+        Log.d(TAG, "keywordsFromCurrentScore: " + skw);
         return skw;
     }
 
@@ -492,7 +482,7 @@ public class QuoteActivity extends AppCompatActivity {
             skw = Arrays.copyOfRange(keywordArray, 9, 15);
         }
 
-        Log.i(TAG, "keywordsFromTotalScore: " + skw);
+        Log.d(TAG, "keywordsFromTotalScore: " + skw);
         return skw;
     }
 
@@ -511,7 +501,7 @@ public class QuoteActivity extends AppCompatActivity {
                 moodScore = moodScore + 3;
             }
         }
-        Log.i(TAG, "calcTotalMoodScore: " + moodScore);
+        Log.d(TAG, "calcTotalMoodScore: " + moodScore);
         return moodScore;
     }
 
@@ -533,7 +523,7 @@ public class QuoteActivity extends AppCompatActivity {
         } else if (currentMood.equals(Globals.amazing)) {
             moodScore = 30;
         }
-        Log.i(TAG, "calcCurrentMoodScore: " + moodScore);
+        Log.d(TAG, "calcCurrentMoodScore: " + moodScore);
         return moodScore;
     }
 
@@ -551,7 +541,7 @@ public class QuoteActivity extends AppCompatActivity {
                     Intent i = new Intent(QuoteActivity.this, HomeActivity.class);
                     startActivity(i);
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                    Log.i("swiped left", "it worked");
+                    Log.d(TAG, "swiping left worked");
                 }
                 break;
         }

@@ -62,13 +62,13 @@ public class CalendarActivity extends AppCompatActivity {
                 query.whereGreaterThanOrEqualTo("createdAt", d1);
                 query.whereLessThan("createdAt", d2);
                 query.whereMatches("user", currentUser.getObjectId());
-                Log.i(TAG, "query: " + query);
+                Log.d(TAG, "query: " + query);
 
                 query.findInBackground(new FindCallback<Entry>() {
                     @Override
                     public void done(List<Entry> entries, ParseException e) {
                         // check for errors
-                        Log.i(TAG, "IT DID SOMETHING " + entries);
+                        Log.d(TAG, "entries: " + entries);
                         if (e != null) {
                             Log.e(TAG, "Issue with getting entries", e);
                             return;

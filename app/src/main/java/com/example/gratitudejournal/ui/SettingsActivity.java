@@ -88,7 +88,7 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
                 currentUser2.saveInBackground(new SaveCallback() {
                     @Override
                     public void done(ParseException e) {
-                        Log.i(TAG, "saved1");
+                        Log.i(TAG, "tMentionFriends saved");
                     }
                 });
             }
@@ -101,7 +101,7 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
                 currentUser2.saveInBackground(new SaveCallback() {
                     @Override
                     public void done(ParseException e) {
-                        Log.i(TAG, "saved1");
+                        Log.i(TAG, "tFriendMentions saved");
                     }
                 });
             }
@@ -114,7 +114,7 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
                 currentUser2.saveInBackground(new SaveCallback() {
                     @Override
                     public void done(ParseException e) {
-                        Log.i(TAG, "saved1");
+                        Log.i(TAG, "tMentionCloseFriends saved");
                     }
                 });
             }
@@ -127,7 +127,7 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
                 currentUser2.saveInBackground(new SaveCallback() {
                     @Override
                     public void done(ParseException e) {
-                        Log.i(TAG, "saved1");
+                        Log.i(TAG, "tCloseFriendMentions saved");
                     }
                 });
             }
@@ -144,7 +144,7 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
         currentUser2.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
-                Log.i(TAG, "got to save in background");
+                Log.d(TAG, "got to save in background");
                 if (e != null) {
                     Log.e(TAG, "Issue with saving", e);
                     Toast.makeText(SettingsActivity.this, "Error while saving!", Toast.LENGTH_SHORT).show();
@@ -162,7 +162,7 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
         currentUser2.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
-                Log.i(TAG, "got to save in background");
+                Log.d(TAG, "got to save in background");
                 if (e != null) {
                     Log.e(TAG, "Issue with saving", e);
                     Toast.makeText(SettingsActivity.this, "Error while saving!", Toast.LENGTH_SHORT).show();

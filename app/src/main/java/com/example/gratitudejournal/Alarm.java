@@ -46,10 +46,6 @@ public class Alarm extends BroadcastReceiver {
 
             String entryId = lastEntry.getObjectId();
 
-            Log.i(TAG, String.valueOf(fm));
-            Log.i(TAG, String.valueOf(cfm));
-            Log.i(TAG, String.valueOf(entryId));
-
             if(fm.length() > 0 && sendFriendNotifs) {
                 for (int i = 0; i < fm.length(); i++){
                     Mentions mention = new Mentions();
@@ -101,11 +97,11 @@ public class Alarm extends BroadcastReceiver {
                 currentUser.saveInBackground(new SaveCallback() {
                     @Override
                     public void done(ParseException e) {
-                        Log.i(TAG, "CURRENTUSER got to save in background");
+                        Log.d(TAG, "got to save in background");
                         if (e != null) {
-                            Log.e(TAG, "CURRENTUSER Issue with saving", e);
+                            Log.e(TAG, "Issue with saving", e);
                         }
-                        Log.i(TAG, "CURRENTUSER Post save was successful", e);
+                        Log.i(TAG, "Post save was successful", e);
                     }
                 });
                 JSONArray moods = currentUser2.getMoods();
@@ -114,11 +110,11 @@ public class Alarm extends BroadcastReceiver {
                 currentUser2.saveInBackground(new SaveCallback() {
                     @Override
                     public void done(ParseException e) {
-                        Log.i(TAG, "CURRENTUSER2 got to save in background");
+                        Log.d(TAG, "got to save in background");
                         if (e != null) {
-                            Log.e(TAG, "CURRENTUSER2 Issue with saving", e);
+                            Log.e(TAG, "Issue with saving", e);
                         }
-                        Log.i(TAG, "CURRENTUSER2 Post save was successful", e);
+                        Log.i(TAG, "Post save was successful", e);
                     }
                 });
 

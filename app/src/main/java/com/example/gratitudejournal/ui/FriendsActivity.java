@@ -201,7 +201,7 @@ public class FriendsActivity extends AppCompatActivity implements AdapterView.On
                                     for (int j = 0; j < friendUsernames.size(); j++) {
                                         if (friendUsernames.get(j).equals(username)) {
                                             ind = j;
-                                            Log.i(TAG, "AAAAA " + friendUsernames.get(j));
+                                            Log.d(TAG, "current friend username: " + friendUsernames.get(j));
                                             break;
                                         }
                                     }
@@ -238,7 +238,7 @@ public class FriendsActivity extends AppCompatActivity implements AdapterView.On
         for (int i = 0; i < friends.length(); i++) {
             try {
                 if (friends.get(i).getClass().equals(User.class)) {
-                    Log.i(TAG, "class issue");
+                    Log.d(TAG, "class issue");
                     User a = (User) friends.get(i);
                     String uID = a.getObjectId();
                     if (nfID.equals(uID)) {
@@ -247,7 +247,7 @@ public class FriendsActivity extends AppCompatActivity implements AdapterView.On
                 } else {
                     JSONObject a = (JSONObject) friends.get(i);
                     String id = a.getString("objectId");
-                    Log.i(TAG, "this HeLLO " + friends);
+                    Log.d(TAG, "friends: " + friends);
                     if (nfID.equals(id)) {
                         found = true;
                         break;
@@ -266,7 +266,7 @@ public class FriendsActivity extends AppCompatActivity implements AdapterView.On
         for (int i = 0; i < closeFriends.length(); i++) {
             try {
                 if (closeFriends.get(i).getClass().equals(User.class)) {
-                    Log.i(TAG, "class issue");
+                    Log.d(TAG, "class issue");
                     User a = (User) closeFriends.get(i);
                     String uID = a.getObjectId();
                     if (nfID.equals(uID)) {
@@ -276,7 +276,7 @@ public class FriendsActivity extends AppCompatActivity implements AdapterView.On
                 } else {
                     JSONObject a = (JSONObject) closeFriends.get(i);
                     String id = a.getString("objectId");
-                    Log.i(TAG, "this HeLLO " + closeFriends);
+                    Log.d(TAG, "close friends: " + closeFriends);
                     if (nfID.equals(id)) {
                         found = true;
                         break;
@@ -293,19 +293,18 @@ public class FriendsActivity extends AppCompatActivity implements AdapterView.On
     private void getCloseFriendUsernames() {
         // for each index in the list of close friend pointers
         for (int i = 0; i < closeFriends.length(); i++) {
-            Log.i(TAG, "A: " + closeFriendUsernames);
+            Log.d(TAG, "close friend usernames: " + closeFriendUsernames);
             try {
                 // if the close friend at that index is of the User class, get their username
                 // and add it to closeFriendUsernames
                 if (closeFriends.get(i).getClass().equals(User.class)) {
-                    Log.i(TAG, "B: " + closeFriendUsernames);
                     User a = (User) closeFriends.get(i);
                     String currentUsername = a.getUsername();
                     closeFriendUsernames.add(currentUsername);
                     // if we have gone through all the elements in closeFriends,
                     // call getMentions()
                     if (closeFriendUsernames.size() == closeFriends.length()) {
-                        Log.i(TAG, "CLOSE FRIEND USERNAMES LIST" + closeFriendUsernames);
+                        Log.d(TAG, "close friend usernames list updated" + closeFriendUsernames);
                         setCloseFriendsCardView();
                     }
                     // if the close friend is not a User, get their username by querying for the
@@ -314,23 +313,23 @@ public class FriendsActivity extends AppCompatActivity implements AdapterView.On
                 } else {
                     JSONObject a = (JSONObject) closeFriends.get(i);
                     String temp = a.getString("objectId");
-                    Log.i(TAG, "C: " + temp);
+                    Log.d(TAG, "object id: " + temp);
                     ParseQuery<User> query2 = new ParseQuery(User.class);
                     query2.whereEqualTo("objectId", temp);
                     int finalI = i;
                     query2.findInBackground(new FindCallback<User>() {
                         @Override
                         public void done(List<User> objects, ParseException e) {
-                            Log.i(TAG, "D: " + objects);
+                            Log.d(TAG, "queried list: " + objects);
                             if (objects.size() == 1) {
                                 User closeFriend = objects.get(0);
                                 String currentUsername2 = closeFriend.getUsername();
                                 closeFriendUsernames.add(currentUsername2);
-                                Log.i(TAG, "AA" + closeFriendUsernames + " " + finalI + " " + (closeFriends.length() - 1));
+                                Log.d(TAG, "current values: " + closeFriendUsernames + " " + finalI + " " + (closeFriends.length() - 1));
                                 // if we have gone through all the elements in close friends,
                                 // call setCloseFriendsCardView()
                                 if (closeFriendUsernames.size() == closeFriends.length()) {
-                                    Log.i(TAG, "CLOSE FRIEND USERNAMES LIST" + closeFriendUsernames);
+                                    Log.d(TAG, "close friend usernames final: " + closeFriendUsernames);
                                     setCloseFriendsCardView();
                                 }
                             }
@@ -345,23 +344,22 @@ public class FriendsActivity extends AppCompatActivity implements AdapterView.On
     }
 
     private void getFriendUsernames() {
-        Log.i(TAG, "called");
+        Log.d(TAG, "getFriendUsernames called");
 
         // for each index in the list of friend pointers
         for (int i = 0; i < friends.length(); i++) {
-            Log.i(TAG, "Aaay: " + friendUsernames);
+            Log.d(TAG, "friend usernames: " + friendUsernames);
             try {
                 // if the friend at that index is of the User class, get their username and add it
                 // to friendUsernames
                 if (friends.get(i).getClass().equals(User.class)) {
-                    Log.i(TAG, "Bee: " + friendUsernames);
                     User a = (User) friends.get(i);
                     String currentUsername = a.getUsername();
                     friendUsernames.add(currentUsername);
                     // if we have gone through all the elements in friends,
                     // call getCloseFriendUsernames()
                     if (friendUsernames.size() == friends.length()) {
-                        Log.i(TAG, "USER FRIEND USERNAMES LIST" + friendUsernames);
+                        Log.d(TAG, "friend usernames list updated: " + friendUsernames);
                         setFriendsCardView();
                     }
                     // if the friend is not a User, get their username by querying for the
@@ -370,23 +368,23 @@ public class FriendsActivity extends AppCompatActivity implements AdapterView.On
                 } else {
                     JSONObject a = (JSONObject) friends.get(i);
                     String temp = a.getString("objectId");
-                    Log.i(TAG, "Cee: " + temp);
+                    Log.d(TAG, "object id: " + temp);
                     ParseQuery<User> query = new ParseQuery(User.class);
                     query.whereEqualTo("objectId", temp);
                     int finalI = i;
                     query.findInBackground(new FindCallback<User>() {
                         @Override
                         public void done(List<User> objects, ParseException e) {
-                            Log.i(TAG, "Dee: " + objects);
+                            Log.d(TAG, "list from query: " + objects);
                             if (objects.size() == 1) {
                                 User friend = objects.get(0);
                                 String currentUsername2 = friend.getUsername();
                                 friendUsernames.add(currentUsername2);
-                                Log.i(TAG, "AA" + friendUsernames + " " + finalI + " " + (friends.length() - 1));
+                                Log.d(TAG, "current variable values: " + friendUsernames + " " + finalI + " " + (friends.length() - 1));
                                 // if we have gone through all the elements in friends,
                                 // call setFriendsCardView()
                                 if (friendUsernames.size() == friends.length()) {
-                                    Log.i(TAG, "FRIEND USERNAMES LIST" + friendUsernames);
+                                    Log.d(TAG, "final friend usernames list" + friendUsernames);
                                     setFriendsCardView();
                                 }
                             }
@@ -402,7 +400,7 @@ public class FriendsActivity extends AppCompatActivity implements AdapterView.On
 
     private void setCloseFriendsCardView() {
         tvCloseFriendsList.setVisibility(View.GONE);
-        Log.i(TAG, "aaaaa");
+        Log.d(TAG, "called setCloseFriendsCardView");
         String text = closeFriendUsernames.toString();
         if (text.contains("[")) {
             text = text.substring(1, text.length());
@@ -413,16 +411,15 @@ public class FriendsActivity extends AppCompatActivity implements AdapterView.On
         if (text.equals("")){
             text = "No friends added";
         }
-        Log.i(TAG, "text" + text);
+        Log.d(TAG, "close friends cardview text: " + text);
         tvCloseFriendsList.setText(text);
-        //TODO: ADJUST HEIGHT SO ALL TEXT FITS or make it scrollable
-        //tvCloseFriendsList.setVisibility(View.VISIBLE);
+
         setRemoveCloseFriends();
     }
 
     private void setFriendsCardView() {
         tvFriendsList.setVisibility(View.GONE);
-        Log.i(TAG, "friends aaaaa");
+        Log.d(TAG, "called setFriendsCardView");
         String text = friendUsernames.toString();
         if (text.contains("[")) {
             text = text.substring(1, text.length());
@@ -433,10 +430,10 @@ public class FriendsActivity extends AppCompatActivity implements AdapterView.On
         if (text.equals("")){
             text = "No friends added";
         }
-        Log.i(TAG, "text" + text);
+
+        Log.d(TAG, "friends cardview text: " + text);
         tvFriendsList.setText(text);
-        //TODO: ADJUST HEIGHT SO ALL TEXT FITS or make it scrollable?
-       // tvFriendsList.setVisibility(View.VISIBLE);
+
         setRemoveFriends();
     }
 
@@ -513,17 +510,12 @@ public class FriendsActivity extends AppCompatActivity implements AdapterView.On
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        //TODO: IMPLEMENT
-        Log.i(TAG, "oneee: " + parent.getId());
-        Log.i(TAG, "oneee: " + view);
 
         if(position != 0) {
             if (parent.getId() == R.id.sRemoveFriend) {
-                Log.i(TAG, "yes!!");
                 removeFriend(position);
             }
             if (parent.getId() == R.id.sRemoveCloseFriend) {
-                Log.i(TAG, "no!!");
                 removeCloseFriend(position);
             }
         }
@@ -538,7 +530,6 @@ public class FriendsActivity extends AppCompatActivity implements AdapterView.On
             Entry lastEntry = cu2.getCurrentEntry();
             try {
                 mentionedCloseFriends = lastEntry.fetchIfNeeded().getJSONArray("closeFriendMentions");
-                Log.i(TAG, String.valueOf(mentionedCloseFriends));
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -559,12 +550,12 @@ public class FriendsActivity extends AppCompatActivity implements AdapterView.On
                     for (int i = 0; i < closeFriends.length(); i++) {
                         try {
                             if (closeFriends.get(i).getClass().equals(User.class)) {
-                                Log.i(TAG, "class issue");
+                                Log.d(TAG, "class issue");
                                 User a = (User) closeFriends.get(i);
                                 String uID = a.getObjectId();
                                 boolean closeFriendMentioned = false;
                                 for (int u = 0; u < finalMentionedCloseFriends.length(); u++) {
-                                    Log.i(TAG, "got to loop: " + closeFriendToRemove + " " + finalMentionedCloseFriends.get(u));
+                                    Log.d(TAG, "values at inner for loop: " + closeFriendToRemove + " " + finalMentionedCloseFriends.get(u));
                                     if (finalMentionedCloseFriends.get(u).toString().equals(closeFriendToRemove)) {
                                         Log.i(TAG, "friend already mentioned");
                                         Toast.makeText(FriendsActivity.this, "This close friend is already mentioned in your journal entry. Please remove the mention and try again", Toast.LENGTH_LONG).show();
@@ -585,10 +576,10 @@ public class FriendsActivity extends AppCompatActivity implements AdapterView.On
                             } else {
                                 JSONObject a = (JSONObject) closeFriends.get(i);
                                 String id = a.getString("objectId");
-                                Log.i(TAG, "this HeLLO " + closeFriends);
+                                Log.d(TAG, "close friends: " + closeFriends);
                                 boolean closeFriendMentioned = false;
                                 for (int u = 0; u < finalMentionedCloseFriends1.length(); u++) {
-                                    Log.i(TAG, "got to loop: " + closeFriendToRemove + " " + finalMentionedCloseFriends1.get(u));
+                                    Log.d(TAG, "values at inner for loop: " + closeFriendToRemove + " " + finalMentionedCloseFriends1.get(u));
                                     if (finalMentionedCloseFriends1.get(u).toString().equals(closeFriendToRemove)) {
                                         Log.i(TAG, "friend already mentioned");
                                         Toast.makeText(FriendsActivity.this, "This close friend is already mentioned in your journal entry. Please remove the mention and try again", Toast.LENGTH_LONG).show();
@@ -627,7 +618,6 @@ public class FriendsActivity extends AppCompatActivity implements AdapterView.On
             Entry lastEntry = cu2.getCurrentEntry();
             try {
                 mentionedFriends = lastEntry.fetchIfNeeded().getJSONArray("friendMentions");
-                Log.i(TAG, String.valueOf(mentionedFriends));
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -647,12 +637,12 @@ public class FriendsActivity extends AppCompatActivity implements AdapterView.On
                     for (int i = 0; i < friends.length(); i++) {
                         try {
                             if (friends.get(i).getClass().equals(User.class)) {
-                                Log.i(TAG, "class issue");
+                                Log.d(TAG, "class issue");
                                 User a = (User) friends.get(i);
                                 String uID = a.getObjectId();
                                 boolean friendMentioned = false;
                                 for (int u = 0; u < finalMentionedFriends.length(); u++) {
-                                    Log.i(TAG, "got to loop: " + friendToRemove + " " + finalMentionedFriends.get(u));
+                                    Log.d(TAG, "values at inner for loop: " + friendToRemove + " " + finalMentionedFriends.get(u));
                                     if (finalMentionedFriends.get(u).toString().equals(friendToRemove)) {
                                         Log.i(TAG, "friend already mentioned");
                                         Toast.makeText(FriendsActivity.this, "This friend is already mentioned in your journal entry. Please remove the mention and try again", Toast.LENGTH_LONG).show();
@@ -673,13 +663,13 @@ public class FriendsActivity extends AppCompatActivity implements AdapterView.On
                             } else {
                                 JSONObject a = (JSONObject) friends.get(i);
                                 String id = a.getString("objectId");
-                                Log.i(TAG, "this HeLLO " + friends);
+                                Log.d(TAG, "friends: " + friends);
                                 boolean friendMentioned = false;
 
                                 for (int u = 0; u < finalMentionedFriends1.length(); u++) {
-                                    Log.i(TAG, "got to loop: " + friendToRemove + " " + finalMentionedFriends1.get(u));
+                                    Log.d(TAG, "values at inner for loop: " + friendToRemove + " " + finalMentionedFriends1.get(u));
                                     if (finalMentionedFriends1.get(u).toString().equals(friendToRemove)) {
-                                        Log.i(TAG, "friend already mentioned");
+                                        Log.d(TAG, "friend already mentioned");
                                         Toast.makeText(FriendsActivity.this, "This friend is already mentioned in your journal entry. Please remove the mention and try again", Toast.LENGTH_LONG).show();
                                         friendMentioned = true;
                                         break;
