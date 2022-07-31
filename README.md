@@ -139,7 +139,7 @@ View close friend entries screen
     * --> compose entry screen
     * --> calendar view of past entries screen
     * --> friends screen
-    * --> Cstats screen
+    * --> stats screen
 * Emoji selection screen
     * --> home screen
     * swiping transitions to compose screen
