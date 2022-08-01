@@ -39,7 +39,7 @@ Gratitude journal is an app geared at improving users' mental health. Users can 
     * [x] Editing the entry / mood is prevented after 12am in the user's timezone (added 1 day to estimated time to do this)
 * [x] User can view a calendar, which they can click on to see the entry from that day and scroll through the entries both forward and backwards
     * [x] implements infinite scroll (this will probably take most of the time)
-* [x] User can view a quote that is generated based on the emoji mood
+* [x] User can view a quote that is generated based on the mood mood
     * [x] user can swipe from FriendActivity to this activity and form this activity to HomeActivity (same as from MoodActivity to  ComposeActivity)
 * [x] User can add other users as friends and close friends
     * [x] User can also remove them
