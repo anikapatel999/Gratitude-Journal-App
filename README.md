@@ -253,22 +253,3 @@ Mentions:
 
 ### App Walkthroughs
 - [**Final App Demo**](https://drive.google.com/file/d/1B2GYKPZ9w_l2F2fhi00by5QVlVIU-8DV/view?usp=drivesdk)
-- App progress
-   - [Progress from week 1 days 1 and 2](https://www.dropbox.com/s/ciq8x2jyk6o8mh2/Gratitude%20Journal%20Walkthrough%201.webm?dl=0)
-   - [Progress from week 1 dayday 3](https://www.dropbox.com/s/yalbvqadecqxma6/Gratitude%20Journal%20Walkthrough%202.webm?dl=0)
-   - [Progress from week 1 day 4](https://www.dropbox.com/s/ar5iwr40u1lcpz2/Gratitude%20Journal%20Walkthrough%203.webm?dl=0)
-   - [End of week 1 walkthrough](https://www.dropbox.com/s/uq7en7hmbip6uli/Gratitude%20Journal%20Walkthrough%204.webm?dl=0)
-   - [Progress from week 2 day 1](https://www.dropbox.com/s/b1dmqp01rvfkrv2/gj%20wk2d1%20walkthrough.webm?dl=0)
-   - [Progress from week 2 days 2 and 3](https://www.dropbox.com/s/ra7w5jpdajmjbek/gj%20wk2d3%20walkthrough.webm?dl=0)
-   - [End of week 2 walkthrough](https://www.dropbox.com/s/y8ik68q6jxwla10/gj%20wk2%20walkthrough.webm?dl=0)
-   - [Progress from week 3 day 1](https://www.dropbox.com/s/cka02otbgk5ck0d/gj%20wk3d1%20walkthrough.webm?dl=0)
-   - [Progress from week 3 days 2 and 3](https://www.dropbox.com/s/6uuvrrkk56ced74/gj%20wk3d3.webm?dl=0)
-   - [End of week 3 walkthrough](https://www.dropbox.com/s/cpmw1d673qeua11/gj%20wk3d4.webm?dl=0)
-   - [Progress from week 4 day 1](https://www.dropbox.com/s/k5sqa8jusln9p4p/gj%20wk4d1.webm?dl=0)
-   - [Progress from week 4 day 2](https://www.dropbox.com/s/e91hkme61bmhm0o/gj%20wk4d2.webm?dl=0)
-   - [Progress from week 4 day 3](https://www.dropbox.com/s/u12nqds0n0ycqfr/gj%20wk4d3.webm?dl=0)
-   - [Progress from week 4 day 4](https://www.dropbox.com/s/7qod6zrxw9l7vfx/gj%20wk4d4.webm?dl=0)
-   - [End of week 4 walkthrough](https://www.dropbox.com/s/9b4y59pjod3pryv/gj%20wk4d5.webm?dl=0)
-   - [Progress from week 5 day 3](https://www.dropbox.com/s/9f9wpsv0wnyf6ge/gj%20wk5d3.webm?dl=0)
-   - [Progress from week 5 day 4](https://www.dropbox.com/s/a9x2aajxxw88498/gj%20wk5d4.webm?dl=0)
-   - [End of week 5 walkthrough](https://www.dropbox.com/s/t9sfmnhsmf9c8u3/gj%20wk5d5.webm?dl=0)
