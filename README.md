@@ -1,7 +1,8 @@
-Gratitude Journal App
-===
-
 # Gratitude Journal
+
+
+### [**App Walkthrough**](https://drive.google.com/file/d/1B2GYKPZ9w_l2F2fhi00by5QVlVIU-8DV/view?usp=drivesdk)
+
 
 ## Table of Contents
 1. [Overview](#Overview)
@@ -249,7 +250,3 @@ Mentions:
 * View mentions screen
    * (Read/GET) Query the mentions by the selected user
    * (Update/PUT) Delete these mentions
-
-
-### App Walkthroughs
-- [**Final App Demo**](https://drive.google.com/file/d/1B2GYKPZ9w_l2F2fhi00by5QVlVIU-8DV/view?usp=drivesdk)
